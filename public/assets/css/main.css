@@ -1,0 +1,36 @@
+.container {
+  width: 960px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.menubar {
+  vertical-align: middle;
+}
+
+.logo {
+  display: inline-block;
+}
+
+.nav {
+  display: inline-block;
+}
+
+.nav-items {
+  list-style: none;
+}
+
+.nav-item {
+  display: inline-block;
+}
+
+.login {
+  display: inline-block;
+  position: absolute;
+  right: 5px;
+  top: 25%;
+}
+
+.login-option {
+  display: inline-block;
+}
