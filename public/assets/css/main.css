@@ -1,9 +1,70 @@
+body {
+
+}
+/**** Page container styles ****/
 .container {
   width: 960px;
   margin: 0 auto;
   position: relative;
+  z-index: 0;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: grey;
+}
+
+/******** modal and sign-up and log-in styles ********/
+
+.modal-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  z-index: 1;
+}
+
+.modal {
+  width: 500px;
+  background: white;
+  height: 500px;
+  margin: 5% auto;
+  z-index: 2;
+  border-radius: 5px;
+  position: relative;
+  padding: 10px;
+}
+
+.close-modal {
+  position: absolute;
+  right: 10px;
+  font-size: 2em;
+  text-decoration: none;
+  color: grey;
+}
+
+.close-modal:hover {
+  color: red;
+}
+
+.Log-In {
+  display: none;
+}
+
+.Sign-Up {
+  display: none;
+}
+
+.Log-In, .Sign-Up {
+  margin: auto;
+}
+
+/**** menu and nav bar styles ****/
 .menubar {
   vertical-align: middle;
 }

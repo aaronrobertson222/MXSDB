@@ -7,6 +7,41 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
+    <div class="modal-container">
+      <div class="modal">
+        <a href="#" class="close-modal">&times</a>
+        <form class="Log-In">
+          <label for="username">Username</label>
+          <br>
+          <input type="text" name="username" id="username" placeholder="username">
+          <br>
+          <label for="password">Password</label>
+          <br>
+          <input type="password" name="password" id="password" placeholder="password">
+          <br>
+          <button type="submit" name="log-in-button" id="log-in-button">Log In!</button>
+        </form>
+        <form class="Sign-Up">
+          <label for="username">Username</label>
+          <br>
+          <input type="text" name="username" id="new-username" placeholder="username">
+          <br>
+          <label for="password">Password</label>
+          <br>
+          <input type="password" name="password" id="new-password" placeholder="password">
+          <br>
+          <label for="firstName">First Name</label>
+          <br>
+          <input type="text" name="firstName" id="new-firstName" placeholder="First Name">
+          <br>
+          <label for="lastName">Last Name</label>
+          <br>
+          <input type="text" name="lastName" id="new-lastName" placeholder="Last Name">
+          <br>
+          <button type="submit" name="sign-up-button" id="sign-up-btn">Sign Up!</button>
+        </form>
+      </div>
+    </div>
     <div class="container">
       <div class="menubar">
         <div class="logo">
@@ -14,19 +49,18 @@
         </div>
         <div class="nav">
           <ul class="nav-items">
-            <li class="nav-item">Dropdown</li>
-            <li class="nav-item">Dropdown</li>
-            <li class="nav-item">Dropdown</li>
+            <li class="nav-item"><a href="#">Recent</a></li>
+            <li class="nav-item upload-btn"><a href="#">Upload</a></li>
           </ul>
         </div>
         <div class="login">
-          <p class="login-option">sign in</p>
-          <p class="login-option">sign up</p>
+          <a href="#" class="login-option"><p>Log-In</p></a>
+          <a href="#" class="login-option"><p>Sign-Up</p></a>
         </div>
         <div class="content">
           <h2 id="content-category">Recent Uploads</h2>
           <div class="results">
-            
+
           </div>
         </div>
       </div>
@@ -35,5 +69,6 @@
 
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/homepage.js"></script>
   </body>
 </html>
