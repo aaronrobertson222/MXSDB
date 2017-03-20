@@ -1,27 +1,84 @@
+const {BasicStrategy} = require('passport-http');
+const bodyParser = require('body-parser');
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const passport = require('passport');
 
-const {router: usersRouter} = require('./users');
+const {router: usersRouter, User} = require('./users');
+const {PORT, DATABASE_URL, SECRET, EXPIRATIONTIME} = require('./config');
 
 mongoose.Promise = global.Promise;
 
-const {PORT, DATABASE_URL} = require('./config');
-
 const app = express();
 
-app.use(morgan('common'));
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static('public'));
 
-app.use('/users/', usersRouter);
+  //serve static assets
+app.use(express.static(__dirname + '/public'));
 
-app.use('*', function(req, res) {
-  return res.status(404).json({message: 'Not Found'});
+app.use(passport.initialize());
+
+app.post('/login', (req, res) => {
+  const {username, password} = req.body;
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).json({message: 'missing field in body'});
+  }
+  User
+    .findOne({username: username})
+    .exec()
+    .then(_user => {
+      user = _user;
+      if (!user) {
+        return res.status(404).json({message: 'Incorrect username.'});
+      }
+      return user.validatePassword(password);
+    })
+    .then(isValid => {
+      if (!isValid) {
+        return res.status(400).json({message: 'Incorrect password.'});
+      } else {
+        const token = jwt.sign(user, SECRET, {
+          expiresIn: EXPIRATIONTIME
+        });
+        res.status(200).json({
+          success: true,
+          token: 'JWT ' + token,
+          tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
+          user: user.apiRepr()
+        });
+      }
+    })
+    .catch(err => console.log(err));
+  });
+
+require('./passport')(passport);
+
+app.get('/me',
+passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.status(200).json({user: user.apiRepr()});
 });
 
-//server startup and shutdown//
+app.get('/login', (req, res) => {
+  return res.status(200).sendFile(__dirname + '/public/login.html');
+});
 
+app.get('/signup', (req, res) => {
+  return res.status(200).sendFile(__dirname + '/public/signup.html');
+});
+
+  //routes
+app.use('/users/', usersRouter);
+
+//app.use('*', function(req, res) {
+  //return res.status(404).json({message: 'Not Found'});
+//});
+
+//server startup and shutdown//
 let server;
 
 function runServer() {

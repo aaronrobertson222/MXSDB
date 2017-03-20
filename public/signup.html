@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>MXSDB | Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body id="form-page">
+    <div class="container">
+        <h1 class="form-page-title"><a href="/">MXS DB</a></h1>
+        <div class="form-container">
+            <h1 class="form-header">Sign Up</h1>
+            <form id="signup-form">
+                <label for="username">Username</label>
+                <br>
+                <input type="text" name="username" class="form-input" id="new-username" placeholder="username">
+                <br>
+                <label for="password">Password</label>
+                <br>
+                <input type="password" name="password" class="form-input" id="new-password" placeholder="password">
+                <br>
+                <label for="verify-password">Re-Enter Password</label>
+                <br>
+                <input type="password" name="verify-password" class="form-input" id="new-password-verify" placeholder="re-enter password">
+                <br>
+                <label for="firstName">First Name</label>
+                <br>
+                <input type="text" name="firstName" class="form-input" id="new-firstName" placeholder="First Name">
+                <br>
+                <label for="lastName">Last Name</label>
+                <br>
+                <input type="text" name="lastName" class="form-input" id="new-lastName" placeholder="Last Name">
+                <br>
+                <p id="form-error"></p>
+                <br>
+                <button type="submit" name="sign-up-button" id="sign-up-button" class="form-submit-button">Sign Up!</button>
+                <p class="form-footer">Already have an account. <a href="/login" class="footer-link">Login</a>.</p>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/auth.js"></script>
+</body>
+
+</html>

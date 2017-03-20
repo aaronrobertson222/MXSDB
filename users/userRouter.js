@@ -1,36 +1,16 @@
 const {BasicStrategy} = require('passport-http');
 const express = require('express');
-const jsonParser = require('body-parser').json();
+const bodyParser = require('body-parser');
 const passport = require('passport');
-
 const {User} = require('./userModel');
-
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-router.use(jsonParser);
+//router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 
-const strategy = new BasicStrategy(
-  (username, password, cb) => {
-    User
-    .findOne({username})
-    .exec()
-    .then(user => {
-      if (!user) {
-        return cb(null, false, {
-          message: 'incorrect username'
-        });
-      }
-      if (user.password !== password) {
-        return cb(null, false, 'incorrect password');
-      }
-      return cb(null, user);
-    })
-    .catch(err => cb(err))
-  });
-
-passport.use(strategy);
-
+//POST route to create a new user
 router.post('/', (req, res) => {
   if (!req.body) {
     return res.status(400).json({message: 'No request body'});
@@ -73,7 +53,7 @@ router.post('/', (req, res) => {
     .exec()
     .then(count => {
       if (count > 0) {
-        return res.status(422).json({message: 'username already taken'});
+        return res.status(422).json({message: 'Username already taken.'});
       }
       return User.hashPassword(password)
     })
@@ -94,42 +74,10 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
-  return User
-    .find()
-    .exec()
-    .then(users => res.json(users.map(user => user.apiRepr())))
-    .catch(err => console.log(err) && res.status(500).json({message: 'Internal server error'}));
-});
-
-const basicStrategy = new BasicStrategy(function(username, password, callback) {
-  let user;
-  User
-    .findOne({username: username})
-    .exec()
-    .then(_user => {
-      user = _user;
-      if (!user) {
-        return callback(null, false, {message: 'Incorrect username'});
-      }
-      return user.validatePassword(password);
-    })
-    .then(isValid => {
-      if (!isValid) {
-        return callback(null, false, {message: 'Incorrect password'});
-      }
-      else {
-        return callback(null, user)
-      }
-    });
-});
-
-passport.use(basicStrategy);
-router.use(passport.initialize());
 
 router.get('/me',
-  passport.authenticate('basic', {session: false}),
-  (req, res) => res.json({user: req.user.apiRepr()})
-);
+  passport.authenticate('jwt', {session: false}), (req, res) => {
+    res.status(200).json({user: req.user.apiRepr()});
+  });
 
 module.exports = {router};

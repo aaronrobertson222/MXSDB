@@ -1,97 +1,172 @@
 body {
-
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: #E8E8E8;
 }
 /**** Page container styles ****/
 .container {
-  width: 960px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 0;
+    width: 960px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 0;
 }
 
 a {
-  text-decoration: none;
-  color: black;
+    text-decoration: none;
+    color: blue;
 }
 
 a:hover {
-  color: grey;
+    cursor: pointer;
 }
 
-/******** modal and sign-up and log-in styles ********/
+button {}
 
-.modal-container {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+button:hover {
+    cursor: pointer;
+}
+
+/****** Sign Up and Login Page styles ********/
+
+#form-page {
+    background: #333333;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.form-container {
+    margin: auto;
+    width: 400px;
+    height: auto;
+    background: #FBFBFB;
+    border-radius: 3px;
+    box-shadow: 0px 1px 11px 1px rgba(0, 0, 0, 0.5);
+}
+
+.form-header {
+    text-align: center;
+    color: white;
+    padding: 15px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background: #DD0021;
+}
+
+.form-page-title {
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 3em;
+}
+
+#login-form, #signup-form {
+    margin: auto;
+    display: table;
+    width: 60%;
+}
+
+.form-input {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 2px solid #333333;
+    border-radius: 2px;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    background: #FBFBFB;
+}
+
+/* Removes yellow bg from form inputs on autofill */
+.form-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.form-submit-button {
+    width: 150px;
+    margin: 5px auto 5px auto;
+    display: block;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background: #DD0021;
+    color: #FFFFFF;
+}
+
+#form-error {
   display: none;
-  z-index: 1;
-}
-
-.modal {
-  width: 500px;
-  background: white;
-  height: 500px;
-  margin: 5% auto;
-  z-index: 2;
-  border-radius: 5px;
-  position: relative;
-  padding: 10px;
-}
-
-.close-modal {
-  position: absolute;
-  right: 10px;
-  font-size: 2em;
-  text-decoration: none;
-  color: grey;
-}
-
-.close-modal:hover {
-  color: red;
-}
-
-.Log-In {
-  display: none;
-}
-
-.Sign-Up {
-  display: none;
-}
-
-.Log-In, .Sign-Up {
+  color: #FF0000;
   margin: auto;
+  text-align: center;
+}
+
+.form-footer {
+  font-size: .85em;
+  text-align: center;
+}
+
+.footer-link {
+    color: blue;
+    text-decoration: underline;
 }
 
 /**** menu and nav bar styles ****/
+
+.menubar-container {
+    width: 960px;
+    margin: auto;
+    position: relative;
+}
+
 .menubar {
-  vertical-align: middle;
+    vertical-align: middle;
+    background: #333333;
 }
 
 .logo {
-  display: inline-block;
+    display: inline-block;
+    color: #E8E8E8;
 }
 
 .nav {
-  display: inline-block;
+    display: inline-block;
 }
 
 .nav-items {
-  list-style: none;
+    list-style: none;
 }
 
 .nav-item {
-  display: inline-block;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.nav-item > a {
+  color: #E8E8E8;
+  font-size: 1.2em;
+}
+
+.nav-item:hover {
+  color:
+}
+
+.login, .user-options {
+    display: none;
+    position: absolute;
+    right: 5px;
 }
 
 .login {
-  display: inline-block;
-  position: absolute;
-  right: 5px;
-  top: 25%;
+    top: 25%;
 }
 
-.login-option {
-  display: inline-block;
+.login-option, .user-option {
+    display: inline-block;
+    color: #E8E8E8;
+    margin-right: 10px;
+}
+
+.user-options {
+    top: 50%;
 }
