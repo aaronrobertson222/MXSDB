@@ -1,8 +1,8 @@
-#MXS DB
+# MXS DB
 
 A content sharing site for MX Simulator, and online video game.
 
-###Technology
+### Technology
 
 * HTML
 * CSS
