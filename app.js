@@ -22,8 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
 app.use(passport.initialize());
+require('./passport')(passport);
 
 app.post('/login', (req, res) => {
+  console.log(req.user);
   const {username, password} = req.body;
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({message: 'missing field in body'});
@@ -42,9 +44,7 @@ app.post('/login', (req, res) => {
       if (!isValid) {
         return res.status(400).json({message: 'Incorrect password.'});
       } else {
-        const token = jwt.sign(user, SECRET, {
-          expiresIn: EXPIRATIONTIME
-        });
+        const token = jwt.sign(user, SECRET);
         res.status(200).json({
           success: true,
           token: 'JWT ' + token,
@@ -56,11 +56,18 @@ app.post('/login', (req, res) => {
     .catch(err => console.log(err));
   });
 
+app.get('/logout', (req, res) => {
+  console.log(req.user);
+  req.logOut();
+  console.log(req.user);
+  res.redirect('/');
+});
+
 require('./passport')(passport);
 
 app.get('/me',
 passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.status(200).json({user: user.apiRepr()});
+  res.status(200).json({user: req.user.apiRepr()});
 });
 
 app.get('/login', (req, res) => {
@@ -71,12 +78,21 @@ app.get('/signup', (req, res) => {
   return res.status(200).sendFile(__dirname + '/public/signup.html');
 });
 
+app.get('/dashboard',
+  passport.authenticate('jwt', {session: false}), (req, res) => {
+  return res.status(200).json({user: req.user.apiRepr()});
+});
+
+app.get('/upload', (req, res) => {
+  return res.status(200).sendFile(__dirname + '/public/upload.html');
+});
+
   //routes
 app.use('/users/', usersRouter);
 
-//app.use('*', function(req, res) {
-  //return res.status(404).json({message: 'Not Found'});
-//});
+app.use('*', function(req, res) {
+  return res.status(404).json({message: 'Not Found'});
+});
 
 //server startup and shutdown//
 let server;

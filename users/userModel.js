@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 mongoose.Promise = global.Promise;
 
@@ -19,15 +20,18 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     default: "user"
-  }
+  },
+  joinedDate: {type: Date, required: true},
+  uploads: {type: Number, required: true, default: 0}
 });
 
 UserSchema.methods.apiRepr = function() {
   return {
     id: this._id,
     username: this.username || '',
-    firstName: this.firstName || '',
-    lastName: this.lastName || ''
+    name: `${this.firstName} ${this.lastName}` || '',
+    joinedDate: moment(this.joinedDate).format("MMM DD, YYYY"),
+    uploads: this.uploads
   };
 }
 

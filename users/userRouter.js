@@ -64,20 +64,22 @@ router.post('/', (req, res) => {
           password: hash,
           firstName: firstName,
           lastName: lastName,
+          joinedDate: Date.now()
         })
     })
     .then(user => {
       return res.status(201).json(user.apiRepr());
     })
     .catch(err => {
-      res.status(500).json({message: 'internal server error'})
+      return res.status(500).json({message: 'internal server error'})
     });
 });
 
+require('../passport')(passport);
 
 router.get('/me',
-  passport.authenticate('jwt', {session: false}), (req, res) => {
-    res.status(200).json({user: req.user.apiRepr()});
+  passport.authenticate('jwt', {session: false}), (req, res, user) => {
+    res.status(200).json({user: req.user});
   });
 
 module.exports = {router};

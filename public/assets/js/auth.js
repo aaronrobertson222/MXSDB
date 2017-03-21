@@ -1,5 +1,3 @@
-const state = {};
-
 function registerUser(username, password, firstName, lastName) {
   $.ajax({
     'type': 'POST',
@@ -12,7 +10,7 @@ function registerUser(username, password, firstName, lastName) {
     }
   })
   .done(function(data) {
-    loginUser(username, password);
+    logInUser(username, password);
   })
   .fail(function(msg) {
     var err = $.parseJSON(msg.responseText);
@@ -31,10 +29,12 @@ function logInUser(username, password) {
       'data': `{\"username\": \"${username}\",\n\t\"password\": \"${password}\"\n}`,
     })
     .done(function(data) {
-      console.log(data);
+      if (localStorage.getItem('authToken')) {
+        console.log('clearing authToken');
+        localStorage.clear();
+      }
       localStorage.setItem('authToken', data.token);
-      state.user = data.user;
-      window.location.href = '/dashboard';
+      window.location.href = '/dashboard.html';
     })
     .fail(function(data) {
       var err = $.parseJSON(data.responseText);
@@ -91,7 +91,7 @@ $(function() {
   //checks if user is logged in and redirects accordingly
   $.ajax({
     type: 'GET',
-    url: '/users/me',
+    url: '/me',
     dataType: 'json',
     'headers': {
       'content-type': "application/json",
@@ -100,12 +100,10 @@ $(function() {
     'data': '{}'
   })
   .done(function(data) {
-    state.user = data.user;
-    console.log(state.user);
     window.location.href = '/';
   })
   .fail(function(err) {
-    return;
+    $('.loader-wrapper').hide();
   });
 
   loginSubmit();

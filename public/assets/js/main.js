@@ -1,5 +1,3 @@
-const state = {};
-
 // UTILITY FUNCTIONS //
 
 
@@ -9,10 +7,10 @@ function renderLoginOptions() {
   $('.user-info').css('display', 'none');
 }
 
-function renderUserInfo(user) {
+function renderUserOptions(user) {
   $('.login').css('display', 'none');
   $('.user-options').css('display', 'inline-block');
-  $('#user-name').text(user.username);
+  $('.user-name').text(user.username);
 }
 
 // Event HANDLERS //
@@ -23,29 +21,25 @@ function watchForLogout() {
   });
 }
 
-
-
 // READY FUNCTION //
 $(function() {
-
 $.ajax({
   type: 'GET',
-  url: '/users/me',
+  url: '/me',
   dataType: 'json',
   'headers': {
     'content-type': "application/json",
     'Authorization': localStorage.getItem('authToken')
-  },
-  'data': '{}'
+  }
 })
 .done(function(data) {
-  state.user = data.user;
-  renderUserInfo(data.user);
+  console.log(data);
+  renderUserOptions(data.user);
 })
 .fail(function(err) {
+  localStorage.clear();
   renderLoginOptions();
 });
 
 watchForLogout();
-
 });
