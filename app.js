@@ -18,15 +18,15 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-  //serve static assets
+//serve static assets
 app.use(express.static(__dirname + '/public'));
 
 app.use(passport.initialize());
 require('./passport')(passport);
 
+
+// login authentication route
 app.post('/login', (req, res) => {
-  console.log(req.user);
   const {username, password} = req.body;
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({message: 'missing field in body'});
@@ -54,62 +54,50 @@ app.post('/login', (req, res) => {
         });
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      res.status(500).json({message: 'Internal server error'});
+    });
   });
-
-app.get('/logout', (req, res) => {
-  console.log(req.user);
-  req.logOut();
-  console.log(req.user);
-  res.redirect('/');
-});
-
-require('./passport')(passport);
-
-app.get('/me',
-passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.status(200).json({user: req.user.apiRepr()});
-});
-
+// get login page route
 app.get('/login', (req, res) => {
   return res.status(200).sendFile(__dirname + '/public/login.html');
 });
-
+// get signup page route
 app.get('/signup', (req, res) => {
   return res.status(200).sendFile(__dirname + '/public/signup.html');
 });
-
+// get user info for dashboard
 app.get('/dashboard',
   passport.authenticate('jwt', {session: false}), (req, res) => {
   return res.status(200).json({user: req.user.apiRepr()});
 });
-
+// get upload page route
 app.get('/upload', (req, res) => {
   return res.status(200).sendFile(__dirname + '/public/upload.html');
 });
-
+// get tracks page route
 app.get('/tracks', (req, res) => {
   return res.status(200).sendFile(__dirname + '/public/tracks.html');
 });
-
+//get bikes page route
 app.get('/bikes', (req, res) => {
   return res.status(200).sendFile(__dirname + '/public/bikes.html');
 });
-
+//get gear page route
 app.get('/gear', (req, res) => {
   return res.status(200).sendFile(__dirname + '/public/gear.html');
 });
 
-
-  //routes
+//routers
 app.use('/users/', usersRouter);
 app.use('/uploads', uploadsRouter);
 
+// catch route for any unhandle requested routes
 app.use('*', function(req, res) {
   return res.status(404).json({message: 'Not Found'});
 });
 
-//server startup and shutdown//
+//server startup and shutdown functions
 let server;
 
 function runServer() {

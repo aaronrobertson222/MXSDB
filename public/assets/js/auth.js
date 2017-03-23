@@ -91,7 +91,7 @@ $(function() {
   //checks if user is logged in and redirects accordingly
   $.ajax({
     type: 'GET',
-    url: '/me',
+    url: '/users/me',
     dataType: 'json',
     'headers': {
       'content-type': "application/json",

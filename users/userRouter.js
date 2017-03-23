@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-//router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 //POST route to create a new user
@@ -77,9 +76,10 @@ router.post('/', (req, res) => {
 
 require('../passport')(passport);
 
+// route used to verify user has valid JWT
 router.get('/me',
   passport.authenticate('jwt', {session: false}), (req, res, user) => {
-    res.status(200).json({user: req.user});
+    res.status(200).json({user: req.user.apiRepr()});
   });
 
 module.exports = {router};

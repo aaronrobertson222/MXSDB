@@ -25,7 +25,7 @@ function watchForLogout() {
 $(function() {
 $.ajax({
   type: 'GET',
-  url: '/me',
+  url: '/users/me',
   dataType: 'json',
   'headers': {
     'content-type': "application/json",
@@ -33,7 +33,6 @@ $.ajax({
   }
 })
 .done(function(data) {
-  console.log(data);
   renderUserOptions(data.user);
   $('.upload-btn').css('display', 'inline-block');
 })
@@ -41,6 +40,6 @@ $.ajax({
   localStorage.clear();
   renderLoginOptions();
 });
-
+//initializing event handlers//
 watchForLogout();
 });

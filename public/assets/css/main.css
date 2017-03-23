@@ -11,6 +11,11 @@ body {
   width: 100%;
 }
 
+.section-header {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 #content-category {
   font-size: 2em;
   margin-top: 10px;
@@ -33,27 +38,40 @@ body {
   display: inline-block;
 }
 
+.results {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .row {
   width: 100%;
   height: auto;
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
+  padding: 0;
+}
+
+.item-wrapper {
+  box-sizing: border-box;
+  width: 33.33%;
+  margin: 0 0 20px 0;
+  opacity: 0%;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .item {
-  width: 33%;
-  box-sizing: border-box;
+  width: 100%;
   display: inline-block;
   background: #333333;
   border-radius: 1px;
-  padding: 0;
   color: #E8E8E8;
-  margin-right: 5px;
   position: relative;
 }
-
-
 
 .item:hover{
   cursor: pointer;

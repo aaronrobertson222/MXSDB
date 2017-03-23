@@ -1,6 +1,6 @@
 # MXS DB
 
-A content sharing site for MX Simulator, and online video game.
+A content sharing site for MX Simulator, and online video game. MXS DB allows users to upload, share, and download user made content such as gear skins, bike skins/models, as well as tracks.
 
 ### Technology
 
