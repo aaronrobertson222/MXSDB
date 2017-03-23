@@ -4,11 +4,12 @@ A content sharing site for MX Simulator, and online video game.
 
 ### Technology
 
-* HTML
-* CSS
-* jQuery
-* Node.JS
-* Express.JS
-* Mongoose
-* MongoDB
-* JSON Web Tokens
+* HTML5
+* CSS3
+* [jQuery](https://jquery.com/)
+* [Node JS](https://nodejs.org/en/)
+* [Express JS](https://expressjs.com/)
+* [Mongoose](http://mongoosejs.com/)
+* [MongoDB](https://www.mongodb.com/)
+* [JSON Web Tokens](https://jwt.io/)
+* [AWS S3](https://aws.amazon.com/s3/)
