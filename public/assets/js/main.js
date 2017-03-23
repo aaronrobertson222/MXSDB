@@ -35,6 +35,7 @@ $.ajax({
 .done(function(data) {
   console.log(data);
   renderUserOptions(data.user);
+  $('.upload-btn').css('display', 'inline-block');
 })
 .fail(function(err) {
   localStorage.clear();

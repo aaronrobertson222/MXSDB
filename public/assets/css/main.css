@@ -3,7 +3,177 @@ body {
     padding: 0;
     border: 0;
     background: #E8E8E8;
+    font-family: Coda;
 }
+
+/********** Universal CSS  ***********/
+.content {
+  width: 100%;
+}
+
+#content-category {
+  font-size: 2em;
+  margin-top: 10px;
+  margin-bottom: 0;
+  display: inline-block;
+  color: #333333;
+}
+
+.filter {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+
+.filter-text {
+  display: inline-block;
+}
+
+.filter-select {
+  display: inline-block;
+}
+
+.row {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.item {
+  width: 33%;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #333333;
+  border-radius: 1px;
+  padding: 0;
+  color: #E8E8E8;
+  margin-right: 5px;
+  position: relative;
+}
+
+
+
+.item:hover{
+  cursor: pointer;
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.60);
+}
+
+.item-info {
+  padding: 15px;
+}
+
+.item-img {
+  margin: auto;
+  display: block;
+  width: 100%;
+  border-top-left-radius: 1px;
+  border-top-right-radius: 1px;
+}
+
+.item-title {
+  margin: 10px 0 10px 0;
+}
+
+.item-creator {
+  margin: 5px 0 5px 0;
+}
+
+.item-description {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.footer {
+  background: #333333;
+}
+
+.footer-container {
+  width: 960px;
+  margin: auto;
+  display: table;
+}
+
+/**** menu and nav bar styles ****/
+
+.menubar-container {
+    width: 960px;
+    margin: auto;
+    position: relative;
+}
+
+.menubar {
+    vertical-align: middle;
+    background: #333333;
+}
+
+.logo {
+    display: inline-block;
+    color: #E8E8E8;
+    font-size: 1.3em;
+}
+
+.logo > h1 > a {
+  text-decoration: none;
+  color: #E8E8E8;
+}
+
+.nav {
+    display: inline-block;
+}
+
+.nav-items {
+    list-style: none;
+}
+
+.nav-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.nav-item > a:hover {
+  color: #DD0021;
+}
+
+.nav-item > a {
+  color: #E8E8E8;
+  font-size: 1.2em;
+}
+
+.nav-item:hover {
+  color: #DD0021;
+}
+
+.upload-btn {
+  display: none;
+}
+
+.login, .user-options {
+    display: none;
+    position: absolute;
+    right: 5px;
+}
+
+.login {
+    top: 25%;
+}
+
+.login-option, .user-option {
+    display: inline-block;
+    color: #E8E8E8;
+    margin-right: 10px;
+}
+
+.login-option:hover, .user-option:hover {
+  color: #DD0021;
+}
+
+.user-options {
+    top: 50%;
+}
+
 /**** Page container styles ****/
 .container {
     width: 960px;
@@ -112,131 +282,7 @@ button:hover {
     text-decoration: underline;
 }
 
-/**** menu and nav bar styles ****/
-
-.menubar-container {
-    width: 960px;
-    margin: auto;
-    position: relative;
-}
-
-.menubar {
-    vertical-align: middle;
-    background: #333333;
-}
-
-.logo {
-    display: inline-block;
-    color: #E8E8E8;
-}
-
-.nav {
-    display: inline-block;
-}
-
-.nav-items {
-    list-style: none;
-}
-
-.nav-item {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.nav-item > a {
-  color: #E8E8E8;
-  font-size: 1.2em;
-}
-
-.nav-item:hover {
-  color: #DD0021;
-}
-
-.login, .user-options {
-    display: none;
-    position: absolute;
-    right: 5px;
-}
-
-.login {
-    top: 25%;
-}
-
-.login-option, .user-option {
-    display: inline-block;
-    color: #E8E8E8;
-    margin-right: 10px;
-}
-
-.user-options {
-    top: 50%;
-}
-
-/** main contents of site **/
-.content {
-  width: 100%;
-}
-
-.row {
-  width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: row;
-}
-
-.item {
-  width: 33%;
-  display: inline-block;
-  background: #333333;
-  border-radius: 1px;
-  padding: 0;
-  color: #E8E8E8;
-  margin-right: 10px;
-}
-
-.item:hover{
-  cursor: pointer;
-  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.40);
-}
-
-.item-info {
-  padding: 15px;
-}
-
-.item-img {
-  margin: auto;
-  display: block;
-  width: 100%;
-  border-top-left-radius: 1px;
-  border-top-right-radius: 1px;
-}
-
-.item-title {
-  margin: 10px 0 10px 0;
-}
-
-.item-creator {
-  margin: 5px 0 5px 0;
-}
-
-.item-description {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.footer {
-  background: #333333;
-}
-
-.footer-container {
-  width: 960px;
-  margin: auto;
-  display: table;
-}
-
-/* dashboard page css */
+/********** Dashboard Page CSS  ***********/
 
 .user-profile {
   margin: 20px 0 20px 0;
@@ -259,25 +305,51 @@ button:hover {
 
 }
 
-/* uploads css */
-
+/********** Upload Page CSS  ***********/
 .selection {
+  background: #333333;
   width: 100%;
   border: 3px solid #333333;
-  border-radius: 3px;
+  border-radius: 1px;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
-.selection > h2 {
-  margin: 0;
+.selection:active {
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.90);
+}
+
+.selection-header {
   width: 100%;
+  height: 100%;
   background: #333333;
   color: #E8E8E8;
+  margin: 0 0 0 10px;
+  padding: 10px 0 10px 0;
+  font-family: Coda
 }
 
-.selection > h2:hover {
+.selection-header > h2 {
+  display: inline-block;
+  margin: 0 20px 0 0;
+  vertical-align: middle;
+}
+
+.selection-header:hover {
   cursor: pointer;
   color: #DD0021;
+}
+
+.toggle-indicator {
+  position: absolute;
+  right: 0;
+}
+
+.upload-form-wrapper {
+  background: #E8E8E8;
+  height: 100%;
+  width: 100%;
+  padding-top: 10px;
 }
 
 .upload-form {
@@ -321,7 +393,42 @@ button:hover {
   color: #FFFFFF;
 }
 
-/* loader css */
+/********** ITEM PAGE CSS ***********/
+
+.img-wrapper {
+  background: #333333;
+  margin-top: 20px;
+  border-radius: 2px;
+  width: 100%;
+  height: 400px;
+}
+
+.preview-img {
+  width: auto;
+  height: 100%;
+  margin: auto;
+  display: block;
+}
+
+#item-name {
+  display: inline-block;
+  margin: 20px 0 10px 0;
+}
+
+.download-button {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  width: 150px;
+  margin: 20px 0 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background: #DD0021;
+  color: #FFFFFF;
+}
+
+/********** CSS PRELOADER  ***********/
 .loader-wrapper {
   position: fixed;
   left: 0;

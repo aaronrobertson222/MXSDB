@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>MXSDB | Home</title>
+    <title>MXSDB | Gear</title>
     <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -39,7 +39,16 @@
     </div>
     <div class="container">
         <div class="content">
-            <h2 id="content-category">Most Recent</h2>
+            <h1 id="content-category">Gear</h1>
+            <div class="filter">
+            <p class="filter-text">Filter: </p>
+            <select class="filter-select" name="filter-select">
+              <option value="recent">Recent</option>
+              <option value="popular">Popular</option>
+              <option value="model">Models</option>
+              <option value="skin">Skins</option>
+            </select>
+          </div>
             <hr>
             <div class="results">
               <div class="row">
@@ -105,5 +114,4 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
 </body>
-
 </html>

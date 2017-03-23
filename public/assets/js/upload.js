@@ -1,20 +1,31 @@
-function toggleSections() {
-  $('.section-header').click(function(event) {
-      console.log('clicked');
-      if ($(this).next('.upload-form').is(':visible')) {
-        $(this).next('.upload-form').slideUp();
-      } else {
-      $('.upload-form').slideUp();
-      $(this).next('.upload-form').slideDown();
-    }
-  });
 
+function upload() {
 
 }
 
+//Event Handlers
+function toggleSections() {
+  $('.selection-header').click(function(event) {
+      if ($(this).next('.upload-form-wrapper').is(':visible')) {
+        $(this).children('.toggle-indicator').html('&#9660;');
+        $(this).next('.upload-form-wrapper').slideUp();
+        $(this)
+      } else {
+      $('.upload-form-wrapper').slideUp();
+      $(this).children('.toggle-indicator').html('&#9650;');
+      $(this).next('.upload-form-wrapper').slideDown();
+    }
+  });
+}
+
+function formSubmit() {
+  $('.upload-form').submit(function(event) {
+    console.log('clicked');
+  });
+}
 
 $(function() {
-
+// request checks that user is logged in
   $.ajax({
     type: 'GET',
     url: '/me',
@@ -33,6 +44,6 @@ $(function() {
   });
 
   toggleSections();
-
-  $('.upload-form').hide();
+  formSubmit();
+  $('.upload-form-wrapper').hide();
 });

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.31.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
@@ -18,7 +19,8 @@
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
-    "passport-jwt": "^2.2.1"
+    "passport-jwt": "^2.2.1",
+    "s3": "^4.4.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

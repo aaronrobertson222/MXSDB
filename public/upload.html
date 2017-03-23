@@ -3,15 +3,18 @@
 
 <head>
     <meta charset="utf-8">
-    <title>MXSDB | Dashboard</title>
+    <title>MXSDB | Upload</title>
+    <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
 <body>
-  <div class="loader-wrapper">
-    <div class="loader"></div>
-  </div>
+    <!-- PRELOADER -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+    <!-- MENUBAR -->
     <div class="menubar">
         <div class="menubar-container">
             <div class="logo">
@@ -19,9 +22,9 @@
             </div>
             <div class="nav">
                 <ul class="nav-items">
-                    <li class="nav-item"><a>Bikes</a></li>
-                    <li class="nav-item"><a>Gear</a></li>
-                    <li class="nav-item"><a>Tracks</a></li>
+                    <li class="nav-item"><a href="/bikes">Bikes</a></li>
+                    <li class="nav-item"><a href="/gear">Gear</a></li>
+                    <li class="nav-item"><a href="/tracks">Tracks</a></li>
                 </ul>
             </div>
             <div class="user-options">
@@ -30,94 +33,112 @@
             </div>
         </div>
     </div>
+    <!-- CONTENT -->
     <div class="container">
         <div class="content">
-          <h1>Upload Content</h1>
+            <h1>Upload Content</h1>
+            <hr>
             <div class="selection">
-              <h2 class="section-header">Upload a Track</h2>
-              <form class="upload-form">
-                <label for="item-title">Track Title:</label>
-                <br>
-                <input type="text" name="item-title" class="upload-form-input" placeholder="example">
-                <br>
-                <label for="track-type">Track Type:</label>
-                <br>
-                <select class="upload-form-input track-type" name="track-type">
-                  <option value="">Arenacross</option>
-                  <option value="">Supercross</option>
-                  <option value="">Motocross</option>
-                  <option value="">Enduro</option>
-                  <option value="">Free-Ride</option>
+              <div class="selection-header">
+                <h2>Upload a Track</h2>
+                <h2 class="toggle-indicator">&#9660;</h2>
+              </div>
+                <div class="upload-form-wrapper">
+                    <form action="/uploads" method="POST" enctype="multipart/form-data" name="upload-form" class="upload-form">
+                        <label for="item-title">Track Title:</label>
+                        <br>
+                        <input type="text" name="item-title" class="upload-form-input" placeholder="example">
+                        <br>
+                        <label for="track-type">Track Type:</label>
+                        <br>
+                        <select class="upload-form-input track-type" name="track-type">
+                    <option value="arenacross">Arenacross</option>
+                    <option value="supercross">Supercross</option>
+                    <option value="motocross">Motocross</option>
+                    <option value="enduro">Enduro</option>
+                    <option value="free-ride">Free-Ride</option>
+                  </select>
+                        <br>
+                        <label for="item-description">Track Description:</label>
+                        <br>
+                        <textarea class="" name="item-description" rows="3"></textarea>
+                        <br>
+                        <label for="item-file">Track File:</label>
+                        <br>
+                        <input class="upload-file-input" type="file" name="item-file">
+                        <br>
+                        <label for="preview-image">Preview Image:</label>
+                        <br>
+                        <input class="upload-file-input" type="file" name="preview-image">
+                        <br>
+                        <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Track!</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="selection">
+              <div class="selection-header">
+                <h2>Upload a Bike</h2>
+                <h2 class="toggle-indicator">&#9660;</h2>
+              </div>
+                <div class="upload-form-wrapper">
+                    <form class="upload-form">
+                        <label for="item-title">Bike Title:</label>
+                        <br>
+                        <input type="text" name="item-title" class="upload-form-input" placeholder="example">
+                        <br>
+                        <label for="track-type">Type:</label>
+                        <br>
+                        <select class="upload-form-input bike-type" name="bike-type">
+                  <option value="model">Model</option>
+                  <option value="skin">Skin</option>
                 </select>
-                <br>
-                <label for="item-description">Track Description:</label>
-                <br>
-                <textarea class="" name="item-description" rows="3"></textarea>
-                <br>
-                <label for="file">Track File:</label>
-                <br>
-                <input class="upload-file-input" type="file" name="file">
-                <br>
-                <label for="preview-image">Preview Image:</label>
-                <br>
-                <input class="upload-file-input" type="file" name="preview-image">
-                <br>
-                <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Track!</button>
-              </form>
+                        <br>
+                        <label for="item-description">Bike Description:</label>
+                        <br>
+                        <textarea class="" name="item-description" rows="3"></textarea>
+                        <br>
+                        <label for="file">Bike File:</label>
+                        <br>
+                        <input class="upload-file-input" type="file" name="file">
+                        <br>
+                        <label for="preview-image">Preview Image:</label>
+                        <br>
+                        <input class="upload-file-input" type="file" name="preview-image">
+                        <br>
+                        <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Bike!</button>
+                    </form>
+                </div>
             </div>
             <div class="selection">
-              <h2 class="section-header">Upload a Bike</h2>
-              <form class="upload-form">
-                <label for="item-title">Bike Title:</label>
-                <br>
-                <input type="text" name="item-title" class="upload-form-input" placeholder="example">
-                <br>
-                <label for="track-type">Bike Type:</label>
-                <br>
-                <select class="upload-form-input bike-type" name="bike-type">
-                  <option value="">Model</option>
-                  <option value="">Skin</option>
-                </select>
-                <br>
-                <label for="item-description">Bike Description:</label>
-                <br>
-                <textarea class="" name="item-description" rows="3"></textarea>
-                <br>
-                <label for="file">Bike File:</label>
-                <br>
-                <input class="upload-file-input" type="file" name="file">
-                <br>
-                <label for="preview-image">Preview Image:</label>
-                <br>
-                <input class="upload-file-input" type="file" name="preview-image">
-                <br>
-                <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Bike!</button>
-              </form>
+              <div class="selection-header">
+                <h2>Upload Gear</h2>
+                <h2 class="toggle-indicator">&#9660;</h2>
+              </div>
+                <div class="upload-form-wrapper">
+                    <form class="upload-form">
+                        <label for="item-title">Gear Title:</label>
+                        <br>
+                        <input type="text" name="item-title" class="upload-form-input" placeholder="example">
+                        <br>
+                        <label for="item-description">Gear Description:</label>
+                        <br>
+                        <textarea class="" name="item-description" rows="3"></textarea>
+                        <br>
+                        <label for="file">Gear File:</label>
+                        <br>
+                        <input class="upload-file-input" type="file" name="file">
+                        <br>
+                        <label for="preview-image">Preview Image:</label>
+                        <br>
+                        <input class="upload-file-input" type="file" name="preview-image">
+                        <br>
+                        <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Gear!</button>
+                    </form>
+                </div>
             </div>
-            <div class="selection">
-              <h2 class="section-header">Upload Gear</h2>
-              <form class="upload-form">
-                <label for="item-title">Gear Title:</label>
-                <br>
-                <input type="text" name="item-title" class="upload-form-input" placeholder="example">
-                <br>
-                <label for="item-description">Gear Description:</label>
-                <br>
-                <textarea class="" name="item-description" rows="3"></textarea>
-                <br>
-                <label for="file">Gear File:</label>
-                <br>
-                <input class="upload-file-input" type="file" name="file">
-                <br>
-                <label for="preview-image">Preview Image:</label>
-                <br>
-                <input class="upload-file-input" type="file" name="preview-image">
-                <br>
-                <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Gear!</button>
-              </form>
-            </div>
-          </div>
         </div>
+    </div>
     <div class="footer">
 
     </div>

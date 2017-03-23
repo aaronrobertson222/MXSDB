@@ -30,6 +30,7 @@ UserSchema.methods.apiRepr = function() {
     id: this._id,
     username: this.username || '',
     name: `${this.firstName} ${this.lastName}` || '',
+    userLevel: this.accountLevel,
     joinedDate: moment(this.joinedDate).format("MMM DD, YYYY"),
     uploads: this.uploads
   };

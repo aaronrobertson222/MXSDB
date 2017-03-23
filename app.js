@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 
 const {router: usersRouter, User} = require('./users');
+const {router: uploadsRouter} = require('./uploads');
 const {PORT, DATABASE_URL, SECRET, EXPIRATIONTIME} = require('./config');
 
 mongoose.Promise = global.Promise;
@@ -87,8 +88,22 @@ app.get('/upload', (req, res) => {
   return res.status(200).sendFile(__dirname + '/public/upload.html');
 });
 
+app.get('/tracks', (req, res) => {
+  return res.status(200).sendFile(__dirname + '/public/tracks.html');
+});
+
+app.get('/bikes', (req, res) => {
+  return res.status(200).sendFile(__dirname + '/public/bikes.html');
+});
+
+app.get('/gear', (req, res) => {
+  return res.status(200).sendFile(__dirname + '/public/gear.html');
+});
+
+
   //routes
 app.use('/users/', usersRouter);
+app.use('/uploads', uploadsRouter);
 
 app.use('*', function(req, res) {
   return res.status(404).json({message: 'Not Found'});
