@@ -12,8 +12,7 @@ const UploadSchema = new mongoose.Schema({
     required: true
   },
   category: {
-    type: String,
-    required: true
+    type: String
   },
   creator: {
     type: String,
@@ -21,10 +20,14 @@ const UploadSchema = new mongoose.Schema({
   },
   uploadDate: {type: Date, required: true},
   downloadCount: {type: Number, required: true, default: 0},
-  description: {type: String, default: 'No Description'}
+  description: {type: String, default: 'No Description'},
+  fileKey: {type: String, required: true},
+  fileLocation: {type: String, required: true},
+  imgKey: {type: String, required: true},
+  imgLocation: {type: String, required: true}
 });
 
-UploadSchema.apiRepr = function() {
+UploadSchema.methods.apiRepr = function() {
   return {
     id: this._id,
     name: this.name,
@@ -33,7 +36,9 @@ UploadSchema.apiRepr = function() {
     creator: this.creator,
     uploadDate: this.uploadDate,
     downloadCount: this.downloadCount,
-    description: this.downloadCount
+    description: this.downloadCount,
+    imgLocation: this.imgLocation,
+    fileLocation: this.fileLocation
   };
 }
 

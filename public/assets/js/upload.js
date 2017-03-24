@@ -19,26 +19,6 @@ function uploadData(data) {
     }
 
     xhr.send(data)
-
-  /*  $.ajax({
-        type: "POST",
-        enctype: 'multipart/form-data',
-        url: "/uploads",
-        data: data,
-        headers: {
-          'Authorization': localStorage.getItem('authToken')
-        },
-        processData: false,
-        contentType: false,
-        cache: false,
-        timeout: 600000,
-        success: function(data) {
-          console.log(data);
-        },
-        error: function(err) {
-          console.log(err);
-        }
-    });*/
 }
 
 //Event Handlers
@@ -59,8 +39,9 @@ function toggleSections() {
 function formSubmit() {
     $('.upload-form').submit(function(event) {
         event.preventDefault();
-        var form = $('#track-upload-form')[0];
-        var data = new FormData(form);
+        var form = $(this)[0];
+        var data = new FormData(this);
+        console.log(data);
         uploadData(data);
     });
 }

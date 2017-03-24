@@ -41,27 +41,41 @@ router.post('/',
   ]), (req, res) => {
   const newItem = {
     name: req.body.itemName,
-    description: req.body.description,
-    itemType: req.body.type,
-    category: req.body.category,
+    description: req.body.itemDescription,
+    itemType: req.body.itemType,
+    category: req.body.itemCategory,
     creator: req.user.username,
     uploadDate: Date.now(),
-    fileInfo: {
-      //fileKey: req.files.itemFile[0].key,
-      //imgKey: req.files.imgFile[1].key
-    }
+    fileKey: req.files.itemFile[0].key,
+    fileLocation: req.files.itemFile[0].location,
+    imgKey: req.files.imgFile[0].key,
+    imgLocation: req.files.imgFile[0].location
   }
-  res.status(201).json({files: req.files, item: newItem});
+
+    console.log(newItem);
+  //res.status(201).json({files: req.files, item: newItem});
   // inserts new item into mongo database
-  /*return Uploads
+  return Uploads
     .create(newItem)
     .then(item => {
-      return res.status(201).json({item: item.apiRepr()});
+      return res.status(201).json({item: item});
     })
     .catch(err => {
       console.log(err);
       return res.status(500).json({message: 'internal server error'});
-    });*/
+    });
+});
+
+router.get('/:filter', (req, res) => {
+  if (req.params.filter === 'recent') {
+    return Uploads
+              .find({})
+              .sort({'_id': -1})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
 });
 
 module.exports = {router};
