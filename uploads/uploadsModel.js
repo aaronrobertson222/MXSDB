@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -34,9 +35,9 @@ UploadSchema.methods.apiRepr = function() {
     itemType: this.itemType,
     category: this.category,
     creator: this.creator,
-    uploadDate: this.uploadDate,
+    uploadDate: moment(this.uploadDate).format("MMM DD, YYYY"),
     downloadCount: this.downloadCount,
-    description: this.downloadCount,
+    description: this.description,
     imgLocation: this.imgLocation,
     fileLocation: this.fileLocation
   };

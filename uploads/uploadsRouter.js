@@ -4,6 +4,7 @@ const express = require('express');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const passport = require('passport');
+const path = require('path');
 
 const {AWS_BUCKET} = require('../config');
 const {Uploads} = require('./uploadsModel');
@@ -76,6 +77,193 @@ router.get('/:filter', (req, res) => {
                 return res.status(200).json(items.map((item) => item.apiRepr()));
               });
   }
+  if (req.params.filter === 'popular') {
+    return Uploads
+              .find({})
+              .sort({'downloadCount': -1})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+});
+
+//get items by type and filter
+router.get('/type/:type/:filter', (req, res) => {
+  //bikes
+  if (req.params.type === 'bikes') {
+    if (req.params.filter === 'recent') {
+      return Uploads
+                .find({itemType: 'bike'})
+                .sort({'_id': -1})
+                .exec()
+                .then(items => {
+                  return res.status(200).json(items.map((item) => item.apiRepr()));
+                });
+    }
+    if (req.params.filter === 'popular') {
+      return Uploads
+                .find({itemType: 'bike'})
+                .sort({'downloadCount': -1})
+                .exec()
+                .then(items => {
+                  return res.status(200).json(items.map((item) => item.apiRepr()));
+                });
+    }
+    if (req.params.filter === 'skin') {
+      return Uploads
+                .find({itemType: 'bike', category: 'skin'})
+                .exec()
+                .then(items => {
+                  return res.status(200).json(items.map((item) => item.apiRepr()));
+                });
+    }
+    if (req.params.filter === 'model') {
+      return Uploads
+                .find({itemType: 'bike', category: 'model'})
+                .exec()
+                .then(items => {
+                  return res.status(200).json(items.map((item) => item.apiRepr()));
+                });
+    }
+}
+//tracks
+if (req.params.type === 'tracks') {
+  if (req.params.filter === 'recent') {
+    return Uploads
+              .find({itemType: 'track'})
+              .sort({'_id': -1})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+  if (req.params.filter === 'popular') {
+    return Uploads
+              .find({itemType: 'track'})
+              .sort({'downloadCount': -1})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+  if (req.params.filter === 'arenacross') {
+    return Uploads
+              .find({itemType: 'track', category: 'arenacross'})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+  if (req.params.filter === 'supercross') {
+    return Uploads
+              .find({itemType: 'track', category: 'supercross'})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+  if (req.params.filter === 'motocross') {
+    return Uploads
+              .find({itemType: 'track', category: 'motocross'})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+  if (req.params.filter === 'enduro') {
+    return Uploads
+              .find({itemType: 'track', category: 'enduro'})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+}
+//gear
+if (req.params.type === 'gear') {
+  if (req.params.filter === 'recent') {
+    return Uploads
+              .find({itemType: 'gear'})
+              .sort({'_id': -1})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+  if (req.params.filter === 'popular') {
+    return Uploads
+              .find({itemType: 'gear'})
+              .sort({'downloadCount': -1})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+  if (req.params.filter === 'skin') {
+    return Uploads
+              .find({itemType: 'gear', category: 'skin'})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+  if (req.params.filter === 'model') {
+    return Uploads
+              .find({itemType: 'gear', category: 'model'})
+              .exec()
+              .then(items => {
+                return res.status(200).json(items.map((item) => item.apiRepr()));
+              });
+  }
+}
+});
+
+//get page for items
+router.get('/id/:id', (req, res) => {
+  console.log(req.params.id);
+  return Uploads
+            .findOne({'_id': req.params.id})
+            .exec()
+            .then(item => {
+              if (!item) {
+                console.log('not found');
+                return res.status(404).json({message: 'item not found'});
+              }
+              return res.status(200).sendFile(path.join(__dirname, '../public', 'item.html'));
+            })
+            .catch(err => {
+              console.log(err);
+              return res.status(500).json({message: 'Internal Server erorr'});
+            });
+});
+
+//get info on specific item
+router.get('/info/:id', (req, res) => {
+  return Uploads
+            .findOne({'_id': req.params.id})
+            .exec()
+            .then(item => {
+              return res.status(200).json({item: item.apiRepr()});
+            })
+            .catch(err => {
+              console.log(err);
+              return res.status(200).json({message: 'Internal Server error'});
+            });
+});
+
+//increment download count by 1
+router.get('/id/:id/downloadCount', (req, res) => {
+  return Uploads
+            .findOneAndUpdate({'_id': req.params.id}, { $inc: {'downloadCount' : 1}})
+            .exec()
+            .then(item => {
+              console.log(item);
+              res.status(200).json({message: 'success'});
+            })
+            .catch(err => {
+              console.log(err);
+            });
 });
 
 module.exports = {router};

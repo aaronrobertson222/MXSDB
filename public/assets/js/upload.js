@@ -1,5 +1,5 @@
 function uploadData(data) {
-    var xhr = new XMLHttpRequest();
+    /*var xhr = new XMLHttpRequest();
     xhr.open('post', '/uploads', true);
     xhr.setRequestHeader('Authorization', localStorage.getItem('authToken'));
 
@@ -15,10 +15,31 @@ function uploadData(data) {
     }
 
     xhr.onload = function() {
-      console.log(this.statusText);
+      console.log(JSON.parse(this.response));
+      window.location.href = '/uploads/id/' + this.response._id;
     }
 
-    xhr.send(data)
+    xhr.send(data)*/
+
+    $.ajax({
+         type: "POST",
+         enctype: 'multipart/form-data',
+         url: "/uploads",
+         data: data,
+         headers: {
+           'Authorization': localStorage.getItem('authToken')
+         },
+         processData: false,
+         contentType: false,
+         cache: false,
+         timeout: 600000,
+         success: function(data) {
+           window.location.href = '/uploads/id/' + data.item._id;
+         },
+         error: function(err) {
+           console.log(err);
+         }
+     });
 }
 
 //Event Handlers

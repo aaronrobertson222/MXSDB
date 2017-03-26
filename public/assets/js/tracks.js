@@ -19,7 +19,6 @@ var itemTemplate =
     '</a>' +
 '</div>';
 
-//DOM RENDERERS
 function renderCards(data) {
   console.log(data);
   var elements = data.map(function(item) {
@@ -30,18 +29,17 @@ function renderCards(data) {
     elementTemplate.find('.item-title').text(item.name);
     elementTemplate.find('.item-creator').html('By <a href="#">' + item.creator + '</a>');
     elementTemplate.find('.item-downloads').text(item.downloadCount + ' Downloads');
-    elementTemplate.find('.item-description').html('Type - ' + capitalizeFirstLetter(item.itemType) + ' ' + capitalizeFirstLetter(item.category));
+    elementTemplate.find('.item-description').html('Type - ' + capitalizeFirstLetter(item.itemType));
     return elementTemplate;
   });
   $('.results').html('');
   $('.results').append(elements);
 }
 
-//REQUESTS
 function getUploads(filter) {
   $.ajax({
     type: 'GET',
-    url: '/uploads/' + filter,
+    url: '/uploads/type/tracks/' + filter.toLowerCase(),
     dataType: 'json',
   })
   .done(function(data){
@@ -52,7 +50,6 @@ function getUploads(filter) {
   });
 }
 
-//Event Handlers
 function filterUpdate() {
   $('.filter-select').on('change', function() {
     $('.results').html('');
@@ -63,6 +60,5 @@ function filterUpdate() {
 $(function() {
   getUploads($('.filter-select').val());
 
-  //initialzing event Handlers
   filterUpdate();
 });

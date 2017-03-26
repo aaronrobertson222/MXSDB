@@ -90,7 +90,7 @@ app.get('/gear', (req, res) => {
 
 //routers
 app.use('/users/', usersRouter);
-app.use('/uploads', uploadsRouter);
+app.use('/uploads/', uploadsRouter);
 
 // catch route for any unhandle requested routes
 app.use('*', function(req, res) {

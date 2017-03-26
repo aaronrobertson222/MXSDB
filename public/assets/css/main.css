@@ -70,6 +70,7 @@ body {
   display: inline-block;
   background: #333333;
   border-radius: 1px;
+  border: 1px solid #333333;
   color: #E8E8E8;
   position: relative;
 }
@@ -83,10 +84,20 @@ body {
   padding: 15px;
 }
 
+.item-img-wrapper {
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+  max-height: 200px;
+  background: #fff;
+}
+
 .item-img {
   margin: auto;
   display: block;
   width: 100%;
+  height: 100%;
+  object-fit: contain;
   border-top-left-radius: 1px;
   border-top-right-radius: 1px;
 }
@@ -103,6 +114,11 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.item-creator > a,
+.item-description > a {
+  color: #FE4444;
 }
 
 .footer {
@@ -157,7 +173,7 @@ body {
 }
 
 .nav-item > a:hover {
-  color: #DD0021;
+  color: #FE4444;
 }
 
 .nav-item > a {
@@ -166,7 +182,7 @@ body {
 }
 
 .nav-item:hover {
-  color: #DD0021;
+  color: #FE4444;
 }
 
 .upload-btn {
@@ -190,7 +206,7 @@ body {
 }
 
 .login-option:hover, .user-option:hover {
-  color: #DD0021;
+  color: #FE4444;
 }
 
 .user-options {
@@ -205,6 +221,7 @@ body {
     z-index: 0;
     box-sizing: border-box;
     padding-bottom: 200px;
+    position: relative;
 }
 
 a {
@@ -247,7 +264,7 @@ button:hover {
     padding: 15px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    background: #DD0021;
+    background: #FE4444;
 }
 
 .form-page-title {
@@ -285,7 +302,7 @@ button:hover {
     padding: 10px;
     border: none;
     border-radius: 3px;
-    background: #DD0021;
+    background: #FE4444;
     color: #FFFFFF;
 }
 
@@ -331,7 +348,7 @@ button:hover {
 }
 
 .edit-item {
-  color: #DD0021;
+  color: #FE4444;
 }
 
 /********** Upload Page CSS  ***********/
@@ -366,7 +383,7 @@ button:hover {
 
 .selection-header:hover {
   cursor: pointer;
-  color: #DD0021;
+  color: #FE4444;
 }
 
 .toggle-indicator {
@@ -418,7 +435,7 @@ button:hover {
   padding: 10px;
   border: none;
   border-radius: 3px;
-  background: #DD0021;
+  background: #FE4444;
   color: #FFFFFF;
 }
 
@@ -427,17 +444,22 @@ button:hover {
 .item-content {
   background: #FFFFFF;
   box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.10);
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-.img-wrapper {
+
+#img-wrapper {
   margin-top: 20px;
   border-radius: 2px;
   width: 100%;
-  height: 400px;
+  height: 500px;
+  border-bottom: 1px solid #E8E8E8;
 }
 
-.preview-img {
-  width: 100%;
-  height: auto;
+#preview-img {
+  width: auto;
+  height: 100%;
   margin: auto;
   display: block;
   box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.10);
@@ -447,25 +469,54 @@ button:hover {
 .item-info-wrapper {
   background: #FFFFFF;;
   padding: 10px;
+}
 
+.item-content-header {
+  position: relative;
 }
 
 #item-name {
   display: inline-block;
-  margin: 5px 0 5px 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .download-button {
+  width: 150px;
+  height: 100%;
+  padding: 0;
+  border: 2px solid #FE4444;
+  background-size: 100% 200%;
+  background-image: linear-gradient(to bottom, #FFFFFF 50%, #FE4444 50%);
+  -webkit-transition: all .2s ease 0s;
+  -moz-transition: all .2s ease 0s;
+  transition: all .2s ease 0s;
+  color: #FE4444;
+}
+
+.download-button:hover {
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.30);
+  background-position: 0 -100%;
+  color: #FFFFFF;
+}
+
+#description-header {
+  margin-bottom: 5px;
+}
+
+#item-creator {
+  margin-top: 0;
+}
+
+#item-creator > a {
+  color: #FE4444;
+}
+
+#download-form {
   display: inline-block;
   position: absolute;
   right: 0;
-  width: 150px;
-  margin: 20px 0 10px 0;
-  padding: 10px;
-  border: none;
-  border-radius: 0px;
-  background: #DD0021;
-  color: #FFFFFF;
+  height: 100%;
 }
 
 /********** CSS PRELOADER  ***********/
@@ -482,14 +533,14 @@ button:hover {
 .loader,
 .loader:before,
 .loader:after {
-  background: #DD0021;
+  background: #FE4444;
   -webkit-animation: load1 1s infinite ease-in-out;
   animation: load1 1s infinite ease-in-out;
   width: 1em;
   height: 4em;
 }
 .loader {
-  color: #DD0021;
+  color: #FE4444;
   text-indent: -9999em;
   margin: 25% auto;
   position: relative;
