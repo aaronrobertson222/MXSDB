@@ -30,7 +30,6 @@ function logInUser(username, password) {
     })
     .done(function(data) {
       if (localStorage.getItem('authToken')) {
-        console.log('clearing authToken');
         localStorage.clear();
       }
       localStorage.setItem('authToken', data.token);
@@ -42,7 +41,6 @@ function logInUser(username, password) {
     });
 }
 
-
 function checkPassword(password, passwordVerify) {
   if (!(password === passwordVerify)) {
     return false;
@@ -51,9 +49,7 @@ function checkPassword(password, passwordVerify) {
 }
 
 //DOM Renderers
-
 function renderErr(err) {
-  console.log(err);
   $('#form-error').text(err);
   $('#form-error').css('display', 'block');
 }
@@ -83,8 +79,6 @@ function loginSubmit() {
     logInUser(username, password);
   });
 }
-
-
 
 $(function() {
 

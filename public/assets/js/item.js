@@ -6,10 +6,10 @@ function incrementDownloadCount() {
     dataType: 'json',
   })
   .done(function() {
-    console.log('success');
+    return;
   })
   .fail(function() {
-    console.log('fail');
+    return;
   });
 };
 
@@ -20,11 +20,9 @@ function requestItemInfo(item) {
     dataType: 'json',
   })
   .done(function(data){
-    console.log(data);
     renderItem(data.item);
   })
-  .fail(function(err) {
-    console.log(err);
+  window.location.href = "/error.html";
   });
 }
 
@@ -51,7 +49,6 @@ var itemPageTemplate =
 
 
 function renderItem(item) {
-  console.log(item);
   var element = $(itemPageTemplate);
   element.find('#preview-img').attr('src', item.imgLocation);
   element.find('#preview-img').attr('alt', item.name + '-preivew');

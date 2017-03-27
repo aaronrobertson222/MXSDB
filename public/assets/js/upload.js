@@ -37,7 +37,7 @@ function uploadData(data) {
            window.location.href = '/uploads/id/' + data.item._id;
          },
          error: function(err) {
-           console.log(err);
+           window.location.href = "/error.html";
          }
      });
 }
@@ -62,7 +62,6 @@ function formSubmit() {
         event.preventDefault();
         var form = $(this)[0];
         var data = new FormData(this);
-        console.log(data);
         $('.content').html('<div class="loader-wrapper"><div class="loader"></div><h1>Uploading...</h1></div>');
         uploadData(data);
     });

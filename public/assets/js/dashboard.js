@@ -28,7 +28,6 @@ function renderProfile(user) {
 }
 
 function renderCards(data) {
-  console.log(data);
   var elements = data.map(function(item) {
     var elementTemplate = $(itemTemplate);
     elementTemplate.find('.item-url').attr('href', '/uploads/id/' + item.id);
@@ -54,7 +53,7 @@ function getUsersUploads(user) {
     renderCards(data);
   })
   .fail(function(err) {
-    console.log(err);
+    window.location.href = "/error.html";
   });
 }
 
