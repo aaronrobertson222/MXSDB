@@ -22,6 +22,7 @@ function requestItemInfo(item) {
   .done(function(data){
     renderItem(data.item);
   })
+  .fail(function() {
   window.location.href = "/error.html";
   });
 }
