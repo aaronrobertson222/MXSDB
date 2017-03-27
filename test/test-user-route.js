@@ -68,7 +68,7 @@ describe('User API Test', function() {
           lastName: faker.name.lastName(),
           userLevel: 'user',
           uploads: 0,
-          joinedDate: Date.now();
+          joinedDate: Date.now()
         };
         return chai.request(app)
           .post('/users')
