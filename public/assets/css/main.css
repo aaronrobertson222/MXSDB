@@ -122,24 +122,26 @@ body {
 }
 
 .footer {
-  height: 200px;
+  height: 100px;
   width: 100%;
   background: #333333;
   position: absolute;
   bottom: 0;
+  color: #E3E3E3;
 }
 
 .footer-container {
   width: 960px;
-  margin: auto;
+  margin: 20px auto;
   display: table;
+  text-align: center;
 }
 
 /**** menu and nav bar styles ****/
 
 .menubar-container {
     width: 960px;
-    margin: auto;
+    margin:  0 auto 0 auto;
     position: relative;
 }
 
@@ -152,6 +154,16 @@ body {
     display: inline-block;
     color: #E8E8E8;
     font-size: 1.3em;
+    width: 250px;
+    height: auto;
+}
+
+.logo > h1 {
+  margin-bottom: 5px;
+}
+
+.logo-img {
+  height: 50px;
 }
 
 .logo > h1 > a {
@@ -161,6 +173,8 @@ body {
 
 .nav {
     display: inline-block;
+    position: absolute;
+    bottom: 0;
 }
 
 .nav-items {
@@ -193,10 +207,7 @@ body {
     display: none;
     position: absolute;
     right: 5px;
-}
-
-.login {
-    top: 25%;
+    bottom: 0;
 }
 
 .login-option, .user-option {
@@ -210,7 +221,7 @@ body {
 }
 
 .user-options {
-    top: 50%;
+  margin-bottom: 16px;
 }
 
 /**** Page container styles ****/
@@ -220,7 +231,7 @@ body {
     margin: 0 auto;
     z-index: 0;
     box-sizing: border-box;
-    padding-bottom: 200px;
+    padding-bottom: 100px;
     position: relative;
 }
 
@@ -517,6 +528,13 @@ button:hover {
   position: absolute;
   right: 0;
   height: 100%;
+}
+
+/***** Error *****/
+#error-message {
+  color: #333333;
+  text-align: center;
+  margin-top: 25%;
 }
 
 /********** CSS PRELOADER  ***********/

@@ -70,7 +70,7 @@ router.post('/', (req, res) => {
       return res.status(201).json(user.apiRepr());
     })
     .catch(err => {
-      return res.status(500).json({message: 'internal server error'})
+      return res.status(500).sendFile(path.join(__dirname, '../public', 'error.html'))
     });
 });
 

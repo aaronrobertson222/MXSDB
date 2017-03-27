@@ -24,7 +24,7 @@ const upload = multer({
       cb(null, {fieldName: file.fieldname});
     },
     key: function(req, file, cb) {
-      cb(null, Date.now().toString());
+      cb(null, file.originalname + '-' + Date.now().toString());
     }
   })
 });
@@ -63,7 +63,7 @@ router.post('/',
     })
     .catch(err => {
       console.log(err);
-      return res.status(500).json({message: 'internal server error'});
+      return res.status(500).sendFile(path.join(__dirname, '../public', 'error.html'));
     });
 });
 
@@ -234,7 +234,7 @@ router.get('/id/:id', (req, res) => {
             })
             .catch(err => {
               console.log(err);
-              return res.status(500).json({message: 'Internal Server erorr'});
+              return res.status(500).sendFile(path.join(__dirname, '../public', 'error.html'));
             });
 });
 
@@ -248,7 +248,7 @@ router.get('/info/:id', (req, res) => {
             })
             .catch(err => {
               console.log(err);
-              return res.status(200).json({message: 'Internal Server error'});
+              return res.status(200).sendFile(path.join(__dirname, '../public', 'error.html'));
             });
 });
 
@@ -259,10 +259,22 @@ router.get('/id/:id/downloadCount', (req, res) => {
             .exec()
             .then(item => {
               console.log(item);
-              res.status(200).json({message: 'success'});
+              return res.status(200).json({message: 'success'});
             })
             .catch(err => {
-              console.log(err);
+              return console.log(err);
+            });
+});
+
+router.get('/by/user/:user', (req, res) => {
+  return Uploads
+            .find({'creator': req.params.user})
+            .exec()
+            .then(items => {
+              return res.status(200).json(items.map((item) => item.apiRepr()));
+            })
+            .catch(err => {
+              return console.log(err);
             });
 });
 

@@ -18,7 +18,7 @@
     <div class="menubar">
         <div class="menubar-container">
             <div class="logo">
-                <h1><a href="/">MXS DB</a></h1>
+                <h1><a href="/"><img src="assets/images/logo.png" alt="" class="logo-img"></a></h1>
             </div>
             <div class="nav">
                 <ul class="nav-items">
@@ -46,10 +46,10 @@
                 </div>
                 <div class="upload-form-wrapper">
                     <form name="upload-form" class="upload-form" id="track-upload-form">
-                        <input type="hidden" name="itemType" value="track">
+                        <input type="hidden" name="itemType" value="track" required="true">
                         <label for="itemName">Track Title:</label>
                         <br>
-                        <input type="text" name="itemName" class="upload-form-input" placeholder="example">
+                        <input type="text" name="itemName" class="upload-form-input" required="true" placeholder="example">
                         <br>
                         <label for="itemCategory">Track Category:</label>
                         <br>
@@ -63,15 +63,15 @@
                         <br>
                         <label for="itemDescription">Track Description:</label>
                         <br>
-                        <textarea class="" name="itemDescription" rows="3"></textarea>
+                        <textarea required="true" class="" name="itemDescription" rows="3"></textarea>
                         <br>
                         <label for="itemFile">Track File:</label>
                         <br>
-                        <input class="upload-file-input" type="file" name="itemFile">
+                        <input class="upload-file-input" type="file" name="itemFile" required="true">
                         <br>
                         <label for="imgFile">Preview Image:</label>
                         <br>
-                        <input class="upload-file-input" type="file" name="imgFile">
+                        <input class="upload-file-input" type="file" name="imgFile" required="true">
                         <br>
                         <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Track!</button>
                     </form>
@@ -88,7 +88,7 @@
                         <input type="hidden" name="itemType" value="bike">
                         <label for="itemName">Bike Title:</label>
                         <br>
-                        <input type="text" name="itemName" class="upload-form-input" placeholder="example">
+                        <input type="text" name="itemName" class="upload-form-input" placeholder="example" required="true">
                         <br>
                         <label for="itemCategory">Type:</label>
                         <br>
@@ -99,15 +99,15 @@
                         <br>
                         <label for="itemDescription">Bike Description:</label>
                         <br>
-                        <textarea class="" name="itemDescription" rows="3"></textarea>
+                        <textarea class="" name="itemDescription" rows="3" required="true"></textarea>
                         <br>
                         <label for="itemFile">Bike File:</label>
                         <br>
-                        <input class="upload-file-input" type="file" name="itemFile">
+                        <input class="upload-file-input" type="file" name="itemFile" required="">
                         <br>
                         <label for="imgFile">Preview Image:</label>
                         <br>
-                        <input class="upload-file-input" type="file" name="imgFile">
+                        <input class="upload-file-input" type="file" name="imgFile" required="true">
                         <br>
                         <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Bike!</button>
                     </form>
@@ -124,7 +124,7 @@
                       <input type="hidden" name="itemType" value="gear">
                         <label for="itemName">Gear Title:</label>
                         <br>
-                        <input type="text" name="itemName" class="upload-form-input" placeholder="example">
+                        <input type="text" name="itemName" class="upload-form-input" placeholder="example" required="true">
                         <br>
                         <label for="itemCategory">Item Category:</label>
                         <br>
@@ -135,15 +135,15 @@
                         <br>
                         <label for="itemDescription">Gear Description:</label>
                         <br>
-                        <textarea class="" name="itemDescription" rows="3"></textarea>
+                        <textarea class="" name="itemDescription" rows="3" required="true"></textarea>
                         <br>
                         <label for="itemFile">Gear File:</label>
                         <br>
-                        <input class="upload-file-input" type="file" name="itemFile">
+                        <input class="upload-file-input" type="file" name="itemFile" required="true">
                         <br>
                         <label for="imgFile">Preview Image:</label>
                         <br>
-                        <input class="upload-file-input" type="file" name="imgFile">
+                        <input class="upload-file-input" type="file" name="imgFile" required="true">
                         <br>
                         <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Gear!</button>
                     </form>

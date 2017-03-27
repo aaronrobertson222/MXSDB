@@ -63,6 +63,7 @@ function formSubmit() {
         var form = $(this)[0];
         var data = new FormData(this);
         console.log(data);
+        $('.content').html('<div class="loader-wrapper"><div class="loader"></div><h1>Uploading...</h1></div>');
         uploadData(data);
     });
 }

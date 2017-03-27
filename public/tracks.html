@@ -13,14 +13,14 @@
     <div class="menubar">
         <div class="menubar-container">
             <div class="logo">
-                <h1><a href="/">MXS DB</a></h1>
+                <h1><a href="/"><img src="assets/images/logo.png" alt="" class="logo-img"></a></h1>
             </div>
             <div class="nav">
                 <ul class="nav-items">
-                  <li class="nav-item"><a href="/bikes">Bikes</a></li>
-                  <li class="nav-item"><a href="/gear">Gear</a></li>
-                  <li class="nav-item"><a href="/tracks">Tracks</a></li>
-                  <li class="nav-item upload-btn"><a href="/upload">Upload</a></li>
+                    <li class="nav-item"><a href="/bikes">Bikes</a></li>
+                    <li class="nav-item"><a href="/gear">Gear</a></li>
+                    <li class="nav-item"><a href="/tracks">Tracks</a></li>
+                    <li class="nav-item upload-btn"><a href="/upload">Upload</a></li>
                 </ul>
             </div>
             <div class="login">
@@ -41,8 +41,8 @@
         <div class="content">
             <h1 id="content-category">Tracks</h1>
             <div class="filter">
-            <p class="filter-text">Filter: </p>
-            <select class="filter-select" name="filter-select">
+                <p class="filter-text">Filter: </p>
+                <select class="filter-select" name="filter-select">
               <option value="recent">Recent</option>
               <option value="popular">Popular</option>
               <option value="motocross">Motocross</option>
@@ -50,15 +50,20 @@
               <option value="arenacross">Arenacross</option>
               <option value="enduro">Endurocross</option>
             </select>
-          </div>
+            </div>
             <hr>
             <div class="results">
-            </div>
+                <div class="loader-wrapper">
+                    <div class="loader">
+
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     <div class="footer">
-      <div class="footer-container">
-      </div>
+        <div class="footer-container">
+        </div>
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
