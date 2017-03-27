@@ -5,16 +5,13 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const passport = require('passport');
 const path = require('path');
-
 const {AWS_BUCKET} = require('../config');
 const {Uploads} = require('./uploadsModel');
-
-//initializing AWS Config
-AWS.config.loadFromPath(__dirname + '/config.json');
 
 const s3 = new AWS.S3({
   apiVersion: '2016-04-01',
 });
+
 // multer middleware to handle AWS upload with multer S3
 const upload = multer({
   storage: multerS3({
