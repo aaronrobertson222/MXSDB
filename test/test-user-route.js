@@ -22,7 +22,10 @@ function seedUserData() {
       username: faker.internet.userName(),
       password: faker.internet.password(),
       firstName: faker.name.firstName(),
-      lastName: faker.name.lastName()
+      lastName: faker.name.lastName(),
+      accountLevel: 'user',
+      joinedDate: Date.now(),
+      uploads: 0
     });
   }
   return User.insertMany(seedData);
