@@ -100,15 +100,15 @@ app.use('*', function(req, res) {
 //server startup and shutdown functions
 let server;
 
-function runServer() {
+function runServer(databaseUrl=DATABASE_URL, port=PORT) {
   return new Promise((res, rej) => {
-    mongoose.connect(DATABASE_URL, err => {
+    mongoose.connect(databaseUrl, err => {
       if (err) {
         return rej(err);
       }
-      console.log(`connected to ${DATABASE_URL}`);
-      server = app.listen(PORT, () => {
-        console.log(`App is listening on port ${PORT}`);
+      console.log(`connected to ${databaseUrl}`);
+      server = app.listen(port, () => {
+        console.log(`App is listening on port ${port}`);
         res();
       })
       .on('error', err => {
