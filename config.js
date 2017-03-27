@@ -11,7 +11,7 @@ exports.TEST_DATABASE_URL = (
 exports.PORT = process.env.PORT || 8080;
 
 //JWT secret and expiration time//
-exports.SECRET = process.env.SECRET;
+exports.SECRET = process.env.SECRET || 'secrettest';
 exports.EXPIRATIONTIME = process.env.EXPIRATIONTIME;
 
 //AWS s3 configuration keys//
