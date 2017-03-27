@@ -80,8 +80,7 @@ describe('User API Test', function() {
             res.body.should.include.keys('username', 'name', 'id', 'userLevel', 'uploads', 'joinedDate');
             res.body.id.should.not.be.null;
             res.body.username.should.equal(newUser.username);
-            res.body.firstName.should.equal(newUser.firstName);
-            res.body.lastName.should.equal(newUser.lastName);
+            res.body.name.should.equal(`${newUser.firstName} ${newUser.lastName}`);
             return User.findById(res.body.id).exec();
           })
           .then(function(user) {
