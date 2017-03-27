@@ -77,7 +77,7 @@ describe('User API Test', function() {
             res.should.have.status(201);
             res.should.be.json;
             res.body.should.be.a('object');
-            res.body.should.include.keys('username', 'firstName', 'lastName', 'id', 'password', 'userLevel', 'uploads', 'joinedDate');
+            res.body.should.include.keys('username', 'name', 'id', 'password', 'userLevel', 'uploads', 'joinedDate');
             res.body.id.should.not.be.null;
             res.body.username.should.equal(newUser.username);
             res.body.firstName.should.equal(newUser.firstName);
