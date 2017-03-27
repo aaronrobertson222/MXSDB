@@ -65,7 +65,10 @@ describe('User API Test', function() {
           username: faker.internet.userName(),
           password: faker.internet.password(),
           firstName: faker.name.firstName(),
-          lastName: faker.name.lastName()
+          lastName: faker.name.lastName(),
+          userLevel: 'user',
+          uploads: 0,
+          joinedDate: Date.now()
         };
         return chai.request(app)
           .post('/users')
