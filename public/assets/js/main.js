@@ -4,12 +4,14 @@
 // DOM MANIPULATION //
 function renderLoginOptions() {
   $('.login').css('display', 'inline-block');
+  $('.responsive-login').css('display', 'inline-block');
   $('.user-info').css('display', 'none');
 }
 
 function renderUserOptions(user) {
   $('.login').css('display', 'none');
   $('.user-options').css('display', 'inline-block');
+  $('.responsive-user-options').css('display', 'block');
   $('.user-name').text(user.username);
 }
 
@@ -19,6 +21,17 @@ function watchForLogout() {
     localStorage.removeItem('authToken');
     window.location.href = '/';
   });
+}
+
+function mobileMenuClick() {
+  $('.menu-button').click(function(event) {
+  if ($('.responsive-nav').is(':visible')) {
+    $('.responsive-nav').slideUp();
+  } else {
+      console.log('clicked');
+      $('.responsive-nav').slideDown();
+    }
+    });
 }
 
 // READY FUNCTION //
@@ -42,4 +55,5 @@ $.ajax({
 });
 //initializing event handlers//
 watchForLogout();
+mobileMenuClick();
 });

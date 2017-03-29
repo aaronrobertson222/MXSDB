@@ -3,28 +3,31 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="description" content="MX Simulator content sharing site">
+    <meta name="keywords" content="Mx Simulator, Skins, Models, Gear, Tracks">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MXSDB | Login</title>
-      <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
 <body id="form-page">
-  <div class="loader-wrapper">
-    <div class="loader"></div>
-  </div>
-    <div class="container">
-        <h1 class="form-page-title"><a href="/"><img src="assets/images/logo.png" alt="" class="logo-img"></a></h1>
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+    <div class="auth-container">
+        <h1><a href="/"><img src="assets/images/MXSDB.svg" alt="MXSDB" class="auth-logo-img"></a></h1>
         <div class="form-container">
             <h1 class="form-header">Login</h1>
             <form id="login-form">
                 <label for="username">Username</label>
                 <br>
-                <input type="text" name="username" class="form-input" id="username" placeholder="username">
+                <input type="text" name="username" class="form-input" id="username" placeholder="username" required="true">
                 <br>
                 <label for="password">Password</label>
                 <br>
-                <input type="password" name="password" class="form-input" id="password" placeholder="password">
+                <input type="password" name="password" class="form-input" id="password" placeholder="password" required="true">
                 <br>
                 <p id="form-error"></p>
                 <br>

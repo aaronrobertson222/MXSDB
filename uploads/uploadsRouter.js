@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const mongoosePaginate = require('mongoose-paginate');
 const passport = require('passport');
 const path = require('path');
 const {AWS_BUCKET} = require('../config');
@@ -64,63 +65,77 @@ router.post('/',
     });
 });
 
-router.get('/:filter', (req, res) => {
+const perPage = 9;
+router.post('/:filter', (req, res) => {
   if (req.params.filter === 'recent') {
+    const page = parseInt(req.body.currentPage);
     return Uploads
-              .find({})
-              .sort({'_id': -1})
-              .exec()
-              .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
-              });
+            .paginate({}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
+            .then(items => {
+              return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages})
+            })
+            .catch(err => {
+              console.log(err);
+            });
   }
+
   if (req.params.filter === 'popular') {
+    const page = parseInt(req.body.currentPage);
     return Uploads
-              .find({})
-              .sort({'downloadCount': -1})
-              .exec()
-              .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
-              });
+            .paginate({}, {page: page + 1, limit: perPage, sort: {'downloadCount': -1}})
+            .then(items => {
+              console.log(items);
+              return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+            })
+            .catch(err => {
+              console.log(err);
+            });
   }
 });
 
 //get items by type and filter
-router.get('/type/:type/:filter', (req, res) => {
+router.post('/type/:type/:filter', (req, res) => {
   //bikes
+  const page = parseInt(req.body.currentPage);
   if (req.params.type === 'bikes') {
     if (req.params.filter === 'recent') {
       return Uploads
-                .find({itemType: 'bike'})
-                .sort({'_id': -1})
-                .exec()
+                .paginate({itemType: 'bike'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
                 .then(items => {
-                  return res.status(200).json(items.map((item) => item.apiRepr()));
+                  return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+                })
+                .catch(err => {
+                  console.log(err);
                 });
     }
     if (req.params.filter === 'popular') {
       return Uploads
-                .find({itemType: 'bike'})
-                .sort({'downloadCount': -1})
-                .exec()
+                .paginate({itemType: 'bike'}, {page: page + 1, limit: perPage, sort: {'downloadCount': -1}})
                 .then(items => {
-                  return res.status(200).json(items.map((item) => item.apiRepr()));
+                  return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+                })
+                .catch(err => {
+                  console.log(err);
                 });
     }
     if (req.params.filter === 'skin') {
       return Uploads
-                .find({itemType: 'bike', category: 'skin'})
-                .exec()
+                .paginate({itemType: 'bike', category: 'skin'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
                 .then(items => {
-                  return res.status(200).json(items.map((item) => item.apiRepr()));
+                  return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+                })
+                .catch(err => {
+                  console.log(err);
                 });
     }
     if (req.params.filter === 'model') {
       return Uploads
-                .find({itemType: 'bike', category: 'model'})
-                .exec()
+                .paginate({itemType: 'bike', category: 'model'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
                 .then(items => {
-                  return res.status(200).json(items.map((item) => item.apiRepr()));
+                  return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+                })
+                .catch(err => {
+                  console.log(err);
                 });
     }
 }
@@ -128,52 +143,62 @@ router.get('/type/:type/:filter', (req, res) => {
 if (req.params.type === 'tracks') {
   if (req.params.filter === 'recent') {
     return Uploads
-              .find({itemType: 'track'})
-              .sort({'_id': -1})
-              .exec()
+              .paginate({itemType: 'track'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
   if (req.params.filter === 'popular') {
     return Uploads
-              .find({itemType: 'track'})
-              .sort({'downloadCount': -1})
-              .exec()
+              .paginate({itemType: 'track'}, {page: page + 1, limit: perPage, sort: {'downloadCount': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
   if (req.params.filter === 'arenacross') {
     return Uploads
-              .find({itemType: 'track', category: 'arenacross'})
-              .exec()
+              .paginate({itemType: 'track', category: 'arenacross'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
   if (req.params.filter === 'supercross') {
     return Uploads
-              .find({itemType: 'track', category: 'supercross'})
-              .exec()
+              .paginate({itemType: 'track', category: 'supercross'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
   if (req.params.filter === 'motocross') {
     return Uploads
-              .find({itemType: 'track', category: 'motocross'})
-              .exec()
+              .paginate({itemType: 'track', category: 'motocross'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
   if (req.params.filter === 'enduro') {
     return Uploads
-              .find({itemType: 'track', category: 'enduro'})
-              .exec()
+              .paginate({itemType: 'track', category: 'enduro'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
 }
@@ -181,36 +206,42 @@ if (req.params.type === 'tracks') {
 if (req.params.type === 'gear') {
   if (req.params.filter === 'recent') {
     return Uploads
-              .find({itemType: 'gear'})
-              .sort({'_id': -1})
-              .exec()
+              .paginate({itemType: 'gear'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
   if (req.params.filter === 'popular') {
     return Uploads
-              .find({itemType: 'gear'})
-              .sort({'downloadCount': -1})
-              .exec()
+              .paginate({itemType: 'track'}, {page: page + 1, limit: perPage, sort: {'downloadCount': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
   if (req.params.filter === 'skin') {
     return Uploads
-              .find({itemType: 'gear', category: 'skin'})
-              .exec()
+              .paginate({itemType: 'track', category: 'skin'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
   if (req.params.filter === 'model') {
     return Uploads
-              .find({itemType: 'gear', category: 'model'})
-              .exec()
+              .paginate({itemType: 'track', category: 'model'}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
               .then(items => {
-                return res.status(200).json(items.map((item) => item.apiRepr()));
+                return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
+              })
+              .catch(err => {
+                console.log(err);
               });
   }
 }
@@ -263,15 +294,15 @@ router.get('/id/:id/downloadCount', (req, res) => {
             });
 });
 
-router.get('/by/user/:user', (req, res) => {
+router.post('/by/user/:user', (req, res) => {
+  const page = parseInt(req.body.currentPage);
   return Uploads
-            .find({'creator': req.params.user})
-            .exec()
+            .paginate({'creator': req.params.user}, {page: page + 1, limit: perPage, sort: {'_id': -1}})
             .then(items => {
-              return res.status(200).json(items.map((item) => item.apiRepr()));
+              return res.status(200).json({items: items.docs.map((item) => item.apiRepr()), page: items.page, pages: items.pages});
             })
             .catch(err => {
-              return console.log(err);
+              console.log(err);
             });
 });
 

@@ -55,10 +55,6 @@ describe('User API Test', function() {
     return closeServer();
   });
 
-  describe('GET Endpoint', function() {
-
-  });
-
   describe('POST ENDPOINT', function() {
     it('should add a new user to the database', function() {
         const newUser = {

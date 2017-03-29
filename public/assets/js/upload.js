@@ -1,3 +1,18 @@
+function incrementUsersUploads() {
+  $.ajax({
+    type: 'GET',
+    url: '/users/downloadCount',
+    headers: {
+      'Authorization': localStorage.getItem('authToken')
+    }
+  })
+  .done(function() {
+    console.log('success');
+  })
+  .fail(function(err) {
+    console.log(err);
+  });
+}
 function uploadData(data) {
     /*var xhr = new XMLHttpRequest();
     xhr.open('post', '/uploads', true);
@@ -34,6 +49,7 @@ function uploadData(data) {
          cache: false,
          timeout: 600000,
          success: function(data) {
+           incrementUsersUploads();
            window.location.href = '/uploads/id/' + data.item._id;
          },
          error: function(err) {
@@ -62,7 +78,7 @@ function formSubmit() {
         event.preventDefault();
         var form = $(this)[0];
         var data = new FormData(this);
-        $('.content').html('<div class="loader-wrapper"><div class="loader"></div><h1>Uploading...</h1></div>');
+        $('body').html('<div class="loader-wrapper"><div class="loader"></div><h1>Uploading...</h1></div>');
         uploadData(data);
     });
 }

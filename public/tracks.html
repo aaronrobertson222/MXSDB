@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="description" content="MX Simulator content sharing site">
+    <meta name="keywords" content="Mx Simulator, Skins, Models, Gear, Tracks">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MXSDB | Tracks</title>
     <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -10,10 +13,26 @@
 </head>
 
 <body>
+  <div class="responsive-menubar">
+    <div class="responsive-menubar-container">
+        <div class="responsive-logo logo">
+            <h1><a href="/"><img src="assets/images/MXSDB.svg" alt="MXSDB" class="logo-img"></a></h1>
+        </div>
+        <button type="button" name="button" class="menu-button">MENU</button>
+        <div class="responsive-nav">
+          <ul class="responsive-nav-items">
+            <li><a href="/bikes">Bikes</a></li>
+            <li><a href="/gear">Gear</a></li>
+            <li><a href="/tracks">Tracks</a></li>
+            <li><a class="upload-button" href="/upload">Upload</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
     <div class="menubar">
         <div class="menubar-container">
             <div class="logo">
-                <h1><a href="/"><img src="assets/images/logo.png" alt="" class="logo-img"></a></h1>
+                <h1><a href="/"><img src="assets/images/MXSDB.svg" alt="MXSDB" class="logo-img"></a></h1>
             </div>
             <div class="nav">
                 <ul class="nav-items">
@@ -59,10 +78,15 @@
                     </div>
                 </div>
             </div>
+            <div class="page-nav">
+                <button type="button" class="prevPageBtn" name="button">Prev page</button>
+                <button type="button" class="nextPageBtn" name="button">Next page</button>
+            </div>
         </div>
     </div>
     <div class="footer">
         <div class="footer-container">
+            <p>MXS DB © 2017</p>
         </div>
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

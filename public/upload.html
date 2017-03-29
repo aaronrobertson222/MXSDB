@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="description" content="MX Simulator content sharing site">
+    <meta name="keywords" content="Mx Simulator, Skins, Models, Gear, Tracks">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MXSDB | Upload</title>
     <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -15,10 +18,26 @@
         <div class="loader"></div>
     </div>
     <!-- MENUBAR -->
+    <div class="responsive-menubar">
+      <div class="responsive-menubar-container">
+          <div class="responsive-logo logo">
+              <h1><a href="/"><img src="assets/images/MXSDB.svg" alt="MXSDB" class="logo-img"></a></h1>
+          </div>
+          <button type="button" name="button" class="menu-button">MENU</button>
+          <div class="responsive-nav">
+            <ul class="responsive-nav-items">
+              <li><a href="/bikes">Bikes</a></li>
+              <li><a href="/gear">Gear</a></li>
+              <li><a href="/tracks">Tracks</a></li>
+              <li><a class="upload-button" href="/upload">Upload</a></li>
+            </ul>
+          </div>
+        </div>
+    </div>
     <div class="menubar">
         <div class="menubar-container">
             <div class="logo">
-                <h1><a href="/"><img src="assets/images/logo.png" alt="" class="logo-img"></a></h1>
+                <h1><a href="/"><img src="assets/images/MXSDB.svg" alt="MXSDB" class="logo-img"></a></h1>
             </div>
             <div class="nav">
                 <ul class="nav-items">
@@ -67,11 +86,11 @@
                         <br>
                         <label for="itemFile">Track File:</label>
                         <br>
-                        <input class="upload-file-input" type="file" name="itemFile" required="true">
+                        <input class="upload-file-input" type="file" name="itemFile" required="true" accept=".rar">
                         <br>
                         <label for="imgFile">Preview Image:</label>
                         <br>
-                        <input class="upload-file-input" type="file" name="imgFile" required="true">
+                        <input class="upload-file-input" type="file" name="imgFile" required="true" accept=".png,.jpg,.gif">
                         <br>
                         <button type="submit" name="upload-submit-button" class="upload-submit-button">Upload Track!</button>
                     </form>
@@ -121,7 +140,7 @@
                 </div>
                 <div class="upload-form-wrapper">
                     <form class="upload-form">
-                      <input type="hidden" name="itemType" value="gear">
+                        <input type="hidden" name="itemType" value="gear">
                         <label for="itemName">Gear Title:</label>
                         <br>
                         <input type="text" name="itemName" class="upload-form-input" placeholder="example" required="true">
@@ -152,7 +171,9 @@
         </div>
     </div>
     <div class="footer">
-
+      <div class="footer-container">
+        <p>MXS DB © 2017</p>
+      </div>
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>

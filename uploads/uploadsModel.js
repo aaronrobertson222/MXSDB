@@ -1,5 +1,6 @@
 const moment = require('moment');
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 mongoose.Promise = global.Promise;
 
@@ -27,6 +28,8 @@ const UploadSchema = new mongoose.Schema({
   imgKey: {type: String, required: true},
   imgLocation: {type: String, required: true}
 });
+
+UploadSchema.plugin(mongoosePaginate);
 
 UploadSchema.methods.apiRepr = function() {
   return {

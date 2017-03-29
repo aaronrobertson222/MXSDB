@@ -1,3 +1,6 @@
+var page = 0;
+var filter = $('.filter-select').val();
+
 function capitalizeFirstLetter(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
@@ -20,8 +23,8 @@ var itemTemplate =
 '</div>';
 
 //DOM RENDERERS
-function renderCards(data) {
-  var elements = data.map(function(item) {
+function renderCards(items) {
+  var elements = items.map(function(item) {
     var elementTemplate = $(itemTemplate);
     elementTemplate.find('.item-url').attr('href', '/uploads/id/' + item.id);
     elementTemplate.find('.item-img').attr('src', item.imgLocation);
@@ -29,22 +32,42 @@ function renderCards(data) {
     elementTemplate.find('.item-title').text(item.name);
     elementTemplate.find('.item-creator').html('By <a href="#">' + item.creator + '</a>');
     elementTemplate.find('.item-downloads').text(item.downloadCount + ' Downloads');
-    elementTemplate.find('.item-description').html('Type - ' + capitalizeFirstLetter(item.itemType) + ' ' + capitalizeFirstLetter(item.category));
+    elementTemplate.find('.item-description').html(capitalizeFirstLetter(item.itemType) + ' - ' + capitalizeFirstLetter(item.category));
     return elementTemplate;
   });
   $('.results').html('');
   $('.results').append(elements);
 }
 
+function renderNavButtons(page, pages) {
+  $('.nextPageBtn').hide();
+  $('.prevPageBtn').hide();
+  if (page < pages) {
+    $('.nextPageBtn').css('display', 'inline-block');
+    if (page > 1) {
+      $('.prevPageBtn').css('display', 'inline-block');
+    }
+  }
+  if (page === pages) {
+    $('.nextPageBtn').hide();
+    if (page > 1) {
+      $('.prevPageBtn').css('display', 'inline-block');
+    }
+  }
+}
+
 //REQUESTS
 function getUploads(filter) {
   $.ajax({
-    type: 'GET',
+    type: 'POST',
     url: '/uploads/' + filter,
     dataType: 'json',
+    data: {currentPage: page}
   })
   .done(function(data){
-    renderCards(data);
+    page = data.page;
+    renderCards(data.items);
+    renderNavButtons(parseInt(data.page), parseInt(data.pages));
   })
   .fail(function(err) {
     window.location.href = "/error.html";
@@ -55,13 +78,30 @@ function getUploads(filter) {
 function filterUpdate() {
   $('.filter-select').on('change', function() {
     $('.results').html('');
+    page = 0;
+    filter = $(this).val();
     getUploads($(this).val());
   });
 }
+
+function nextPage() {
+  $('.nextPageBtn').click(function(event) {
+      getUploads(filter);
+  });
+}
+
+function prevPage() {
+    $('.prevPageBtn').click(function(event) {
+      page = page - 2;
+      getUploads(filter);
+    });
+  }
 
 $(function() {
   getUploads($('.filter-select').val());
 
   //initialzing event Handlers
   filterUpdate();
+  nextPage();
+  prevPage();
 });

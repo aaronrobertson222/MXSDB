@@ -59,6 +59,7 @@ function renderItem(item) {
   element.find('#item-upload-date').text(item.uploadDate);
   element.find('#item-download-count').text('Total Downloads: ' + item.downloadCount);
   element.find('#item-description').text(item.description);
+  $('title').text('MXS DB | ' + item.name);
   $('.container').append(element);
 }
 

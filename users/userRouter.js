@@ -74,6 +74,20 @@ router.post('/', (req, res) => {
     });
 });
 
+router.get('/downloadCount',
+    passport.authenticate('jwt', {session: false}), (req, res) => {
+      return Users
+              .findOneAndUpdate({'_id': req.user._id}, {$inc: {'uploads': 1}})
+              .exec()
+              .then(item => {
+                return res.status(200).json({message: 'success'});
+              })
+              .catch(err => {
+                return console.log(err);
+              });
+
+    });
+
 require('../passport')(passport);
 
 // route used to verify user has valid JWT

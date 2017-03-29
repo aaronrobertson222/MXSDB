@@ -1,3 +1,5 @@
+var page = 0;
+
 function capitalizeFirstLetter(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
@@ -27,8 +29,8 @@ function renderProfile(user) {
   $('.user-level').text('User Level: ' + user.userLevel);
 }
 
-function renderCards(data) {
-  var elements = data.map(function(item) {
+function renderCards(items) {
+  var elements = items.map(function(item) {
     var elementTemplate = $(itemTemplate);
     elementTemplate.find('.item-url').attr('href', '/uploads/id/' + item.id);
     elementTemplate.find('.item-img').attr('src', item.imgLocation);
@@ -36,26 +38,59 @@ function renderCards(data) {
     elementTemplate.find('.item-title').text(item.name);
     elementTemplate.find('.item-creator').html('By <a href="#">' + item.creator + '</a>');
     elementTemplate.find('.item-downloads').text(item.downloadCount + ' Downloads');
-    elementTemplate.find('.item-description').html('Type - ' + capitalizeFirstLetter(item.itemType) + ' ' + capitalizeFirstLetter(item.category));
+    elementTemplate.find('.item-description').html(capitalizeFirstLetter(item.itemType) + ' - ' + capitalizeFirstLetter(item.category));
     return elementTemplate;
   });
   $('.results').html('');
   $('.results').append(elements);
 }
 
+function renderNavButtons(page, pages) {
+  $('.nextPageBtn').hide();
+  $('.prevPageBtn').hide();
+  if (page < pages) {
+    $('.nextPageBtn').css('display', 'inline-block');
+    if (page > 1) {
+      $('.prevPageBtn').css('display', 'inline-block');
+    }
+  }
+  if (page === pages) {
+    $('.nextPageBtn').hide();
+    if (page > 1) {
+      $('.prevPageBtn').css('display', 'inline-block');
+    }
+  }
+}
+
 function getUsersUploads(user) {
   $.ajax({
-    type: 'GET',
+    type: 'POST',
     url: '/uploads/by/user/' + user.username,
     dataType: 'json',
+    data:  {currentPage: page}
   }).
   done(function(data) {
-    renderCards(data);
+    page = data.page;
+    renderCards(data.items);
+    renderNavButtons(parseInt(data.page), parseInt(data.pages));
   })
   .fail(function(err) {
     window.location.href = "/error.html";
   });
 }
+
+function nextPage() {
+  $('.nextPageBtn').click(function(event) {
+      getUploads(filter);
+  });
+}
+
+function prevPage() {
+    $('.prevPageBtn').click(function(event) {
+      page = page - 2;
+      getUploads(filter);
+    });
+  }
 
 $(function() {
   $.ajax({
@@ -76,4 +111,7 @@ $(function() {
   .fail(function(err) {
     window.location.href = '/login';
   });
+
+  nextPage();
+  prevPage();
 });
