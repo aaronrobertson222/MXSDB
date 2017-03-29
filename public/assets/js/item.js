@@ -75,4 +75,6 @@ $(function() {
   itemID = itemID.substring(12);
   requestItemInfo(itemID);
   watchForDownload();
+
+  $('logo-img').attr('src', 'localhost:8080/public/assets/images/MXSDB.svg');
 });
