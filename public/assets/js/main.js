@@ -6,10 +6,12 @@ function renderLoginOptions() {
   $('.login').css('display', 'inline-block');
   $('.responsive-login').css('display', 'inline-block');
   $('.user-info').css('display', 'none');
+  $
 }
 
 function renderUserOptions(user) {
   $('.login').css('display', 'none');
+  $('.responsive-login-option').css('display', 'none');
   $('.user-options').css('display', 'inline-block');
   $('.responsive-user-options').css('display', 'block');
   $('.user-name').text(user.username);

@@ -33,6 +33,7 @@ body {
   display: inline-block;
   position: absolute;
   right: 10px;
+  margin-bottom: 0px;
 }
 
 .filter-text {
@@ -717,6 +718,8 @@ button:hover {
     right: 10px;
     bottom: 0;
     margin-bottom: 5px;
+    border: none;
+    background: transparent;
   }
 
   .responsive-nav {
@@ -727,15 +730,21 @@ button:hover {
     padding: 0;
     z-index: 20;
     background: #333333;
+    text-align: center;
+    left: 0;
+    right: 0;
   }
 
   .responsive-nav-items {
     list-style: none;
     margin-bottom: 20px;
+    padding-left: 0;
   }
 
   .responsive-nav-items > li{
-    margin-bottom: 20px;
+    margin: 20px 10px 0 10px;
+    background: #3d3d3d;
+    padding: 10px 0 10px 0;
   }
 
   .responsive-nav-items > li > a {
