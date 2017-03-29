@@ -185,9 +185,14 @@ body {
 }
 
 .auth-logo-img {
-  width: 30%;
+  width: 100%;
   margin: 30px auto;
   display: table;
+}
+
+.auth-logo-wrapper {
+  margin: auto;
+  width: 300px;
 }
 
 .nav {
