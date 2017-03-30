@@ -6,17 +6,16 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+
 const {router: usersRouter, User} = require('./users');
 const {router: uploadsRouter} = require('./uploads');
 const {PORT, DATABASE_URL, SECRET, EXPIRATIONTIME} = require('./config');
 
 mongoose.Promise = global.Promise;
-
-const app = express();
-
-app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 //serve static assets
 app.use(express.static(__dirname + '/public'));

@@ -1,13 +1,10 @@
 const {BasicStrategy} = require('passport-http');
 const express = require('express');
-const bodyParser = require('body-parser');
 const passport = require('passport');
 const {User} = require('./userModel');
 const jwt = require('jsonwebtoken');
 
 const router = express.Router();
-
-router.use(bodyParser.json());
 
 //POST route to create a new user
 router.post('/', (req, res) => {

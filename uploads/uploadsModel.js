@@ -20,13 +20,35 @@ const UploadSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  uploadDate: {type: Date, required: true},
-  downloadCount: {type: Number, required: true, default: 0},
-  description: {type: String, default: 'No Description'},
-  fileKey: {type: String, required: true},
-  fileLocation: {type: String, required: true},
-  imgKey: {type: String, required: true},
-  imgLocation: {type: String, required: true}
+  uploadDate: {
+    type: Date,
+    required: true
+  },
+  downloadCount: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  description: {
+    type: String,
+    default: 'No Description'
+  },
+  fileKey: {
+    type: String,
+    required: true
+  },
+  fileLocation: {
+    type: String,
+    required: true
+  },
+  imgKey: {
+    type: String,
+    required: true
+  },
+  imgLocation: {
+    type: String,
+    required: true
+   }
 });
 
 UploadSchema.plugin(mongoosePaginate);
