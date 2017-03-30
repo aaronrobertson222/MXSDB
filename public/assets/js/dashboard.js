@@ -25,7 +25,7 @@ function renderProfile(user) {
   $('.username').text(user.username);
   $('.users-name').text(user.name);
   $('.joined-date').text('Member Since: ' + user.joinedDate);
-  $('.upload-count').text('Uploads: ' + user.uploads);
+  //$('.upload-count').text('Uploads: ' + user.uploads);
   $('.user-level').text('User Level: ' + user.userLevel);
 }
 
