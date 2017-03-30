@@ -1,19 +1,15 @@
-// UTILITY FUNCTIONS //
-
-
 // DOM MANIPULATION //
 function renderLoginOptions() {
   $('.login').css('display', 'inline-block');
   $('.responsive-login').css('display', 'inline-block');
   $('.user-info').css('display', 'none');
-  $
 }
 
 function renderUserOptions(user) {
   $('.login').css('display', 'none');
-  $('.responsive-login-option').css('display', 'none');
+  $('.responsive-login-option').hide();
   $('.user-options').css('display', 'inline-block');
-  $('.responsive-user-options').css('display', 'block');
+  $('.responsive-user-option').css('display', 'block');
   $('.user-name').text(user.username);
 }
 
@@ -30,7 +26,6 @@ function mobileMenuClick() {
   if ($('.responsive-nav').is(':visible')) {
     $('.responsive-nav').slideUp();
   } else {
-      console.log('clicked');
       $('.responsive-nav').slideDown();
     }
     });
