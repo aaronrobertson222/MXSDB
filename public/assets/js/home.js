@@ -22,7 +22,7 @@ var itemTemplate =
     '</a>' +
 '</div>';
 
-//DOM RENDERERS
+//DOM RENDERERS//
 function renderCards(items) {
   var elements = items.map(function(item) {
     var elementTemplate = $(itemTemplate);
