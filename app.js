@@ -1,28 +1,28 @@
 const {BasicStrategy} = require('passport-http');
 const bodyParser = require('body-parser');
 const express = require('express');
+const favicon = require('serve-favicon');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
+app.use(express.static(__dirname + '/public'));
+app.use(favicon(path.join(__dirname, 'public', 'assets', 'images', 'favicon.ico')));
 const {router: usersRouter, User} = require('./users');
 const {router: uploadsRouter} = require('./uploads');
 const {PORT, DATABASE_URL, SECRET, EXPIRATIONTIME} = require('./config');
 
 mongoose.Promise = global.Promise;
 
-//serve static assets
-app.use(express.static(__dirname + '/public'));
-
 app.use(passport.initialize());
 require('./passport')(passport);
-
 
 // login authentication route
 app.post('/login', (req, res) => {

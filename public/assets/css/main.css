@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 body {
     margin: 0;
     padding: 0;
@@ -163,6 +166,15 @@ body {
     width: 100%;
 }
 
+.header-container {
+  width: 250px;
+  margin-right: 0px;
+  display: inline-block;
+}
+.menu-button {
+  display: none;
+}
+
 .logo {
     display: inline-block;
     color: #E8E8E8;
@@ -225,7 +237,7 @@ body {
 }
 
 .upload-btn {
-  display: none;
+  display: inline-block;
 }
 
 .login, .user-options {
@@ -233,15 +245,22 @@ body {
     position: absolute;
     right: 5px;
     bottom: 0;
+    margin: 0 0 5px 0;
+    list-style: none;
 }
 
 .login-option, .user-option {
     display: inline-block;
     color: #E8E8E8;
     margin-right: 10px;
+    height: auto;
 }
 
-.login-option:hover, .user-option:hover {
+.login-option > a, .user-option > a {
+  color: #E8E8E8;
+}
+
+.login-option > a:hover, .user-option > a:hover {
   color: #FE4444;
 }
 
@@ -679,6 +698,112 @@ button:hover {
     margin: 100px auto 0 auto;
     padding: 0 10px 100px 10px;
   }
+
+  .menubar-container {
+    width: 100%;
+    position: relative;
+  }
+
+  .header-container {
+    width: 100%;
+    position: relative;
+    padding-left: 10px;
+  }
+
+  .logo {
+      display: inline-block;
+  }
+
+  .menu-button {
+    display: inline-block;
+    color: #E3E3E3;
+    position: absolute;
+    right: 10px;
+    margin-bottom: 5px;
+    border: none;
+    bottom: 0;
+    background: transparent;
+    z-index: 30;
+  }
+
+  .nav {
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    z-index: 20;
+    background: #333333;
+    text-align: center;
+    left: 0;
+    right: 0;
+    font-size: 25px;
+  }
+
+  .nav-items > li,
+  .login > li,
+  .user-options > li {
+    height: auto;
+    background: #4c4b4b;
+
+  }
+
+  .nav-menu-links {
+    display: block;
+    width: 100%;
+  }
+
+  .nav-items {
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-items > li {
+    display: block;
+    margin: 25px 0 25px 0;
+  }
+
+  .login,
+  .user-options {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding-left: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .login > li,
+  .user-options > li {
+    display: block;
+    margin: 25px 0 25px 0;
+    height: 34px;
+  }
+
+  .upload-btn {
+    display: block;
+  }
+
+  .footer-container {
+    width: 100%;
+  }
+
+  .item-wrapper {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .l
+}
+
+
+/********************* Old media queries
+@media only screen and (max-width: 700px) {
+  .container {
+    width: 100%;
+    margin: 100px auto 0 auto;
+    padding: 0 10px 100px 10px;
+  }
   .menubar-container {
     width: 100%;
     padding: 0 10px 0 10px;
@@ -766,3 +891,4 @@ button:hover {
   }
 
 }
+*/

@@ -16,53 +16,41 @@
     <div class="loader-wrapper">
         <div class="loader"></div>
     </div>
-    <div class="responsive-menubar">
-      <div class="responsive-menubar-container">
-          <div class="responsive-logo logo">
-              <h1><a href="/"><img src="assets/images/MXSDB.svg" alt="MXSDB" class="logo-img"></a></h1>
-          </div>
-          <button type="button" name="button" class="menu-button">MENU</button>
-          <div class="responsive-nav">
-            <ul class="responsive-nav-items">
-              <li><a href="/bikes">Bikes</a></li>
-              <li><a href="/gear">Gear</a></li>
-              <li><a href="/tracks">Tracks</a></li>
-              <li><a class="upload-button" href="/upload">Upload</a></li>
-              <li class="responsive-login-option">
-                <a href="/login" class="responsive-login-option">
-                    <p>Login</p>
-                </a>
-              </li>
-              <li class="responsive-login-option">
-                <a href="/signup" class="responsive-login-option">
-                    <p>Sign Up</p>
-                </a>
-              </li>
-              <li class="responsive-user-option user-info">
-                <a class="user-name"></a>
-              </li>
-              <li class="responsive-user-option user-info log-out">
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-    </div>
     <div class="menubar">
         <div class="menubar-container">
+          <div class="header-container">
             <div class="logo">
                 <h1><a href="/"><img src="assets/images/MXSDB.svg" alt="MXSDB" class="logo-img"></a></h1>
             </div>
+            <button type="button" name="button" class="menu-button">MENU</button>
+          </div>
             <div class="nav">
                 <ul class="nav-items">
-                    <li class="nav-item"><a href="/bikes">Bikes</a></li>
-                    <li class="nav-item"><a href="/gear">Gear</a></li>
-                    <li class="nav-item"><a href="/tracks">Tracks</a></li>
+                    <li class="nav-item"><a href="/bikes" class="nav-menu-links">Bikes</a></li>
+                    <li class="nav-item"><a href="/gear" class="nav-menu-links">Gear</a></li>
+                    <li class="nav-item"><a href="/tracks" class="nav-menu-links">Tracks</a></li>
+                    <li class="nav-item upload-btn"><a href="/upload" class="nav-menu-links">Upload</a></li>
                 </ul>
-            </div>
-            <div class="user-options">
-                <a href="/dashboard.html" class="user-option user-name"></a>
-                <a class='user-option log-out'>Logout</a>
+                <ul class="login">
+                    <li class="login-option">
+                        <a href="/login" class="nav-menu-links">
+                            <p>Login</p>
+                        </a>
+                    </li>
+                    <li class="login-option">
+                        <a href="/signup" class="nav-menu-links">
+                            <p>Sign Up</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="user-options">
+                    <li class="user-option">
+                        <a href="/dashboard.html" class="user-name nav-menu-links"></a>
+                    </li>
+                    <li class="user-option">
+                        <a class="log-out nav-menu-links">Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

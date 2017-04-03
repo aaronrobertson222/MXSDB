@@ -1,15 +1,17 @@
 // DOM MANIPULATION //
 function renderLoginOptions() {
-  $('.login').css('display', 'inline-block');
-  $('.responsive-login').css('display', 'inline-block');
-  $('.user-info').css('display', 'none');
+  $('.login').show();
+  $('.responsive-login').show();
+  $('.user-info').hide();
+  $('.user-option').hide();
+  $('.log-out').hide();
 }
 
 function renderUserOptions(user) {
-  $('.login').css('display', 'none');
+  $('.login').hide();
   $('.responsive-login-option').hide();
-  $('.user-options').css('display', 'inline-block');
-  $('.responsive-user-option').css('display', 'block');
+  $('.user-options').show();
+  $('.responsive-user-option').show();
   $('.user-name').text(user.username);
 }
 
@@ -23,16 +25,19 @@ function watchForLogout() {
 
 function mobileMenuClick() {
   $('.menu-button').click(function(event) {
-  if ($('.responsive-nav').is(':visible')) {
-    $('.responsive-nav').slideUp();
+  if ($('.nav').is(':visible')) {
+    $('.nav').slideUp();
   } else {
-      $('.responsive-nav').slideDown();
+      $('.nav').slideDown();
     }
     });
 }
 
 // READY FUNCTION //
 $(function() {
+  if ($('.menu-button').is(':visible')) {
+    $('.nav').hide();
+  }
 $.ajax({
   type: 'GET',
   url: '/users/me',
@@ -44,9 +49,10 @@ $.ajax({
 })
 .done(function(data) {
   renderUserOptions(data.user);
-  $('.upload-btn').css('display', 'inline-block');
+  $('.upload-btn').show();
 })
 .fail(function(err) {
+  $('.upload-btn').hide();
   localStorage.clear();
   renderLoginOptions();
 });

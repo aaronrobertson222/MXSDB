@@ -25,7 +25,8 @@
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-jwt": "^2.2.1",
-    "s3": "^4.4.0"
+    "s3": "^4.4.0",
+    "serve-favicon": "^2.4.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
