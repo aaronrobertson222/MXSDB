@@ -54,12 +54,14 @@ $.ajax({
   renderUserOptions(data.user);
   loggedIn = true;
   $('.upload-btn').show();
+  $('.loader-wrapper').hide();
 })
 .fail(function(err) {
   loggedIn = false;
   $('.upload-btn').hide();
   localStorage.clear();
   renderLoginOptions();
+  $('.loader-wrapper').hide();
 });
 
 $(window).resize(function() {

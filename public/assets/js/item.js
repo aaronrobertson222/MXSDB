@@ -39,7 +39,7 @@ var itemPageTemplate =
                 '<button class="download-button" type="submit" name="button">Download</button>' +
               '</form>' +
           '</div>' +
-          '<h3 id="item-creator"></h2>' +
+          '<h3 id="item-creator">By </h2>' +
           '<h3 id="item-upload-date"></h3>' +
           '<h3 id="item-download-count"></h3>' +
           '<h3 id="description-header">Description</h3>' +
@@ -55,7 +55,7 @@ function renderItem(item) {
   element.find('#preview-img').attr('alt', item.name + '-preivew');
   element.find('#item-name').text(item.name);
   element.find('#download-form').attr('action', item.fileLocation);
-  element.find('#item-creator').html('By <a href="#">' + item.creator + '</a>');
+  element.find('#item-creator').append('<p class="item-creator-name">' + item.creator + '</p>');
   element.find('#item-upload-date').text(item.uploadDate);
   element.find('#item-download-count').text('Total Downloads: ' + item.downloadCount);
   element.find('#item-description').text(item.description);

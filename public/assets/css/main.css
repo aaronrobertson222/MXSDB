@@ -116,6 +116,14 @@ body {
 
 .item-creator {
   margin: 5px 0 5px 0;
+  display: inline-block;
+  font-size: 1.2em;
+}
+
+.item-creator-name {
+  color: #fE4444;
+  display: inline-block;
+  margin: 0;
 }
 
 .item-description {
@@ -160,7 +168,7 @@ body {
     vertical-align: middle;
     background: #333333;
     position: fixed;
-    z-index: 9999;
+    z-index: 50;
     top: 0;
     left: 0;
     width: 100%;
@@ -621,8 +629,8 @@ button:hover {
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
-  z-index: 20;
+  height: 100vh;
+  z-index: 100;
   background: #E8E8E8;
 }
 

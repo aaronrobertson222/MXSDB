@@ -13,7 +13,7 @@ var itemTemplate =
         '</div>' +
         '<div class="item-info">' +
             '<h2 class="item-title"></h2>' +
-            '<p class="item-creator"></p>' +
+            '<p class="item-creator">By </p>' +
             '<p class="item-downloads"></p>' +
             '<p class="item-description"></p>' +
         '</div>' +
@@ -36,7 +36,7 @@ function renderCards(items) {
     elementTemplate.find('.item-img').attr('src', item.imgLocation);
     elementTemplate.find('.item-img').attr('alt', item.name);
     elementTemplate.find('.item-title').text(item.name);
-    elementTemplate.find('.item-creator').html('By <a href="#">' + item.creator + '</a>');
+    elementTemplate.find('.item-creator').html('<p class="item-creator-name">' + item.creator + '</p>');
     elementTemplate.find('.item-downloads').text(item.downloadCount + ' Downloads');
     elementTemplate.find('.item-description').html(capitalizeFirstLetter(item.itemType) + ' - ' + capitalizeFirstLetter(item.category));
     return elementTemplate;
