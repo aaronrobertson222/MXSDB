@@ -63,18 +63,11 @@ $.ajax({
 });
 
 $(window).resize(function() {
-  if ($('.menu-button').is(':hidden')) {
-    $('.nav').show();
-    location.reload();
-  } else if ($('.menu-button').is(':visible')) {
-    if (loggedIn === false) {
-      $('.user-options').hide();
-      $('.login').show();
-    } else {
-      $('.user-options').hide();
-      $('.login').show();
-    }
+  if ($('.menu-button').is(':visible')) {
     $('.nav').hide();
+  } else if ($('.menu-button').is(':hidden')) {
+    $('.nav').show();
+    $('.user-nav').show();
   }
 });
 //initializing event handlers//
