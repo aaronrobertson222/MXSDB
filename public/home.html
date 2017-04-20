@@ -6,10 +6,9 @@
     <meta name="description" content="MX Simulator content sharing site">
     <meta name="keywords" content="Mx Simulator, Skins, Models, Gear, Tracks">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MXSDB | Welcome</title>
-    <link href="https://fonts.googleapis.com/css?family=Coda|Raleway" rel="stylesheet">
+    <title>MXSDB | Home</title>
+    <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
@@ -59,40 +58,25 @@
             </div>
         </div>
     </div>
-    <div class="image-container">
-      <div class="title">
-        <img class="cover-logo" src="assets/images/MXSDB.svg" alt="cover logo">
-        <h1 class="text">Create. &nbsp; Upload. &nbsp; <span class="red">   Share.<span></h1>
-      </div>
-      <div id="see-more">
-        <p>Scroll Down</p>
-        <i class="fa fa-angle-double-down arrow-down" aria-hidden="true"></i>
-      </div>
-    </div>
-    <div class="landing-container">
-      <div class="landing-content">
-          <section>
-            <h2 class="header-section">A BETTER WAY TO SHARE CONTENT.</h2>
-            <p class="paragraph-section">MX Simulator is an online motocross video game with thousands of active players and hundreds of content creators.
-              MXS DB is an app to serve not only content creators but also players.
-             </p>
-          </section>
-          <section>
-            <h2 class="header-section">BROWSE CONTENT WITH EASE.</h2>
-            <img  class="section-image" src="assets/images/homepage.png" alt="browse image">
-            <p class="paragraph-section">MXS DB provides MX Simulator players with a place to browse through content in multiple different categories such as Models, Skins, and Tracks. When you find something you like MXS DB allows you to download it for use in game!</p>
-          </section>
-          <section>
-            <h2 class="header-section">UPLOAD YOUR OWN CONTENT.</h2>
-            <img class="section-image" src="assets/images/upload.png" alt="upload image">
-            <p class="paragraph-section">MXS DB allows content creators to have a place to upload their MX Simulator creations and share them with the community!</p>
-          </section>
-          <section>
-            <h2 class="header-section">GET STARTED NOW!</h2>
-            <a href="/login"><button class="landing-button" type="button" name="button">Sign In / Demo Acc.</button></a>
-            <a href="/signup"><button class="landing-button" type="button" name="button">Sign Up</button></a>
-          </section>
-      </div>
+    <div class="container">
+        <div class="content">
+            <h2 id="content-category">Most Recent</h2>
+            <div class="filter">
+                <p class="filter-text">Filter: </p>
+                <select class="filter-select" name="filter-select">
+              <option value="recent">Recent</option>
+              <option value="popular">Popular</option>
+            </select>
+            </div>
+            <hr>
+            <div class="results">
+
+            </div>
+            <div class="page-nav">
+                <button type="button" class="prevPageBtn" name="button">Prev page</button>
+                <button type="button" class="nextPageBtn" name="button">Next page</button>
+            </div>
+        </div>
     </div>
     <div class="footer">
         <div class="footer-container">
@@ -101,7 +85,7 @@
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
-    <script type="text/javascript" src="assets/js/landing.js"></script>
+    <script type="text/javascript" src="assets/js/home.js"></script>
 </body>
 
 </html>

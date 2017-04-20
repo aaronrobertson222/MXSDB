@@ -383,6 +383,7 @@ button:hover {
 .form-footer {
   font-size: .85em;
   text-align: center;
+  margin: 10px 0 10px 0;
 }
 
 .footer-link {
@@ -698,8 +699,130 @@ button:hover {
   display: none;
 }
 
+/* Landing Page */
 
-@media only screen and (max-width: 700px) {
+
+
+.image-container {
+  padding-top: 81px;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(rgba(25, 25, 25, 0.90),
+                              rgba(25, 25, 25, 0.90)),
+                              url('../images/coverimg.png') no-repeat center center fixed;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #FFF;
+  text-align: center;
+}
+
+.text {
+  display: block;
+  font-size: 1.7em;
+}
+
+.red {
+  color: #FE4444;
+  display: inline-block;
+}
+
+.cover-logo {
+  width: 450px;
+  height: auto;
+}
+
+.cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#see-more {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #FFF;
+  text-align: center;
+}
+
+#see-more > p {
+  margin: 0;
+}
+
+.arrow-down {
+  font-size: 2.5em;
+}
+
+.landing-container {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 100px;
+  margin: 0;
+}
+
+.landing-content {
+  margin: auto;
+  display: table;
+  padding: 0 10px 0 10px;
+  height: 100%;
+  width: 100%;
+  max-width: 960px;
+}
+section {
+  width: 100%;
+  text-align: center;
+}
+
+.section-image {
+  width: 600px;
+  height: auto;
+  -webkit-box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.55);
+  -moz-box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.55);
+  box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.55);
+}
+
+.header-section {
+  font-size: 2.2em;
+}
+
+.paragraph-section {
+  font-size: 1.5em;
+  line-height: 1.6em;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+}
+
+.landing-button {
+  width: 275px;
+  height: 50px;
+  font-size: 1.2em;
+  padding: 0;
+  margin: 0 0 40px 10px;
+  border: 2px solid #FE4444;
+  background-size: 100% 200%;
+  background-image: linear-gradient(to bottom, #E8E8E8 50%, #FE4444 50%);
+  -webkit-transition: all .2s ease 0s;
+  -moz-transition: all .2s ease 0s;
+  transition: all .2s ease 0s;
+  color: #FE4444;
+}
+
+.landing-button:hover {
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.30);
+  background-position: 0 -100%;
+  color: #FFFFFF;
+}
+
+@media only screen and (max-width: 900px) {
   .container {
     width: 100%;
     margin: 100px auto 0 auto;
@@ -799,5 +922,43 @@ button:hover {
   .item-wrapper {
     width: 100%;
     min-width: 100%;
+  }
+
+  .auth-container {
+    padding: 0 5px 0 5px;
+  }
+
+  .auth-logo-wrapper {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+
+  .auth-logo-img {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .form-container {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  /* Landing Page */
+  .cover-logo {
+    max-width: 450px;
+    width: 100%;
+    display: inline-block;
+    height: auto;
+  }
+
+  .section-image {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+  }
+
+  .text {
+    font-size: 1em;
   }
 }

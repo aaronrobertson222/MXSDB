@@ -30,6 +30,7 @@ function mobileMenuClick() {
   if ($('.nav').is(':visible')) {
     $('.nav').slideUp();
   } else {
+      $('.menubar').css('background', '#333333');
       $('.nav').slideDown();
     }
     });
