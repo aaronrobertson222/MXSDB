@@ -27,3 +27,7 @@ A content sharing site for MX Simulator, an online video game. MXS DB allows use
 * [MongoDB](https://www.mongodb.com/)
 * [JSON Web Tokens](https://jwt.io/)
 * [AWS S3](https://aws.amazon.com/s3/)
+
+### Future Plans
+
+* Reimplement front end with React and Redux.
