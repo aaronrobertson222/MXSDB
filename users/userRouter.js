@@ -73,7 +73,7 @@ router.get(
     .findOneAndUpdate({ _id: req.user._id }, { $inc: { uploads: 1 } })
     .exec()
     .then(item => res.status(200).json({ message: 'success' }))
-    .catch(err => console.log(err)),
+    .catch(err => console.log(err))
 );
 
 require('../passport')(passport);
@@ -83,7 +83,7 @@ router.get(
   '/me',
   passport.authenticate('jwt', { session: false }), (req, res, user) => {
     res.status(200).json({ user: req.user.apiRepr() });
-  },
+  }
 );
 
 module.exports = { router };
