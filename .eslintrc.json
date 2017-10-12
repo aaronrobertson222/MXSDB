@@ -7,5 +7,10 @@
     ],
     "env": {
         "browser": true
+    },
+    "settings": {
+       "import/resolver": {
+         "webpack": "webpack.config.js"
+        }
     }
 }

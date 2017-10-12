@@ -122,11 +122,12 @@ module.exports = {
   resolve: {
     alias: {
       envConfig: envConfigPath,
-      components: path.join(__dirname, 'src', 'components'),
-      actions: path.join(__dirname, 'src', 'actions'),
-      reducers: path.join(__dirname, 'src', 'reducers'),
+      components: path.join(srcPath, 'components'),
+      containers: path.join(srcPath, 'containers'),
+      actions: path.join(srcPath, 'actions'),
+      reducers: path.join(srcPath, 'reducers'),
       httpService: httpServicePath,
-      images: path.join(__dirname, 'src', 'assets', 'images'),
+      images: path.join(srcPath, 'assets', 'images'),
       'react-redux': path.join(__dirname, '/node_modules/react-redux/dist/react-redux.min'),
     },
     extensions: ['.js', '.jsx', '.css'],
