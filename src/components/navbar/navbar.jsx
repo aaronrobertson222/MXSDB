@@ -1,33 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import glamorous from 'glamorous';
-
-const Header = glamorous.header({
-  width: '100%',
-});
-
-const Nav = glamorous.nav({
-  width: '100%',
-});
-
-const Div = glamorous.div({
-  width: '100%',
-});
-
-const H1 = glamorous.h1({
-  color: 'red',
-});
+import cssModules from 'react-css-modules';
+import styles from './navbar.css';
 
 const Navbar = () => (
-  <Header>
-    <Nav>
-      <Div>
-        <Link href="/" to="/">
-          <H1>MXSDB</H1>
+  <header styleName="container">
+    <nav styleName="navigation">
+      <div styleName="navigation-section">
+        <Link to="/" href="/" styleName="logo-link">
+          <img alt="MXSDB" src="../../assets/images/MXSDB.svg" styleName="logo" />
         </Link>
-      </Div>
-    </Nav>
-  </Header>
+      </div>
+      <div styleName="navigation-section">
+        <ul styleName="nav-link-list">
+          <li styleName="nav-link-item">
+            <Link to="/bikes" href="/bikes">
+              Bikes
+            </Link>
+          </li>
+          <li styleName="nav-link-item">
+            <Link to="/gear" href="/gear">
+              Gear
+            </Link>
+          </li>
+          <li styleName="nav-link-item">
+            <Link to="/tracks" href="/tracks">
+              Tracks
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div styleName="navigation-section">
+        <ul styleName="nav-link-list">
+          <li styleName="nav-link-item">Sign-Up</li>
+          <li styleName="nav-link-item">Login</li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 );
 
-export default Navbar;
+export default cssModules(Navbar, styles);
