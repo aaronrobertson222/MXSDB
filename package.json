@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf ./build/*",
-    "start-dev": "parallelshell 'cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors' 'nodemon app.js'",
+    "start-dev": "parallelshell 'cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors' 'nodemon app.js --exec babel-node --presets es2015,stage-2'",
     "test-server": "mocha test/",
     "start": "cross-env NODE_ENV=production node app.js"
   },
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.31.0",
+    "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
