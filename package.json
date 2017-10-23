@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf ./build/*",
-    "start-dev": "parallelshell 'cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors' 'nodemon app.js --exec babel-node --presets es2015,stage-2'",
+    "start-dev": "parallelshell 'cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors' 'nodemon app.js --exec babel-node'",
     "test-server": "mocha test/",
     "start": "cross-env NODE_ENV=production node app.js"
   },
@@ -15,9 +15,11 @@
     "aws-sdk": "^2.31.0",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
+    "css-modules-require-hook": "^4.2.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "glamor": "^2.20.40",
@@ -32,6 +34,7 @@
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-jwt": "^2.2.1",
+    "postcss": "^6.0.13",
     "react": "^16.0.0",
     "react-css-modules": "^4.7.1",
     "react-dom": "^16.0.0",

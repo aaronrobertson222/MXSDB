@@ -8,6 +8,9 @@
     "env": {
         "browser": true
     },
+    "rules": {
+      "react/jsx-filename-extension": 0
+    },
     "settings": {
        "import/resolver": {
          "webpack": "webpack.config.js"
