@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf ./build/*",
-    "start-dev": "parallelshell 'cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors' 'nodemon app.js --exec babel-node'",
+    "start-dev": "nodemon app.js --exec babel-node NODE_ENV=developent",
+    "start-dev-client": "cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors",
     "test-server": "mocha test/",
     "start": "cross-env NODE_ENV=production node app.js"
   },
@@ -40,11 +41,15 @@
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "s3": "^4.4.0",
-    "serve-favicon": "^2.4.2"
+    "serve-favicon": "^2.4.2",
+    "webpack": "^3.7.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.20.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.5",
@@ -76,7 +81,6 @@
     "prop-types": "^15.6.0",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
-    "webpack": "^3.7.1",
     "webpack-dev-server": "^2.9.1"
   }
 }

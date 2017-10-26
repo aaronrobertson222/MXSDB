@@ -1,15 +1,14 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom';
-import { connect } from 'react-redux';
-
+import { ConnectedRouter } from 'react-router-redux';
 import Navbar from 'components/navbar/navbar';
 
+import history from '../../history';
+
+
 const App = () => (
-  <Router>
+  <ConnectedRouter history={history}>
     <Navbar />
-  </Router>
+  </ConnectedRouter>
 );
 
-export default connect()(App);
+export default App;

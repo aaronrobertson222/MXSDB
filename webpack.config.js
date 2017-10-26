@@ -14,7 +14,6 @@ const envConfigFile = testing ? 'development' : process.env.NODE_ENV || 'default
 const envConfigPath = `${__dirname}/src/config/environments/${envConfigFile}.js`;
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 const plugins = [
@@ -32,9 +31,6 @@ const plugins = [
     },
   }),
   new webpack.NamedModulesPlugin(),
-  new HtmlWebpackPlugin({
-    template: `${srcPath}/index.html`,
-  }),
   new webpack.LoaderOptionsPlugin({
     options: {
       postcss: [
@@ -138,30 +134,8 @@ module.exports = {
   },
   output: {
     path: buildPath,
-    publicPath: '',
-    filename: '[name]-[hash].js',
+    publicPath: '/',
+    filename: 'bundle.js',
   },
   devtool: isProduction ? false : 'source-map',
-  devServer: {
-    contentBase: isProduction ? buildPath : srcPath,
-    historyApiFallback: true,
-    port: 3000,
-    compress: isProduction,
-    inline: !isProduction,
-    hot: !isProduction,
-    stats: {
-      assets: true,
-      children: false,
-      chunks: true,
-      hash: false,
-      modules: false,
-      publicPath: false,
-      timings: true,
-      version: false,
-      warnings: true,
-      colors: {
-        green: '\u001b[32m',
-      },
-    },
-  },
 };

@@ -1,7 +1,6 @@
 import { BasicStrategy } from 'passport-http';
 import bodyParser from 'body-parser';
 import csshook from 'css-modules-require-hook/preset';
-import { createStore } from 'redux';
 import express from 'express';
 import favicon from 'serve-favicon';
 import jwt from 'jsonwebtoken';
@@ -9,21 +8,22 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
-import { Provider } from 'react-redux';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import App from './src/containers/app/app';
-import mainReducer from './src/reducers/index.reducer';
-
+// relative imports
+import config from './webpack.config';
+import handleRender from './middleware/handleRender';
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(morgan('dev'));
 
-app.use(express.static(`${__dirname} /public`));
-app.use(favicon(path.join(__dirname, 'public', 'assets', 'images', 'favicon.ico')));
+// env variables and paths
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isProduction = nodeEnv !== 'development';
+const buildPath = path.join(__dirname, './build/');
+const srcPath = path.join(__dirname, './src/');
+
 const { router: usersRouter, User } = require('./users');
 const { router: uploadsRouter } = require('./uploads');
 const {
@@ -35,40 +35,45 @@ const {
 
 mongoose.Promise = global.Promise;
 
+const compiler = webpack(config);
+
+app.use(webpackDevMiddleware(compiler, {
+  contentBase: isProduction ? buildPath : srcPath,
+  historyApiFallback: true,
+  compress: isProduction,
+  inline: !isProduction,
+  hot: !isProduction,
+  stats: {
+    assets: true,
+    children: false,
+    chunks: true,
+    hash: false,
+    modules: false,
+    timings: true,
+    version: false,
+    warnings: true,
+    colors: {
+      green: '\u001b[32m',
+    },
+  },
+  publicPath: config.output.publicPath,
+}));
+
+app.use(webpackHotMiddleware(compiler, {
+  log: console.log
+}));
+
+
+//  standard app middleware
+app.use(handleRender);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+app.use(favicon(path.join(__dirname, 'public', 'assets', 'images', 'favicon.ico')));
+
+// passport init
 app.use(passport.initialize());
 require('./passport')(passport);
-
-function renderFullPage(html, preloadedState) {
-  return `
-    <!doctype html>
-    <html>
-      <head>
-        <title>Redux Universal Example</title>
-      </head>
-      <body>
-        <div id="root">${html}</div>
-        <script>
-          // WARNING: See the following for security issues around embedding JSON in HTML:
-          // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
-          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
-        </script>
-        <script src="/static/bundle.js"></script>
-      </body>
-    </html>
-    `;
-}
-
-function handleRender(req, res) {
-  const store = createStore(mainReducer);
-
-  const html = ReactDOMServer.renderToString(<Provider store={store}><App /></Provider>);
-
-  const finalState = store.getState();
-
-  res.send(renderFullPage(html, finalState));
-}
-
-app.use(handleRender);
 
 
 // login authentication route
@@ -103,30 +108,12 @@ app.post('/login', (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     });
 });
-// get login page route
-app.get('/login', (req, res) => res.status(200).sendFile(`${__dirname}/public/login.html`));
-// get signup page route
-app.get('/signup', (req, res) => res.status(200).sendFile(`${__dirname}/public/signup.html`));
-// get user info for dashboard
-app.get(
-  '/dashboard',
-  passport.authenticate('jwt', { session: false }), (req, res) => res.status(200).json({ user: req.user.apiRepr() }),
-);
-// get upload page route
-app.get('/upload', (req, res) => res.status(200).sendFile(`${__dirname}/public/upload.html`));
-// get tracks page route
-app.get('/tracks', (req, res) => res.status(200).sendFile(`${__dirname}/public/tracks.html`));
-// get bikes page route
-app.get('/bikes', (req, res) => res.status(200).sendFile(`${__dirname}/public/bikes.html`));
-// get gear page route
-app.get('/gear', (req, res) => res.status(200).sendFile(`${__dirname}/public/gear.html`));
+
+
 
 // routers
 app.use('/users/', usersRouter);
 app.use('/uploads/', uploadsRouter);
-
-// catch route for any unhandle requested routes
-app.use('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 
 // server startup and shutdown functions
 let server;
