@@ -12,7 +12,7 @@ delete window.__PRELOADED_STATE__; //eslint-disable-line
 
 const store = configureStore(preloadedState);
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <Provider store={store}>
     <App />
   </Provider>,

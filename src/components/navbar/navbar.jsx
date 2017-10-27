@@ -1,43 +1,43 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import cssModules from 'react-css-modules';
-import styles from './navbar.css';
+import glamorous from 'glamorous';
 
-const Navbar = () => (
-  <header styleName="container">
-    <nav styleName="navigation">
-      <div styleName="navigation-section">
-        <Link to="/" href="/" styleName="logo-link">
-          <img alt="MXSDB" src="../../assets/images/MXSDB.svg" styleName="logo" />
-        </Link>
-      </div>
-      <div styleName="navigation-section">
-        <ul styleName="nav-link-list">
-          <li styleName="nav-link-item">
-            <Link to="/bikes" href="/bikes">
-              Bikes
-            </Link>
-          </li>
-          <li styleName="nav-link-item">
-            <Link to="/gear" href="/gear">
-              Gear
-            </Link>
-          </li>
-          <li styleName="nav-link-item">
-            <Link to="/tracks" href="/tracks">
-              Tracks
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <div styleName="navigation-section">
-        <ul styleName="nav-link-list">
-          <li styleName="nav-link-item">Sign-Up</li>
-          <li styleName="nav-link-item">Login</li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-);
+const Navbar = () => {
+  const Wrapper = glamorous.div({
+    width: '100%',
+    height: '80px',
+    backgroundColor: '#333333',
+    display: 'flex',
+    justifyContent: 'center',
+  });
 
-export default cssModules(Navbar, styles);
+  const Navigation = glamorous.nav({
+    width: '75%',
+    padding: '10px',
+    margin: 'auto',
+    alignSelf: 'center',
+    position: 'relative',
+  });
+
+  const NavigationSection = glamorous.div({
+    display: 'inline-block',
+  });
+
+  const Logo = glamorous.img({
+    width: '200px',
+    maxWidth: '100%',
+    height: 'auto',
+    maxHeight: '100%',
+  });
+
+  return (
+    <Wrapper>
+      <Navigation>
+        <NavigationSection>
+          <Logo alt="MXSDB" src="../../assets/images/MXSDB.svg" />
+        </NavigationSection>
+      </Navigation>
+    </Wrapper>
+  );
+};
+
+export default Navbar;

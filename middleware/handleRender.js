@@ -1,31 +1,27 @@
 import { Provider } from 'react-redux';
 import React from 'react';
+import { renderStatic } from 'glamor/server';
 import { renderToString } from 'react-dom/server';
 
 import configureStore from '../src/redux/store/store';
 import App from '../src/containers/app/app';
 
-function renderFullPage(html, preloadedState) {
+function renderFullPage(html, css, ids, preloadedState) {
   return `
     <!doctype html>
     <html>
       <head>
         <title>MXSDB</title>
-        <link rel="stylesheet" href="index.css">
-        <style>
-          body {
-            margin: 0;
-          }
-        </style>
+        <style>body {margin: 0;}</style>
+        <style>${css}</style>
       </head>
       <body>
         <div id="app">${html}</div>
         <script>
-          // WARNING: See the following for security issues around embedding JSON in HTML:
-          // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
-          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
         </script>
-        <script src="bundle.js"></script>
+        <script src="/vendor.js"></script>
+        <script src="/bundle.js"></script>
       </body>
     </html>
     `;
@@ -33,11 +29,11 @@ function renderFullPage(html, preloadedState) {
 
 function handleRender(req, res) {
   const store = configureStore();
-  const html = renderToString(<Provider store={store}><App /></Provider>);
+  const { html, css, ids } = renderStatic(() => renderToString(<Provider store={store}><App /></Provider>)); //eslint-disable-line
 
   const preloadedState = store.getState();
 
-  res.status(200).send(renderFullPage(html, preloadedState));
+  res.status(200).send(renderFullPage(html, css, ids, preloadedState));
 }
 
 export default handleRender;

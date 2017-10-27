@@ -24,7 +24,7 @@ const plugins = [
   }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-    filename: 'vendor-[hash].js',
+    filename: 'vendor.js',
     minChunks(module) {
       const { context } = module.context;
       return context && context.indexOf('node_modules') >= 0;
@@ -86,24 +86,35 @@ if (isProduction) {
         comments: false,
       },
     }),
-    new ExtractTextPlugin('style-[hash].css')
+    new ExtractTextPlugin('style-[hash].css'),
   );
 
   rules.push({
     test: /\.css$/,
-    loaders: [
-      'style-loader?sourceMap',
-      'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+    use: [
+      'isomorphic-style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+        },
+      },
+      'postcss-loader',
     ],
   });
 } else {
   plugins.push(new webpack.HotModuleReplacementPlugin());
-
   rules.push({
     test: /\.css$/,
-    loaders: [
-      'style-loader?sourceMap',
-      'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+    use: [
+      'isomorphic-style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+        },
+      },
+      'postcss-loader',
     ],
   });
 }

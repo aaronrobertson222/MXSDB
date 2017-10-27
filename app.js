@@ -1,6 +1,5 @@
 import { BasicStrategy } from 'passport-http';
 import bodyParser from 'body-parser';
-import csshook from 'css-modules-require-hook/preset';
 import express from 'express';
 import favicon from 'serve-favicon';
 import jwt from 'jsonwebtoken';
@@ -47,7 +46,6 @@ app.use(webpackDevMiddleware(compiler, {
     assets: true,
     children: false,
     chunks: true,
-    hash: false,
     modules: false,
     timings: true,
     version: false,
