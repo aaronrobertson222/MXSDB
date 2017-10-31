@@ -22,18 +22,12 @@ const Navbar = () => {
     display: 'inline-block',
   });
 
-  const Logo = glamorous.img({
-    width: '200px',
-    maxWidth: '100%',
-    height: 'auto',
-    maxHeight: '100%',
-  });
 
   return (
     <Wrapper>
       <Navigation>
         <NavigationSection>
-          <Logo alt="MXSDB" src="../../assets/images/MXSDB.svg" />
+          Mxsdb Howdy
         </NavigationSection>
       </Navigation>
     </Wrapper>

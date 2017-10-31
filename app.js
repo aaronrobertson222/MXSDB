@@ -1,29 +1,19 @@
-import { BasicStrategy } from 'passport-http';
-import bodyParser from 'body-parser';
-import express from 'express';
-import favicon from 'serve-favicon';
-import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
-import morgan from 'morgan';
-import passport from 'passport';
-import path from 'path';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
+const { BasicStrategy } = require('passport-http');
+const bodyParser = require('body-parser');
+const express = require('express');
+const favicon = require('serve-favicon');
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const path = require('path');
+const passport = require('passport');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 
-// relative imports
-import config from './webpack.config';
-import handleRender from './middleware/handleRender';
-
-const app = express();
-
-// env variables and paths
-const nodeEnv = process.env.NODE_ENV || 'development';
-const isProduction = nodeEnv !== 'development';
-const buildPath = path.join(__dirname, './build/');
-const srcPath = path.join(__dirname, './src/');
-
-const { router: usersRouter, User } = require('./users');
+// Relative imports
+const config = require('./webpack.config');
+const { router: usersRouter } = require('./users');
 const { router: uploadsRouter } = require('./uploads');
 const {
   PORT,
@@ -32,38 +22,19 @@ const {
   EXPIRATIONTIME,
 } = require('./config');
 
+const app = express();
+
 mongoose.Promise = global.Promise;
 
+// Webpack dev server middleware
 const compiler = webpack(config);
-
 app.use(webpackDevMiddleware(compiler, {
-  contentBase: isProduction ? buildPath : srcPath,
-  historyApiFallback: true,
-  compress: isProduction,
-  inline: !isProduction,
-  hot: !isProduction,
-  stats: {
-    assets: true,
-    children: false,
-    chunks: true,
-    modules: false,
-    timings: true,
-    version: false,
-    warnings: true,
-    colors: {
-      green: '\u001b[32m',
-    },
-  },
-  publicPath: config.output.publicPath,
+  serverSideRender: true,
 }));
-
-app.use(webpackHotMiddleware(compiler, {
-  log: console.log
-}));
-
+app.use(webpackHotMiddleware(compiler.compilers.find(compiler => compiler.name === 'client')));
+app.use(webpackHotServerMiddleware(compiler));
 
 //  standard app middleware
-app.use(handleRender);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
@@ -73,47 +44,11 @@ app.use(favicon(path.join(__dirname, 'public', 'assets', 'images', 'favicon.ico'
 app.use(passport.initialize());
 require('./passport')(passport);
 
-
-// login authentication route
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  if (!req.body.username || !req.body.password) {
-    return res.status(400).json({ message: 'missing field in body' });
-  }
-  User
-    .findOne({ username })
-    .exec()
-    .then((_user) => {
-      user = _user;
-      if (!user) {
-        return res.status(404).json({ message: 'Incorrect username.' });
-      }
-      return user.validatePassword(password);
-    })
-    .then((isValid) => {
-      if (!isValid) {
-        return res.status(400).json({ message: 'Incorrect password.' });
-      }
-      const token = jwt.sign(user, SECRET);
-      res.status(200).json({
-        success: true,
-        token: `JWT ${token}`,
-        tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
-        user: user.apiRepr(),
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({ message: 'Internal server error' });
-    });
-});
-
-
-
 // routers
 app.use('/users/', usersRouter);
 app.use('/uploads/', uploadsRouter);
 
-// server startup and shutdown functions
+// Server start and stop util
 let server;
 
 function runServer(databaseUrl) {

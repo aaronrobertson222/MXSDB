@@ -13,10 +13,10 @@ const httpServicePath = `${__dirname}/src/redux/services/http.js`;
 const envConfigFile = testing ? 'development' : process.env.NODE_ENV || 'default';
 const envConfigPath = `${__dirname}/src/config/environments/${envConfigFile}.js`;
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
-const plugins = [
+// PRODUCTION PLUGINS/RULES
+const clientPlugins = [
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(nodeEnv),
@@ -46,7 +46,51 @@ const plugins = [
   }),
 ];
 
-const rules = [
+const clientRules = [
+  {
+    test: /\.html$/,
+    use: [
+      'html-loader',
+    ],
+  },
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    use: [
+      'babel-loader',
+      'eslint-loader',
+    ],
+  },
+  {
+    test: /\.(png|gif|jpg|svg)$/,
+    use: ['url-loader?limit=20480&name=assets/[name]-[hash].[ext]'],
+  },
+];
+
+// SERVER PLUGINS/RULES
+const serverPlugins = [
+  new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify(nodeEnv),
+    },
+  }),
+  new webpack.NamedModulesPlugin(),
+  new webpack.LoaderOptionsPlugin({
+    options: {
+      postcss: [
+        autoprefixer({
+          browsers: [
+            'last 3 version',
+            'ie >= 10',
+          ],
+        }),
+      ],
+      context: srcPath,
+    },
+  }),
+];
+
+const serverRules = [
   {
     test: /\.html$/,
     use: [
@@ -68,85 +112,110 @@ const rules = [
 ];
 
 if (isProduction) {
-  plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true,
-      },
-      output: {
-        comments: false,
-      },
-    }),
-    new ExtractTextPlugin('style-[hash].css'),
-  );
+  clientPlugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false,
+      screw_ie8: true,
+      conditionals: true,
+      unused: true,
+      comparisons: true,
+      sequences: true,
+      dead_code: true,
+      evaluate: true,
+      if_return: true,
+      join_vars: true,
+    },
+    output: {
+      comments: false,
+    },
+  }));
 
-  rules.push({
-    test: /\.css$/,
-    use: [
-      'isomorphic-style-loader',
-      {
-        loader: 'css-loader',
-        options: {
-          importLoaders: 1,
-        },
-      },
-      'postcss-loader',
-    ],
-  });
+  serverPlugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false,
+      screw_ie8: true,
+      conditionals: true,
+      unused: true,
+      comparisons: true,
+      sequences: true,
+      dead_code: true,
+      evaluate: true,
+      if_return: true,
+      join_vars: true,
+    },
+    output: {
+      comments: false,
+    },
+  }));
 } else {
-  plugins.push(new webpack.HotModuleReplacementPlugin());
-  rules.push({
-    test: /\.css$/,
-    use: [
-      'isomorphic-style-loader',
-      {
-        loader: 'css-loader',
-        options: {
-          importLoaders: 1,
-        },
-      },
-      'postcss-loader',
-    ],
-  });
+  clientPlugins.push(new webpack.HotModuleReplacementPlugin());
+  serverPlugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
-module.exports = {
-  entry: path.join(srcPath, 'index.jsx'),
-  context: srcPath,
-  plugins,
-  module: {
-    rules,
-  },
-  resolve: {
-    alias: {
-      envConfig: envConfigPath,
-      components: path.join(srcPath, 'components'),
-      containers: path.join(srcPath, 'containers'),
-      actions: path.join(srcPath, 'actions'),
-      reducers: path.join(srcPath, 'reducers'),
-      httpService: httpServicePath,
-      images: path.join(srcPath, 'assets', 'images'),
-      'react-redux': path.join(__dirname, '/node_modules/react-redux/dist/react-redux.min'),
+module.exports = [
+  {
+    name: 'client',
+    target: 'web',
+    entry: path.join(srcPath, 'index.jsx'),
+    context: srcPath,
+    plugins: clientPlugins,
+    module: {
+      rules: clientRules,
     },
-    extensions: ['.js', '.jsx', '.css'],
-    modules: [
-      path.resolve(__dirname, 'node_modules'),
-      srcPath,
-    ],
+    resolve: {
+      alias: {
+        envConfig: envConfigPath,
+        components: path.join(srcPath, 'components'),
+        containers: path.join(srcPath, 'containers'),
+        actions: path.join(srcPath, 'actions'),
+        reducers: path.join(srcPath, 'reducers'),
+        httpService: httpServicePath,
+        images: path.join(srcPath, 'assets', 'images'),
+        'react-redux': path.join(__dirname, '/node_modules/react-redux/dist/react-redux.min'),
+      },
+      extensions: ['.js', '.jsx', '.css'],
+      modules: [
+        path.resolve(__dirname, 'node_modules'),
+        srcPath,
+      ],
+    },
+    output: {
+      path: buildPath,
+      publicPath: '/',
+      filename: 'bundle.js',
+    },
+    devtool: isProduction ? false : 'source-map',
   },
-  output: {
-    path: buildPath,
-    publicPath: '/',
-    filename: 'bundle.js',
+  {
+    name: 'server',
+    target: 'node',
+    entry: path.join(__dirname, 'server.js'),
+    plugins: serverPlugins,
+    module: {
+      rules: serverRules,
+    },
+    resolve: {
+      alias: {
+        envConfig: envConfigPath,
+        components: path.join(srcPath, 'components'),
+        containers: path.join(srcPath, 'containers'),
+        actions: path.join(srcPath, 'actions'),
+        reducers: path.join(srcPath, 'reducers'),
+        httpService: httpServicePath,
+        images: path.join(srcPath, 'assets', 'images'),
+        'react-redux': path.join(__dirname, '/node_modules/react-redux/dist/react-redux.min'),
+      },
+      extensions: ['.js', '.jsx', '.css'],
+      modules: [
+        path.resolve(__dirname, 'node_modules'),
+        srcPath,
+      ],
+    },
+    output: {
+      path: buildPath,
+      filename: 'server.js',
+      libraryTarget: 'commonjs2',
+    },
+    devtool: isProduction ? false : 'source-map',
   },
-  devtool: isProduction ? false : 'source-map',
-};
+];
