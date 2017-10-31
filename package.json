@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf ./build/*",
-    "start-dev": "parallelshell 'cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors' 'nodemon app.js'",
+    "start-dev": "cross-env NODE_ENV=development nodemon app.js",
+    "start-dev-client": "cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors",
     "test-server": "mocha test/",
     "start": "cross-env NODE_ENV=production node app.js"
   },
@@ -13,14 +14,17 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.31.0",
+    "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
+    "css-modules-require-hook": "^4.2.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "glamor": "^2.20.40",
-    "glamorous": "^4.9.7",
+    "glamorous": "^4.11.0",
     "history": "^4.7.2",
     "jsonwebtoken": "^7.3.0",
     "mongoose": "^4.8.7",
@@ -31,16 +35,23 @@
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-jwt": "^2.2.1",
+    "path": "^0.12.7",
+    "postcss": "^6.0.13",
     "react": "^16.0.0",
     "react-css-modules": "^4.7.1",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "s3": "^4.4.0",
-    "serve-favicon": "^2.4.2"
+    "serve-favicon": "^2.4.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.20.0",
+    "webpack-hot-server-middleware": "^0.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.5",
@@ -66,13 +77,11 @@
     "file-loader": "^1.1.5",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
+    "lodash": "^4.17.4",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "parallelshell": "^3.0.1",
     "prop-types": "^15.6.0",
-    "style-loader": "^0.19.0",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.7.1",
-    "webpack-dev-server": "^2.9.1"
+    "url-loader": "^0.6.2"
   }
 }
