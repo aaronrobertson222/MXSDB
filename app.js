@@ -30,6 +30,9 @@ mongoose.Promise = global.Promise;
 const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, {
   serverSideRender: true,
+  stats: {
+    colors: true,
+  },
 }));
 app.use(webpackHotMiddleware(compiler.compilers.find(compiler => compiler.name === 'client')));
 app.use(webpackHotServerMiddleware(compiler));
@@ -60,11 +63,11 @@ function runServer(databaseUrl) {
       console.log(`connected to ${databaseUrl}`);
       server = app.listen(PORT, () => {
         console.log(`App is listening on port ${PORT}`);
-        res();
+        return res();
       })
         .on('error', (err) => {
           mongoose.disconnect();
-          rej(err);
+          return rej(err);
         });
     });
   });
@@ -77,7 +80,7 @@ function closeServer() {
       if (err) {
         return rej(err);
       }
-      res();
+      return res();
     });
   }));
 }

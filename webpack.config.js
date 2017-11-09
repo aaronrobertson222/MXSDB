@@ -1,19 +1,20 @@
 const webpack = require('webpack');
-
 const path = require('path');
 
+// ENV Variables
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv !== 'development';
 const testing = nodeEnv === 'testing' || false;
 
+// Paths
 const buildPath = path.join(__dirname, './build/');
 const srcPath = path.join(__dirname, './src/');
 const httpServicePath = `${__dirname}/src/redux/services/http.js`;
-
 const envConfigFile = testing ? 'development' : process.env.NODE_ENV || 'default';
 const envConfigPath = `${__dirname}/src/config/environments/${envConfigFile}.js`;
 
 const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // PRODUCTION PLUGINS/RULES
 const clientPlugins = [
@@ -62,6 +63,23 @@ const clientRules = [
     ],
   },
   {
+    test: /\.css$/,
+    use: [
+      {
+        loader: 'style-loader',
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          modules: true,
+          importLoaders: 1,
+          localIdentName: '[name]__[local]___[hash:base64:5]',
+          sourcMap: !isProduction,
+        },
+      },
+    ],
+  },
+  {
     test: /\.(png|gif|jpg|svg)$/,
     use: ['url-loader?limit=20480&name=assets/[name]-[hash].[ext]'],
   },
@@ -106,51 +124,84 @@ const serverRules = [
     ],
   },
   {
+    test: /\.css$/,
+    use: [
+      {
+        loader: 'isomorphic-style-loader',
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          modules: true,
+          importLoaders: 1,
+          localIdentName: '[name]__[local]___[hash:base64:5]',
+          sourceMap: !isProduction,
+        },
+      },
+    ],
+  },
+  {
     test: /\.(png|gif|jpg|svg)$/,
     use: ['url-loader?limit=20480&name=assets/[name]-[hash].[ext]'],
   },
 ];
 
 if (isProduction) {
-  clientPlugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-      screw_ie8: true,
-      conditionals: true,
-      unused: true,
-      comparisons: true,
-      sequences: true,
-      dead_code: true,
-      evaluate: true,
-      if_return: true,
-      join_vars: true,
-    },
-    output: {
-      comments: false,
-    },
-  }));
+  clientPlugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+      },
+      output: {
+        comments: false,
+      },
+    }),
+    new ExtractTextPlugin('style-[hash].css')
+  );
 
-  serverPlugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-      screw_ie8: true,
-      conditionals: true,
-      unused: true,
-      comparisons: true,
-      sequences: true,
-      dead_code: true,
-      evaluate: true,
-      if_return: true,
-      join_vars: true,
-    },
-    output: {
-      comments: false,
-    },
-  }));
+  serverPlugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+      },
+      output: {
+        comments: false,
+      },
+    }),
+    new ExtractTextPlugin('style-[hash].css')
+  );
 } else {
   clientPlugins.push(new webpack.HotModuleReplacementPlugin());
   serverPlugins.push(new webpack.HotModuleReplacementPlugin());
 }
+
+const alias = {
+  actions: path.join(__dirname, 'src', 'actions'),
+  containers: path.join(__dirname, 'src', 'containers'),
+  components: path.join(__dirname, 'src', 'components'),
+  envConfig: envConfigPath,
+  httpService: httpServicePath,
+  images: path.join(__dirname, 'src', 'assets', 'images'),
+  reducers: path.join(__dirname, 'src', 'reducers'),
+};
 
 module.exports = [
   {
@@ -163,16 +214,7 @@ module.exports = [
       rules: clientRules,
     },
     resolve: {
-      alias: {
-        envConfig: envConfigPath,
-        components: path.join(srcPath, 'components'),
-        containers: path.join(srcPath, 'containers'),
-        actions: path.join(srcPath, 'actions'),
-        reducers: path.join(srcPath, 'reducers'),
-        httpService: httpServicePath,
-        images: path.join(srcPath, 'assets', 'images'),
-        'react-redux': path.join(__dirname, '/node_modules/react-redux/dist/react-redux.min'),
-      },
+      alias,
       extensions: ['.js', '.jsx', '.css'],
       modules: [
         path.resolve(__dirname, 'node_modules'),
@@ -189,22 +231,12 @@ module.exports = [
   {
     name: 'server',
     target: 'node',
-    entry: path.join(__dirname, 'server.js'),
+    entry: path.join(__dirname, 'server.jsx'),
     plugins: serverPlugins,
     module: {
       rules: serverRules,
     },
     resolve: {
-      alias: {
-        envConfig: envConfigPath,
-        components: path.join(srcPath, 'components'),
-        containers: path.join(srcPath, 'containers'),
-        actions: path.join(srcPath, 'actions'),
-        reducers: path.join(srcPath, 'reducers'),
-        httpService: httpServicePath,
-        images: path.join(srcPath, 'assets', 'images'),
-        'react-redux': path.join(__dirname, '/node_modules/react-redux/dist/react-redux.min'),
-      },
       extensions: ['.js', '.jsx', '.css'],
       modules: [
         path.resolve(__dirname, 'node_modules'),

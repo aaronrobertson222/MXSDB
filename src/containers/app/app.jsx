@@ -1,13 +1,17 @@
 import React from 'react';
 import { ConnectedRouter } from 'react-router-redux';
-import Navbar from 'components/navbar/navbar';
+import Navbar from 'components/navbar';
+import LoginForm from 'containers/login-form';
 
 import history from '../../history';
 
 
 const App = () => (
   <ConnectedRouter history={history}>
-    <Navbar />
+    <div>
+      <Navbar />
+      <LoginForm />
+    </div>
   </ConnectedRouter>
 );
 

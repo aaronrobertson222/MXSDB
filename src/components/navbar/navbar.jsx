@@ -1,37 +1,37 @@
 import React from 'react';
-import glamorous from 'glamorous';
-
-const Navbar = () => {
-  const Wrapper = glamorous.div({
-    width: '100%',
-    height: '80px',
-    backgroundColor: '#333333',
-    display: 'flex',
-    justifyContent: 'center',
-  });
-
-  const Navigation = glamorous.nav({
-    width: '75%',
-    padding: '10px',
-    margin: 'auto',
-    alignSelf: 'center',
-    position: 'relative',
-  });
-
-  const NavigationSection = glamorous.div({
-    display: 'inline-block',
-  });
+import { Link } from 'react-router-dom';
+import cssModules from 'react-css-modules';
 
 
-  return (
-    <Wrapper>
-      <Navigation>
-        <NavigationSection>
-          Mxsdb Howdy
-        </NavigationSection>
-      </Navigation>
-    </Wrapper>
-  );
-};
+import styles from './navbar.css';
 
-export default Navbar;
+const Navbar = () => (
+  <div styleName="wrapper">
+    <div styleName="container">
+      <div styleName="header">
+        <img src={require('../../assets/images/MXSDB.svg')} alt="logo" styleName="logo" />
+      </div>
+      <div styleName="nav-menu">
+        <ul styleName="nav-items">
+          <li>
+            <Link href="/" to="/">
+                Bikes
+            </Link>
+          </li>
+          <li>
+            <Link href="/" to="/">
+                Gear
+            </Link>
+          </li>
+          <li>
+            <Link href="/" to="/">
+                Tracks
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+);
+
+export default cssModules(Navbar, styles, { allowMultiple: true });
