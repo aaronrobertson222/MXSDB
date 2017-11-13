@@ -6,7 +6,7 @@ import LoginForm from 'containers/login-form';
 import history from '../../history';
 
 
-const App = () => (
+const AppRouter = () => (
   <ConnectedRouter history={history}>
     <div>
       <Navbar />
@@ -15,4 +15,4 @@ const App = () => (
   </ConnectedRouter>
 );
 
-export default App;
+export default AppRouter;

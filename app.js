@@ -1,3 +1,4 @@
+// TODO: Conver requires to es6 imports and other es6 stuff.
 const { BasicStrategy } = require('passport-http');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -6,13 +7,9 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
 const passport = require('passport');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
+require('css-modules-require-hook/preset');
 
 // Relative imports
-const config = require('./webpack.config');
 const { router: usersRouter } = require('./users');
 const { router: uploadsRouter } = require('./uploads');
 const {
@@ -22,20 +19,24 @@ const {
   EXPIRATIONTIME,
 } = require('./config');
 
+const serverRenderer = require('./server.jsx');
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 const app = express();
 
 mongoose.Promise = global.Promise;
 
-// Webpack dev server middleware
-const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, {
-  serverSideRender: true,
-  stats: {
-    colors: true,
-  },
-}));
-app.use(webpackHotMiddleware(compiler.compilers.find(compiler => compiler.name === 'client')));
-app.use(webpackHotServerMiddleware(compiler));
+if (isProduction) {
+  app.use('/static', express.static('build'));
+  app.get('*', serverRenderer);
+} else {
+  const { hmr } = require('./hmr.js');
+  // Hot Module Reloading
+  hmr(app);
+  app.get('*', serverRenderer);
+}
+
 
 //  standard app middleware
 app.use(bodyParser.json());
@@ -85,6 +86,7 @@ function closeServer() {
   }));
 }
 
+runServer(DATABASE_URL).catch(err => console.log(err));
 if (require.main === module) {
   runServer(DATABASE_URL).catch(err => console.log(err));
 }

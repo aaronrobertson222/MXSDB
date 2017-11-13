@@ -2,17 +2,18 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 
-import App from './src/containers/app';
+import AppRouter from './src/containers/app-router';
 import configureStore from './src/redux/store/store';
 
-module.exports = function serverRenderer() {
-  return (req, res) => {
-    const STORE = configureStore();
-    const HTML = renderToString(<Provider store={STORE}><App /></Provider>);
+module.exports = function serverRenderer(req, res) {
+  const PROD = process.env.NODE_ENV === 'production';
+  const STORE = configureStore();
+  const HTML = PROD ? `<div id="app">${renderToString(<Provider store={STORE}><AppRouter /></Provider>)}</div>` : '<div id="app"></div>';
 
-    const preloadedState = STORE.getState();
+  const preloadedState = STORE.getState();
 
-    res.status(200).send(`
+  // TODO: Dynamically change the script tags depending on if PRODUTION or DEV. Also url.
+  return res.status(200).send(`
             <!doctype html>
             <html>
             <head>
@@ -20,14 +21,14 @@ module.exports = function serverRenderer() {
                 <style>body {margin: 0;}</style>
             </head>
             <body>
-                <div id="app">${HTML}</div>
-                <script>
-                  window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
-                </script>
-                <script src="/vendor.js"></script>
-                <script src="/bundle.js"></script>
+              <script>
+                window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
+              </script>
+                ${HTML}
+                <script src="/static/vendor.js"></script>
+                <script src="/static/bundle.js"></script>
             </body>
             </html>
         `);
-  };
+
 };

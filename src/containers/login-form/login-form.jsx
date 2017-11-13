@@ -17,14 +17,14 @@ class LoginForm extends React.Component {
   render() {
     return (
       <form>
-        <EmailInput label="Email" />
-        <PasswordInput label="Password" />
+        <EmailInput label="Emajhg" />
+        <PasswordInput label="Padfasfssword" />
       </form>
     );
   }
 }
 
 
-export default connect({ fetchLogin })(reduxForm({
+export default connect(null, { fetchLogin })(reduxForm({
   form: 'UserLogin',
 })(cssModules(LoginForm, styles, { allowMultiple: true })));
