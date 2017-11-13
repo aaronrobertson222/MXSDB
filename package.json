@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf ./build/*",
-    "start-dev": "cross-env NODE_ENV=development nodemon app.babel.js",
+    "development": "cross-env NODE_ENV=development nodemon ./src/server/app.babel.js",
     "start-dev-client": "cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors",
     "test-server": "mocha test/",
     "start": "cross-env NODE_ENV=production node app.js"

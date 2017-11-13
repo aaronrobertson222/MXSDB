@@ -37,12 +37,11 @@ if (isProduction) {
   app.get('*', serverRenderer);
 }
 
-
 //  standard app middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
-app.use(favicon(path.join(__dirname, 'public', 'assets', 'images', 'favicon.ico')));
+app.use(favicon(path.join(process.cwd(), 'src', 'client', 'assets', 'images', 'favicon.ico')));
 
 // passport init
 app.use(passport.initialize());

@@ -4,6 +4,7 @@ const path = require('path');
 // Paths
 const rootPath = process.cwd();
 const srcPath = path.join(rootPath, './src/');
+const clientPath = path.join(srcPath, './client/');
 const httpServicePath = `${__dirname}/src/redux/services/http.js`;
 const envConfigFile = 'development';
 const envConfigPath = `${__dirname}/src/config/environments/${envConfigFile}.js`;
@@ -96,7 +97,7 @@ module.exports = {
     'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?noInfo=false',
-    'index.jsx',
+    './client/index.jsx',
   ],
   output: {
     filename: 'bundle.js',
@@ -110,13 +111,13 @@ module.exports = {
   },
   resolve: {
     alias: {
-      actions: path.join(srcPath, 'actions'),
-      containers: path.join(srcPath, 'containers'),
-      components: path.join(srcPath, 'components'),
+      actions: path.join(clientPath, 'actions'),
+      containers: path.join(clientPath, 'containers'),
+      components: path.join(clientPath, 'components'),
       envConfig: envConfigPath,
       httpService: httpServicePath,
-      images: path.join(srcPath, 'assets', 'images'),
-      reducers: path.join(srcPath, 'reducers'),
+      images: path.join(clientPath, 'assets', 'images'),
+      reducers: path.join(clientPath, 'reducers'),
     },
     extensions: ['.js', '.jsx', '.css'],
     modules: [

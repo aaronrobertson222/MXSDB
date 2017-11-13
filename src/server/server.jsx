@@ -2,8 +2,8 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 
-import AppRouter from './src/containers/app-router';
-import configureStore from './src/redux/store/store';
+import AppRouter from 'containers/app-router';
+import configureStore from '../client/redux/store/store';
 
 module.exports = function serverRenderer(req, res) {
   const PROD = process.env.NODE_ENV === 'production';
