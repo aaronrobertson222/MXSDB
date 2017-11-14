@@ -11,14 +11,15 @@
     "rules": {
       "react/jsx-filename-extension": 0,
       "import/no-extraneous-dependencies": 0,
+      "import/no-unresolved": 0,
+      "import/extensions": 0,
       "no-underscore-dangle": 0,
       "global-require": 0
     },
     "settings": {
        "import/resolver": {
          "webpack": {
-           "config": "./webpack/webpack.config.development.js",
-           "config-index": 0
+           "config": "./webpack/webpack.config.development.js"
          }
         }
     }
