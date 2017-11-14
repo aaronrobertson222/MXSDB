@@ -2,11 +2,13 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import mainReducer from 'reducers/index.reducer';
-import HistoryMiddleware from '../middleware/HistoryMiddleware';
+import historyMiddleware from '../middleware/history-middleware';
+import promiseMiddleware from '../middleware/promise-middleware';
 
 const finalCreateStore = composeWithDevTools(applyMiddleware(
   thunk,
-  HistoryMiddleware,
+  promiseMiddleware,
+  historyMiddleware,
 ))(createStore);
 
 export default function configureStore(initialState) {
