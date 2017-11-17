@@ -1,9 +1,10 @@
 .wrapper {
   width: 80%;
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
+  font-family: helvetica;
 }
 
 .container {
@@ -12,7 +13,7 @@
 }
 
 .logo {
-  height: 45px;
+  height: 50px;
   width: auto;
   max-width: 100%;
   vertical-align: middle;
@@ -25,4 +26,34 @@
   top: 50%;
   transform: translateY(-50%);
   display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.user-options > li {
+  display: inline-block;
+  padding: 0px 5px;
+}
+
+.signup-option,
+.login-option {
+  color: white;
+  text-decoration: none;
+}
+
+.signup-option > span {
+  border: 2px solid #FE4444;
+  padding: 10px 20px;
+  border-radius: 2px;
+  background: rgb(254, 69, 69)
+}
+
+.login-option > span {
+  padding: 10px 20px;
+}
+
+.login-option > span:hover {
+  border-bottom: 2px solid #FE4444;
 }
