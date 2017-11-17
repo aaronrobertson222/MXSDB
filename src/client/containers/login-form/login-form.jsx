@@ -9,6 +9,11 @@ import { fetchLogin } from 'actions/index.actions';
 import styles from './login-form.css';
 
 class LoginForm extends React.Component {
+  static propTypes = {
+    fetchLogin: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -117,11 +122,6 @@ class LoginForm extends React.Component {
     );
   }
 }
-
-LoginForm.propTypes = {
-  fetchLogin: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-};
 
 export default connect(null, { fetchLogin })(reduxForm({
   form: 'UserLogin',

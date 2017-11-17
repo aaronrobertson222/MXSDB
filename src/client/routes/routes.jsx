@@ -7,6 +7,9 @@ import AppContainer from 'containers/app-container';
 import * as routerMap from './static-routes';
 
 class Routes extends React.Component {
+  static propTypes = {
+    location: PropTypes.object.isRequired,
+  };
   render() {
     const { location } = this.props.location;
     return (
@@ -19,9 +22,5 @@ class Routes extends React.Component {
     );
   }
 }
-
-Routes.propTypes = {
-  location: PropTypes.object.isRequired,
-};
 
 export default Routes;
