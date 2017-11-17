@@ -1,11 +1,10 @@
 import React from 'react';
 
-import Navbar from 'components/navbar';
+import Hero from 'components/hero';
 
 const LandingLayout = () => (
   <div>
-    <Navbar />
-    <p>Landing Layout</p>
+    <Hero />
   </div>
 );
 
