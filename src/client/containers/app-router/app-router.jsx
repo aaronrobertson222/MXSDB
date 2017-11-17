@@ -1,18 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
-import Navbar from 'components/navbar';
-import LoginForm from 'containers/login-form';
 
-import history from '../../history';
+import Routes from '../../routes/routes';
 
+const AppRouter = (props) => {
+  const { history } = props;
+  return (
+    <ConnectedRouter history={history}>
+      <Route render={({ location }) => (
+        <Routes location={location} />
+        )}
+      />
+    </ConnectedRouter>
+  );
+};
 
-const AppRouter = () => (
-  <ConnectedRouter history={history}>
-    <div>
-      <Navbar />
-      <LoginForm />
-    </div>
-  </ConnectedRouter>
-);
+AppRouter.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 
 export default AppRouter;

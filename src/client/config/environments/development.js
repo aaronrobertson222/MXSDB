@@ -1,4 +1,4 @@
-import defaultConfig from 'config/environments/default';
+import defaultConfig from './default';
 
 const configuration = {
   ...defaultConfig,

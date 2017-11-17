@@ -3,6 +3,7 @@ const { BasicStrategy } = require('passport-http');
 const bodyParser = require('body-parser');
 const express = require('express');
 const favicon = require('serve-favicon');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
@@ -10,8 +11,8 @@ const passport = require('passport');
 require('css-modules-require-hook/preset');
 
 // Relative imports
-const { router: usersRouter } = require('./users');
-const { router: uploadsRouter } = require('./uploads');
+const {router: usersRouter, User} = require('./users');
+const {router: uploadsRouter} = require('./uploads');
 const {
   PORT,
   DATABASE_URL,
@@ -46,6 +47,40 @@ app.use(favicon(path.join(process.cwd(), 'src', 'client', 'assets', 'images', 'f
 // passport init
 app.use(passport.initialize());
 require('./passport')(passport);
+
+app.post('/login', (req, res) => {
+  console.log(req.body);
+  const {username, password} = req.body;
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).json({message: 'missing field in body'});
+  }
+  User
+    .findOne({username: username})
+    .exec()
+    .then(_user => {
+      let user = _user;
+      if (!user) {
+        return res.status(404).json({message: 'Incorrect username.'});
+      }
+      return user.validatePassword(password);
+    })
+    .then(isValid => {
+      if (!isValid) {
+        return res.status(400).json({message: 'Incorrect password.'});
+      } else {
+        const token = jwt.sign(user, SECRET);
+        res.status(200).json({
+          success: true,
+          token: 'JWT ' + token,
+          tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
+          user: user.apiRepr()
+        });
+      }
+    })
+    .catch(() => {
+      res.status(500).json({message: 'Internal server error'});
+    });
+});
 
 // routers
 app.use('/users/', usersRouter);

@@ -9,7 +9,7 @@ const EmailInput = props => (
   <div styleName="container">
     <label htmlFor="email" styleName="label">
       {props.label}
-      <Field name="email" component="input" type="text" styleName="input" />
+      <Field name="username" component="input" type="text" styleName="input" />
     </label>
   </div>
 );

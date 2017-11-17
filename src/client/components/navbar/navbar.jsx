@@ -15,12 +15,12 @@ const Navbar = () => (
       <div styleName="nav-menu">
         <ul styleName="nav-items">
           <li>
-            <Link href="/" to="/">
+            <Link href="/app" to="/app">
                 Bikes
             </Link>
           </li>
           <li>
-            <Link href="/" to="/">
+            <Link href="/app/login" to="/app/login">
                 Gear
             </Link>
           </li>

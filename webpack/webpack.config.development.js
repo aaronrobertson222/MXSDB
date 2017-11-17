@@ -1,13 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
 
+
+const nodeEnv = process.env.NODE_ENV || 'development';
+const testing = nodeEnv === 'testing' || false;
+
 // Paths
 const rootPath = process.cwd();
-const srcPath = path.join(rootPath, './src/');
-const clientPath = path.join(srcPath, './client/');
-const httpServicePath = `${__dirname}/src/redux/services/http.js`;
-const envConfigFile = 'development';
-const envConfigPath = `${__dirname}/src/config/environments/${envConfigFile}.js`;
+const srcPath = path.join(rootPath, './src');
+const clientPath = path.join(srcPath, './client');
+const httpServicePath = `${clientPath}/redux/services/http.js`;
+const envConfigPath = `${clientPath}/config/environments/development.js`;
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -111,12 +114,13 @@ module.exports = {
   },
   resolve: {
     alias: {
+      envConfig: envConfigPath,
       actions: path.join(clientPath, 'actions'),
       containers: path.join(clientPath, 'containers'),
       components: path.join(clientPath, 'components'),
-      envConfig: envConfigPath,
       httpService: httpServicePath,
       images: path.join(clientPath, 'assets', 'images'),
+      layouts: path.join(clientPath, 'layouts'),
       reducers: path.join(clientPath, 'reducers'),
     },
     extensions: ['.js', '.jsx', '.css'],

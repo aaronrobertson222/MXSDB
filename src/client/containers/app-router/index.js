@@ -1,1 +1,1 @@
-export { default } from './app-router.jsx';
+export { default } from './app-router';

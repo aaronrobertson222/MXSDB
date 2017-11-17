@@ -1,14 +1,25 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
+import { StaticRouter } from 'react-router-dom';
+import createHistory from 'history/createMemoryHistory';
 
-import AppRouter from 'containers/app-router';
 import configureStore from '../client/redux/store/store';
 
 module.exports = function serverRenderer(req, res) {
+  const history = createHistory();
   const PROD = process.env.NODE_ENV === 'production';
-  const STORE = configureStore();
-  const HTML = PROD ? `<div id="app">${renderToString(<Provider store={STORE}><AppRouter /></Provider>)}</div>` : '<div id="app"></div>';
+  const STORE = configureStore({}, history);
+  const HTML = PROD ? (
+    `<div id="app">
+    ${renderToString(
+      <Provider store={STORE}>
+        <StaticRouter>
+        </StaticRouter>
+      </Provider>)}
+    </div>`)
+    :
+    ('<div id="app"></div>');
 
   const preloadedState = STORE.getState();
 
