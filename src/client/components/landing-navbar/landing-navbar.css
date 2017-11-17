@@ -1,0 +1,28 @@
+.wrapper {
+  width: 80%;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container {
+  position: relative;
+  padding: 5px 10px;
+}
+
+.logo {
+  height: 45px;
+  width: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.user-options {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+}
