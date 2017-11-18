@@ -1,10 +1,10 @@
 .wrapper {
-  width: 80%;
+  width: 75%;
   position: absolute;
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: helvetica;
+  font-family: "Hiragino Kaku Gothic Pro";
 }
 
 .container {
@@ -22,38 +22,38 @@
 
 .user-options {
   position: absolute;
-  right: 10px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   display: inline-block;
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 1.15rem;
 }
 
 .user-options > li {
   display: inline-block;
-  padding: 0px 5px;
+  padding: 0px 10px;
 }
 
 .signup-option,
 .login-option {
   color: white;
   text-decoration: none;
-}
-
-.signup-option > span {
-  border: 2px solid #FE4444;
+  display: inline-block;
   padding: 10px 20px;
-  border-radius: 2px;
-  background: rgb(254, 69, 69)
+  text-transform: uppercase;
+  font-size: .90em;
 }
 
-.login-option > span {
-  padding: 10px 20px;
+.signup-option {
+  border: 1px solid #FE4444;
 }
 
-.login-option > span:hover {
-  border-bottom: 2px solid #FE4444;
+.login-option {
+
+}
+
+.arrow {
+  color: white;
 }

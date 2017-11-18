@@ -1,10 +1,35 @@
 .wrapper {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(rgba(25, 25, 25, 0.90),
-                              rgba(25, 25, 25, 0.90)),
+  min-height: 500px;
+  background: linear-gradient(rgba(23, 24, 26, 0.90),
+                              rgba(23, 24, 26, 0.90)),
                               url('../../assets/images/coverimg.png') no-repeat center center fixed;
   background-size: cover;
   background-position: center;
   position: relative;
+  font-family: "Hiragino Kaku Gothic Pro";
+}
+
+.container {
+  position: relative;
+  margin: auto;
+  width: 500px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid #FE4444;
+  box-sizing: border-box;
+}
+
+.slogan {
+  text-transform: uppercase;
+  color: #FFF;
+  text-align: center;
+  font-size: 1.75em;
+  margin: 0;
+  padding: 20px;
+}
+
+.red {
+  color: #FE4444;
 }
