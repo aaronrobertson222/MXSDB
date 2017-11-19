@@ -10,7 +10,7 @@ const Hero = () => (
   <div styleName="wrapper">
     <LandingNavbar />
     <div styleName="container">
-      <h2 styleName="slogan">Create. Upload. <span styleName="red">Share.</span></h2>
+      <h2 styleName="slogan">Create. Share. <span styleName="red">Shred.</span></h2>
     </div>
     <div>
       <FontAwesome name="fa-angle-double-down" />

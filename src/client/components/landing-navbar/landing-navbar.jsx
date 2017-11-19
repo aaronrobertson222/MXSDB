@@ -6,7 +6,6 @@ import styles from './landing-navbar.css';
 
 import LogoSvg from '../../assets/images/MXSDB.svg';
 
-
 const LandingNavbar = () => (
   <div styleName="wrapper">
     <div styleName="container">
@@ -15,12 +14,12 @@ const LandingNavbar = () => (
       </Link>
       <ul styleName="user-options">
         <li>
-          <Link to="/app/login" href="/app/login" styleName="login-option">
+          <Link to="/login" href="/login" styleName="login-option">
             Login
           </Link>
         </li>
         <li>
-          <Link to="/app/signup" href="/app/signup" styleName="signup-option">
+          <Link to="/signup" href="/signup" styleName="signup-option">
             Sign up
           </Link>
         </li>

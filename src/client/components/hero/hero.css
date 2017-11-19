@@ -4,7 +4,7 @@
   min-height: 500px;
   background: linear-gradient(rgba(23, 24, 26, 0.90),
                               rgba(23, 24, 26, 0.90)),
-                              url('../../assets/images/coverimg.png') no-repeat center center fixed;
+                              url('../../assets/images/sim-background.png') no-repeat center center fixed;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -16,7 +16,7 @@
   margin: auto;
   width: 500px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-100%);
   border: 1px solid #FE4444;
   box-sizing: border-box;
 }

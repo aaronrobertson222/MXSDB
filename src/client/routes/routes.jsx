@@ -17,6 +17,8 @@ class Routes extends React.Component {
         <div>
           <Route exact path="/" location={location} component={routerMap.LandingLayout} />
           <Route path="/app" location={location} component={routerMap.MainLayout} />
+          <Route path="/login" location={location} component={routerMap.AuthLayout} />
+          <Route path="/signup" location={location} component={routerMap.AuthLayout} />
         </div>
       </AppContainer>
     );

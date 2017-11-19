@@ -1,9 +1,8 @@
 .wrapper {
   width: 75%;
-  position: absolute;
+  position: relative;
   top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: auto;
   font-family: "Hiragino Kaku Gothic Pro";
 }
 
@@ -51,7 +50,12 @@
 }
 
 .login-option {
+  transition: font-weight .3s ease;
+}
 
+.login-option:hover {
+  font-weight: 600;
+  color: #989CA2;
 }
 
 .arrow {
