@@ -76,7 +76,7 @@ router.get(
     .catch(err => console.log(err))
 );
 
-require('../passport')(passport);
+require('../config/passport')(passport);
 
 // route used to verify user has valid JWT
 router.get(

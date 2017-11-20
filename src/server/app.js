@@ -1,5 +1,4 @@
 // TODO: Conver requires to es6 imports and other es6 stuff.
-const { BasicStrategy } = require('passport-http');
 const bodyParser = require('body-parser');
 const express = require('express');
 const favicon = require('serve-favicon');
@@ -17,8 +16,7 @@ const {
   PORT,
   DATABASE_URL,
   SECRET,
-  EXPIRATIONTIME,
-} = require('./config');
+} = require('./config/app.config');
 
 const serverRenderer = require('./server.jsx');
 
@@ -48,7 +46,7 @@ app.use(favicon(path.join(process.cwd(), 'src', 'client', 'assets', 'images', 'f
 
 // passport init
 app.use(passport.initialize());
-require('./passport')(passport);
+require('./config/passport')(passport);
 
 app.post('/login', async (req, res) => {
   if (!req.body.username || !req.body.password) {
@@ -65,13 +63,13 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({message: 'Incorrect username or password'});
     }
     const token = jwt.sign(user, SECRET);
+    res.cookie('token', `JWT ${token}`, { httpOnly: true, secure: true });
     return res.status(200).json({
       success: true,
-      token: 'JWT ' + token,
-      tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
       user: user.apiRepr()
     });
   } catch(err) {
+    console.log(err); //eslint-disable-line
     res.status(500).json({message: 'Internal server error'});
   }
 });
