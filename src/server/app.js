@@ -48,38 +48,30 @@ app.use(favicon(path.join(process.cwd(), 'src', 'client', 'assets', 'images', 'f
 app.use(passport.initialize());
 require('./passport')(passport);
 
-app.post('/login', (req, res) => {
-  console.log(req.body);
-  const {username, password} = req.body;
+app.post('/login', async (req, res) => {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({message: 'missing field in body'});
   }
-  User
-    .findOne({username: username})
-    .exec()
-    .then(_user => {
-      let user = _user;
-      if (!user) {
-        return res.status(404).json({message: 'Incorrect username.'});
-      }
-      return user.validatePassword(password);
-    })
-    .then(isValid => {
-      if (!isValid) {
-        return res.status(400).json({message: 'Incorrect password.'});
-      } else {
-        const token = jwt.sign(user, SECRET);
-        res.status(200).json({
-          success: true,
-          token: 'JWT ' + token,
-          tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
-          user: user.apiRepr()
-        });
-      }
-    })
-    .catch(() => {
-      res.status(500).json({message: 'Internal server error'});
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({username: username}).exec();
+    if (!user) {
+      return res.status(401).json({message: 'Incorrect username or password'});
+    }
+    const isValid = await user.validatePassword(password);
+    if (!isValid) {
+      return res.status(401).json({message: 'Incorrect username or password'});
+    }
+    const token = jwt.sign(user, SECRET);
+    return res.status(200).json({
+      success: true,
+      token: 'JWT ' + token,
+      tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
+      user: user.apiRepr()
     });
+  } catch(err) {
+    res.status(500).json({message: 'Internal server error'});
+  }
 });
 
 // routers

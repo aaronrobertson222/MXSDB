@@ -13,7 +13,7 @@ export function fetchLogin(username, password) {
   return {
     onRequest: actionTypes.FETCH_LOGIN_REQUEST_TRIGGERED,
     onSuccess: actionTypes.FETCH_LOGIN_REQUEST_SUCCESS,
-    onFailure: actionTypes.FETCH_LOGIN_REQUEST_FAILED,
+    onFailure: actionTypes.FETCH_LOGIN_REQUEST_FAILURE,
     promise,
   };
 }

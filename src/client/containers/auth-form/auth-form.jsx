@@ -31,6 +31,10 @@ class AuthForm extends React.Component {
       const { username, password } = values;
       this.props.fetchLogin(username, password);
     }
+    if (this.state.formType === 'signup') {
+      const { username, password, email } = values;
+      this.props.createUser(username, password, email); //eslint-disable-line
+    }
   }
 
   render() {
@@ -39,10 +43,10 @@ class AuthForm extends React.Component {
       form = (
         <form onSubmit={this.props.handleSubmit(this.formSubmitHandler)} styleName="form-wrapper">
           <FieldWrapper label="Username" labelFor="password">
-            <Field name="username" component="input" type="text" styleName="input" />
+            <Field name="username" component="input" type="text" styleName="input" placeholder="Enter your username" />
           </FieldWrapper>
           <FieldWrapper label="Password" labelFor="password">
-            <Field name="password" component="input" type="text" styleName="input" />
+            <Field name="password" component="input" type="password" styleName="input" placeholder="Password" />
           </FieldWrapper>
           <button styleName="submit-button" type="submit">Login</button>
         </form>
@@ -51,16 +55,16 @@ class AuthForm extends React.Component {
       form = (
         <form onSubmit={this.props.handleSubmit(this.formSubmitHandler)} styleName="form-wrapper">
           <FieldWrapper label="Username" labelFor="password">
-            <Field name="username" component="input" type="text" styleName="input" />
+            <Field name="username" component="input" type="text" styleName="input" placeholder="Enter desired username" />
           </FieldWrapper>
-          <FieldWrapper label="Email" labelFor="email">
-            <Field name="email" component="input" type="text" styleName="input" />
+          <FieldWrapper label="E-mail" labelFor="email">
+            <Field name="email" component="input" type="text" styleName="input" placeholder="Enter your e-mail address" />
           </FieldWrapper>
           <FieldWrapper label="Password" labelFor="password">
-            <Field name="password" component="input" type="text" styleName="input" />
+            <Field name="password" component="input" type="text" styleName="input" placeholder="Password" />
           </FieldWrapper>
           <FieldWrapper label="Re-enter Password" labelFor="password">
-            <Field name="password" component="input" type="text" styleName="input" />
+            <Field name="password" component="input" type="text" styleName="input" placeholder="Re-enter Password" />
           </FieldWrapper>
           <button styleName="submit-button" type="submit">Sign Up</button>
         </form>

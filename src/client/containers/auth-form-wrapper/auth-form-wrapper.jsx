@@ -9,7 +9,7 @@ import styles from './auth-form-wrapper.css';
 
 class AuthFormWrapper extends React.Component {
   static propTypes = {
-    type: PropTypes.string.isRequired, //eslint-disable-line
+    type: PropTypes.string.isRequired,
   };
   constructor(props) {
     super(props);
@@ -17,8 +17,6 @@ class AuthFormWrapper extends React.Component {
     this.state = {
       selectedTab: null,
     };
-
-    this.toggleFormType = this.toggleFormType.bind(this);
   }
 
   componentWillMount() {
@@ -33,21 +31,13 @@ class AuthFormWrapper extends React.Component {
     this.setState({ selectedTab: tab });
   }
 
-  toggleFormType() {
-    if (this.state.selectedTab === 'login') {
-      this.setState({ selectedTab: 'signup' });
-    } else {
-      this.setState({ selectedTab: 'login' });
-    }
-  }
-
   render() {
     return (
       <div styleName="wrapper">
         <div styleName={`form-toggle-container ${this.state.selectedTab}`}>
           <div
-            onClick={this.toggleFormType}
-            onKeyPress={this.toggleFormType}
+            onClick={this.handleClick}
+            onKeyPress={this.handleClick}
             onFocus={() => {}}
             styleName="login-toggle toggle-tab"
             role="button"
@@ -60,20 +50,18 @@ class AuthFormWrapper extends React.Component {
             </Link>
           </div>
           <div
-            onClick={this.toggleFormType}
-            onKeyPress={this.toggleFormType}
+            onClick={this.handleClick}
+            onKeyPress={this.handleClick}
             onFocus={() => {}}
             styleName="signup-toggle toggle-tab"
             role="button"
             tabIndex="0"
           >
-            <span>
-              <Link to="/signup" href="/signup" >
-                <span styleName="tab-span">
+            <Link to="/signup" href="/signup" >
+              <span styleName="tab-span">
                   Signup
-                </span>
-              </Link>
-            </span>
+              </span>
+            </Link>
           </div>
         </div>
         <AuthForm formType={this.state.selectedTab} />
