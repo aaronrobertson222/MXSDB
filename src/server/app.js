@@ -26,6 +26,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const app = express();
 
+const { logger } = require('./config/logger.config');
+
 mongoose.Promise = global.Promise;
 
 if (isProduction) {
@@ -87,9 +89,9 @@ function runServer(databaseUrl) {
       if (err) {
         return rej(err);
       }
-      console.log(`connected to ${databaseUrl}`);
+      logger.info(`connected to ${databaseUrl}`);
       server = app.listen(PORT, () => {
-        console.log(`App is listening on port ${PORT}`);
+        logger.info(`App is listening on port ${PORT}`);
         return res();
       })
         .on('error', (err) => {
@@ -102,7 +104,7 @@ function runServer(databaseUrl) {
 
 function closeServer() {
   return mongoose.disconnect().then(() => new Promise((res, rej) => {
-    console.log('Closing server.');
+    logger.info('Closing server.');
     server.close((err) => {
       if (err) {
         return rej(err);
@@ -112,9 +114,9 @@ function closeServer() {
   }));
 }
 
-runServer(DATABASE_URL).catch(err => console.log(err));
+runServer(DATABASE_URL).catch(err => logger.error(err));
 if (require.main === module) {
-  runServer(DATABASE_URL).catch(err => console.log(err));
+  runServer(DATABASE_URL).catch(err => logger.error(err));
 }
 
 module.exports = { app, runServer, closeServer };
