@@ -6,7 +6,7 @@ import cssModules from 'react-css-modules';
 
 import FieldWrapper from 'components/field-wrapper';
 
-import { fetchLogin } from 'actions/index.actions';
+import { fetchLogin, createUser } from 'actions/index.actions';
 
 import styles from './auth-form.css';
 
@@ -33,7 +33,7 @@ class AuthForm extends React.Component {
     }
     if (this.state.formType === 'signup') {
       const { username, password, email } = values;
-      this.props.createUser(username, password, email); //eslint-disable-line
+      this.props.createUser(username, email, password); //eslint-disable-line
     }
   }
 
@@ -74,6 +74,6 @@ class AuthForm extends React.Component {
   }
 }
 
-export default connect(null, { fetchLogin })(reduxForm({
+export default connect(null, { fetchLogin, createUser })(reduxForm({
   form: 'AuthForm',
 })(cssModules(AuthForm, styles, { allowMultiple: true })));
