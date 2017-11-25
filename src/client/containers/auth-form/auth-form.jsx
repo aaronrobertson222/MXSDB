@@ -13,6 +13,7 @@ import styles from './auth-form.css';
 class AuthForm extends React.Component {
   static propTypes = {
     fetchLogin: PropTypes.func.isRequired,
+    createUser: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     formType: PropTypes.string.isRequired,
   }
@@ -33,44 +34,68 @@ class AuthForm extends React.Component {
     }
     if (this.state.formType === 'signup') {
       const { username, password, email } = values;
-      this.props.createUser(username, email, password); //eslint-disable-line
+      this.props.createUser(username, email, password);
     }
   }
 
   render() {
-    let form;
-    if (this.props.formType === 'login') {
-      form = (
-        <form onSubmit={this.props.handleSubmit(this.formSubmitHandler)} styleName="form-wrapper">
-          <FieldWrapper label="Username" labelFor="password">
-            <Field name="username" component="input" type="text" styleName="input" placeholder="Enter your username" />
-          </FieldWrapper>
-          <FieldWrapper label="Password" labelFor="password">
-            <Field name="password" component="input" type="password" styleName="input" placeholder="Password" />
-          </FieldWrapper>
-          <button styleName="submit-button" type="submit">Login</button>
-        </form>
-      );
-    } else {
-      form = (
-        <form onSubmit={this.props.handleSubmit(this.formSubmitHandler)} styleName="form-wrapper">
-          <FieldWrapper label="Username" labelFor="password">
-            <Field name="username" component="input" type="text" styleName="input" placeholder="Enter desired username" />
-          </FieldWrapper>
-          <FieldWrapper label="E-mail" labelFor="email">
-            <Field name="email" component="input" type="text" styleName="input" placeholder="Enter your e-mail address" />
-          </FieldWrapper>
-          <FieldWrapper label="Password" labelFor="password">
-            <Field name="password" component="input" type="text" styleName="input" placeholder="Password" />
-          </FieldWrapper>
-          <FieldWrapper label="Re-enter Password" labelFor="password">
-            <Field name="password" component="input" type="text" styleName="input" placeholder="Re-enter Password" />
-          </FieldWrapper>
-          <button styleName="submit-button" type="submit">Sign Up</button>
-        </form>
+    const fieldData = [
+      {
+        fieldName: 'username',
+        type: 'text',
+        component: 'input',
+        placeholder: 'Enter your username',
+        style: 'input',
+        id: 0,
+      },
+      {
+        fieldName: 'password',
+        type: 'password',
+        component: 'input',
+        placeholder: 'Password',
+        style: 'input',
+        id: 1,
+      },
+    ];
+
+    if (this.props.formType === 'signup') {
+      fieldData.push(
+        {
+          fieldName: 'confirm-password',
+          type: 'password',
+          component: 'input',
+          placeholder: 'confirm password',
+          style: 'input',
+          id: 2,
+        },
+        {
+          fieldName: 'email',
+          type: 'text',
+          component: 'input',
+          placeholder: 'Enter your email',
+          style: 'input',
+          id: 3,
+        },
       );
     }
-    return form;
+    const formFields = fieldData.map(field => (
+      <FieldWrapper label={field.fieldName} labelFor={field.fieldName} key={field.id}>
+        <Field
+          name={field.fieldName}
+          component={field.component}
+          type={field.type}
+          styleName={field.style}
+          placeholder={field.placeholder}
+        />
+      </FieldWrapper>
+    ));
+
+    return (
+      <form onSubmit={this.props.handleSubmit(this.formSubmitHandler)} styleName="form-wrapper">
+        {formFields}
+        <button styleName="submit-button" type="submit">{this.props.formType}</button>
+      </form>
+    );
   }
 }
 
