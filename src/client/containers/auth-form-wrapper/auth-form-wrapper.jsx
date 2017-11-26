@@ -3,7 +3,7 @@ import cssModules from 'react-css-modules';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import AuthForm from 'containers/auth-form';
+import AuthForm from 'containers/auth-form/auth-form';
 
 import styles from './auth-form-wrapper.css';
 
@@ -21,13 +21,7 @@ class AuthFormWrapper extends React.Component {
 
   componentWillMount() {
     const { type } = this.props;
-    let tab;
-    if (type === '/login') {
-      tab = 'login';
-    }
-    if (type === '/signup') {
-      tab = 'signup';
-    }
+    const tab = type === '/login' ? 'login' : 'signup';
     this.setState({ selectedTab: tab });
   }
 

@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
 
-import styles from './field-wrapper.css';
+import styles from './field-wrapper.scss';
 
 const FieldWrapper = props => (
   <div styleName="field">

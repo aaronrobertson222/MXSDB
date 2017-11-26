@@ -4,7 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
 
-import FieldWrapper from 'components/field-wrapper';
+import FieldWrapper from 'components/field-wrapper/field-wrapper';
 
 import { fetchLogin, createUser } from 'actions/index.actions';
 
@@ -51,7 +51,6 @@ class AuthForm extends React.Component {
       {
         fieldName: 'password',
         type: 'password',
-        component: 'input',
         placeholder: 'Password',
         style: 'input',
         id: 1,
@@ -63,7 +62,6 @@ class AuthForm extends React.Component {
         {
           fieldName: 'confirm-password',
           type: 'password',
-          component: 'input',
           placeholder: 'confirm password',
           style: 'input',
           id: 2,
@@ -71,7 +69,6 @@ class AuthForm extends React.Component {
         {
           fieldName: 'email',
           type: 'text',
-          component: 'input',
           placeholder: 'Enter your email',
           style: 'input',
           id: 3,
@@ -82,7 +79,7 @@ class AuthForm extends React.Component {
       <FieldWrapper label={field.fieldName} labelFor={field.fieldName} key={field.id}>
         <Field
           name={field.fieldName}
-          component={field.component}
+          component="input"
           type={field.type}
           styleName={field.style}
           placeholder={field.placeholder}

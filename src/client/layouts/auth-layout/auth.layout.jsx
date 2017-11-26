@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
 
-import AuthFormWrapper from 'containers/auth-form-wrapper';
+import AuthFormWrapper from 'containers/auth-form-wrapper/auth-form-wrapper';
 
 import styles from './auth-layout.css';
 

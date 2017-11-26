@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import App from 'components/app';
+import App from 'components/app/app';
 
 import * as routerMap from './static-routes';
 

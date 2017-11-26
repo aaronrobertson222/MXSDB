@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 
-import AppRouter from 'containers/app-router';
+import AppRouter from 'containers/app-router/app-router';
 
 import configureStore from './redux/store/store';
 
@@ -31,8 +31,8 @@ renderApp();
 
 // Hot Module Replacement
 if (module.hot) {
-  module.hot.accept('./containers/app-router', () => {
-    const nextApp = require('./containers/app-router');
+  module.hot.accept('./containers/app-router/app-router', () => {
+    const nextApp = require('./containers/app-router/app-router');
     renderApp(nextApp);
   });
 }

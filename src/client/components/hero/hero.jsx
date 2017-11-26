@@ -2,9 +2,9 @@ import React from 'react';
 import cssModules from 'react-css-modules';
 import FontAwesome from 'react-fontawesome';
 
-import LandingNavbar from 'components/landing-navbar';
+import LandingNavbar from 'components/landing-navbar/landing-navbar';
 
-import styles from './hero.css';
+import styles from './hero.scss';
 
 const Hero = () => (
   <div styleName="wrapper">
