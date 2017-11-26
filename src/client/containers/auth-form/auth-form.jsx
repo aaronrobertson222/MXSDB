@@ -75,21 +75,20 @@ class AuthForm extends React.Component {
         },
       );
     }
-    const formFields = fieldData.map(field => (
-      <FieldWrapper label={field.fieldName} labelFor={field.fieldName} key={field.id}>
-        <Field
-          name={field.fieldName}
-          component="input"
-          type={field.type}
-          styleName={field.style}
-          placeholder={field.placeholder}
-        />
-      </FieldWrapper>
-    ));
 
     return (
       <form onSubmit={this.props.handleSubmit(this.formSubmitHandler)} styleName="form-wrapper">
-        {formFields}
+        {fieldData.map(field => (
+          <FieldWrapper label={field.fieldName} labelFor={field.fieldName} key={field.id}>
+            <Field
+              name={field.fieldName}
+              component="input"
+              type={field.type}
+              styleName={field.style}
+              placeholder={field.placeholder}
+            />
+          </FieldWrapper>
+        ))}
         <button styleName="submit-button" type="submit">{this.props.formType}</button>
       </form>
     );

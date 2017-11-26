@@ -20,9 +20,12 @@ class AuthFormWrapper extends React.Component {
   }
 
   componentWillMount() {
-    const { type } = this.props;
-    const tab = type === '/login' ? 'login' : 'signup';
+    const tab = this.props.type === 'login' ? 'login' : 'signup';
     this.setState({ selectedTab: tab });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ selectedTab: nextProps.type });
   }
 
   render() {

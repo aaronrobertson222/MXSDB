@@ -8,12 +8,12 @@ import styles from './auth-layout.css';
 
 const AuthLayout = props => (
   <div styleName="wrapper">
-    <AuthFormWrapper type={props.location.pathname} />
+    <AuthFormWrapper type={props.match.params.auth} />
   </div>
 );
 
 AuthLayout.propTypes = {
-  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default cssModules(AuthLayout, styles);
