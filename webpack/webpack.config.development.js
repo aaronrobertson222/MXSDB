@@ -1,10 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 
-
-const nodeEnv = process.env.NODE_ENV || 'development';
-const testing = nodeEnv === 'testing' || false;
-
 // Paths
 const rootPath = process.cwd();
 const srcPath = path.join(rootPath, './src');
@@ -51,7 +47,7 @@ const rules = [
     ],
   },
   {
-    test: /\.css$/,
+    test: /\.(css|scss)$/,
     use: [
       {
         loader: 'style-loader',
@@ -64,6 +60,13 @@ const rules = [
           localIdentName: '[name]__[local]___[hash:base64:5]',
           sourcMap: true,
         },
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          includePaths: [path.join(clientPath, 'assets', 'styles')],
+          sourceMap: true,
+        }
       },
     ],
   },
@@ -123,7 +126,7 @@ module.exports = {
       layouts: path.join(clientPath, 'layouts'),
       reducers: path.join(clientPath, 'reducers'),
     },
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
     modules: [
       path.resolve(rootPath, 'node_modules'),
       srcPath,
