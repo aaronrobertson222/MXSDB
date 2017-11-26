@@ -60,6 +60,7 @@ const rules = [
     ],
   },
   // CSS
+  // TODO: add scss loader for production here.
   {
     test: /\.css$/,
     use: [
