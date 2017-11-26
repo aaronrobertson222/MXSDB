@@ -3,6 +3,11 @@ const express = require('express');
 const passport = require('passport');
 const { User } = require('./userModel');
 const jwt = require('jsonwebtoken');
+const path = require('path');
+
+const { SECRET } = require('../config/app.config');
+
+const { logger } = require('../config/logger.config');
 
 const router = express.Router();
 
@@ -63,8 +68,19 @@ router.post('/', (req, res) => {
         lastName,
         joinedDate: Date.now(),
       }))
-    .then(user => res.status(201).json(user.apiRepr()))
-    .catch(err => res.status(500).sendFile(path.join(__dirname, '../public', 'error.html')));
+    .then(user => {
+      const token = jwt.sign(user, SECRET);
+      res.cookie('token', `JWT ${token}`, { httpOnly: true, secure: true });
+      res.status(201).json({
+        success: true,
+        user: user.apiRepr(),
+
+      });
+    })
+    .catch(err => {
+      logger.error(err);
+      res.status(500).sendFile(path.join(__dirname, '../public', 'error.html'));
+    });
 });
 
 router.get(

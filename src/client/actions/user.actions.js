@@ -4,7 +4,7 @@ import appConfig from '../config/appConfig';
 
 import history from '../history';
 
-const successRedirect = (response, dispatch) => {
+const loginSuccessRedirect = (response, dispatch) => {
   history.push('/app');
   dispatch({
     type: actionTypes.FETCH_LOGIN_REQUEST_SUCCESS,
@@ -12,7 +12,7 @@ const successRedirect = (response, dispatch) => {
   });
 };
 
-export function fetchLogin(username, password) {
+export const fetchLogin = (username, password) => {
   const promise = fetch(appConfig.USER_LOGIN_PATH, {
     method: 'POST',
     body: JSON.stringify({
@@ -22,13 +22,13 @@ export function fetchLogin(username, password) {
   }, true);
   return {
     onRequest: actionTypes.FETCH_LOGIN_REQUEST_TRIGGERED,
-    onSuccess: successRedirect,
+    onSuccess: loginSuccessRedirect,
     onFailure: actionTypes.FETCH_LOGIN_REQUEST_FAILURE,
     promise,
   };
-}
+};
 
-export function createUser(username, email, password) {
+export const createUser = (username, email, password) => {
   const promise = fetch(appConfig.USER_SIGNUP_PATH, {
     method: 'POST',
     body: JSON.stringify({
@@ -44,4 +44,4 @@ export function createUser(username, email, password) {
     onFailure: actionTypes.CREATE_USER_REQUEST_FAILURE,
     promise,
   };
-}
+};
