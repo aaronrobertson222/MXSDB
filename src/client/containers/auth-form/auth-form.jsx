@@ -45,15 +45,11 @@ class AuthForm extends React.Component {
         type: 'text',
         component: 'input',
         placeholder: 'Enter your username',
-        style: 'input',
-        id: 0,
       },
       {
         fieldName: 'password',
         type: 'password',
         placeholder: 'Password',
-        style: 'input',
-        id: 1,
       },
     ];
 
@@ -63,15 +59,11 @@ class AuthForm extends React.Component {
           fieldName: 'confirm-password',
           type: 'password',
           placeholder: 'confirm password',
-          style: 'input',
-          id: 2,
         },
         {
           fieldName: 'email',
           type: 'text',
           placeholder: 'Enter your email',
-          style: 'input',
-          id: 3,
         },
       );
     }
@@ -79,12 +71,12 @@ class AuthForm extends React.Component {
     return (
       <form onSubmit={this.props.handleSubmit(this.formSubmitHandler)} styleName="form-wrapper">
         {fieldData.map(field => (
-          <FieldWrapper label={field.fieldName} labelFor={field.fieldName} key={field.id}>
+          <FieldWrapper label={field.fieldName} labelFor={field.fieldName} key={field.fieldName}>
             <Field
               name={field.fieldName}
               component="input"
               type={field.type}
-              styleName={field.style}
+              styleName="input"
               placeholder={field.placeholder}
             />
           </FieldWrapper>

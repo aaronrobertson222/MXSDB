@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import App from 'components/app/app';
 
@@ -15,9 +15,11 @@ class Routes extends React.Component {
     return (
       <App>
         <div>
-          <Route exact path="/" location={location} component={routerMap.LandingLayout} />
-          <Route path="/browse" location={location} component={routerMap.MainLayout} />
-          <Route path="/:auth" location={location} component={routerMap.AuthLayout} />
+          <Switch>
+            <Route exact path="/" location={location} component={routerMap.LandingLayout} />
+            <Route path="/browse" location={location} component={routerMap.MainLayout} />
+            <Route path="/:auth" location={location} component={routerMap.AuthLayout} />
+          </Switch>
         </div>
       </App>
     );

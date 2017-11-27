@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import AuthForm from 'containers/auth-form/auth-form';
 
-import styles from './auth-form-wrapper.css';
+import styles from './auth-form-wrapper.scss';
 
 class AuthFormWrapper extends React.Component {
   static propTypes = {
@@ -31,12 +31,12 @@ class AuthFormWrapper extends React.Component {
   render() {
     return (
       <div styleName="wrapper">
-        <div styleName={`form-toggle-container ${this.state.selectedTab}`}>
+        <div styleName="form-toggle-container">
           <div
             onClick={this.handleClick}
             onKeyPress={this.handleClick}
             onFocus={() => {}}
-            styleName="login-toggle toggle-tab"
+            styleName={this.state.selectedTab === 'login' ? 'toggle-tab active' : 'toggle-tab'}
             role="button"
             tabIndex="0"
           >
@@ -50,7 +50,7 @@ class AuthFormWrapper extends React.Component {
             onClick={this.handleClick}
             onKeyPress={this.handleClick}
             onFocus={() => {}}
-            styleName="signup-toggle toggle-tab"
+            styleName={this.state.selectedTab === 'signup' ? 'toggle-tab active' : 'toggle-tab'}
             role="button"
             tabIndex="0"
           >

@@ -5,7 +5,7 @@ import appConfig from '../config/appConfig';
 import history from '../history';
 
 const loginSuccessRedirect = (response, dispatch) => {
-  history.push('/app');
+  history.push('/browse');
   dispatch({
     type: actionTypes.FETCH_LOGIN_REQUEST_SUCCESS,
     response,

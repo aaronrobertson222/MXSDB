@@ -2,7 +2,12 @@ import React from 'react';
 
 const MainLayout = () => (
   <div>
-    <p>Main Layout</p>
+    <div>
+      hi
+    </div>
+    <div>
+      hi
+    </div>
   </div>
 );
 
