@@ -2,13 +2,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
+import FontAwesome from 'react-fontawesome';
 
 import styles from './field-wrapper.scss';
 
 const FieldWrapper = props => (
   <div styleName="field">
     <label htmlFor={props.labelFor} styleName="label">
-      {props.label}
+      <FontAwesome name={props.label} styleName="icon" />
     </label>
     {props.children}
   </div>

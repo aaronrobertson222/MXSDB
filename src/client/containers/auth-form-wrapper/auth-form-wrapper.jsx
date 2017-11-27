@@ -36,13 +36,13 @@ class AuthFormWrapper extends React.Component {
             onClick={this.handleClick}
             onKeyPress={this.handleClick}
             onFocus={() => {}}
-            styleName={this.state.selectedTab === 'login' ? 'toggle-tab active' : 'toggle-tab'}
+            styleName="toggle-tab"
             role="button"
             tabIndex="0"
           >
             <Link to="/login" href="/login" >
               <span styleName="tab-span">
-                Login
+                LOGIN
               </span>
             </Link>
           </div>
@@ -50,16 +50,17 @@ class AuthFormWrapper extends React.Component {
             onClick={this.handleClick}
             onKeyPress={this.handleClick}
             onFocus={() => {}}
-            styleName={this.state.selectedTab === 'signup' ? 'toggle-tab active' : 'toggle-tab'}
+            styleName="toggle-tab"
             role="button"
             tabIndex="0"
           >
             <Link to="/signup" href="/signup" >
               <span styleName="tab-span">
-                  Signup
+                  SIGN UP
               </span>
             </Link>
           </div>
+          <div styleName={`${this.state.selectedTab}-active active-bg`} />
         </div>
         <AuthForm formType={this.state.selectedTab} />
       </div>

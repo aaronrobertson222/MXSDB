@@ -8,7 +8,7 @@ import FieldWrapper from 'components/field-wrapper/field-wrapper';
 
 import { fetchLogin, createUser } from 'actions/index.actions';
 
-import styles from './auth-form.css';
+import styles from './auth-form.scss';
 
 class AuthForm extends React.Component {
   static propTypes = {
@@ -42,14 +42,13 @@ class AuthForm extends React.Component {
     const fieldData = [
       {
         fieldName: 'username',
+        icon: 'user-o',
         type: 'text',
-        component: 'input',
-        placeholder: 'Enter your username',
       },
       {
         fieldName: 'password',
+        icon: 'lock',
         type: 'password',
-        placeholder: 'Password',
       },
     ];
 
@@ -57,12 +56,14 @@ class AuthForm extends React.Component {
       fieldData.push(
         {
           fieldName: 'confirm-password',
+          icon: 'lock',
           type: 'password',
           placeholder: 'confirm password',
         },
         {
           fieldName: 'email',
           type: 'text',
+          icon: 'envelope-o',
           placeholder: 'Enter your email',
         },
       );
@@ -71,13 +72,13 @@ class AuthForm extends React.Component {
     return (
       <form onSubmit={this.props.handleSubmit(this.formSubmitHandler)} styleName="form-wrapper">
         {fieldData.map(field => (
-          <FieldWrapper label={field.fieldName} labelFor={field.fieldName} key={field.fieldName}>
+          <FieldWrapper label={field.icon} labelFor={field.fieldName} key={field.fieldName}>
             <Field
               name={field.fieldName}
               component="input"
               type={field.type}
               styleName="input"
-              placeholder={field.placeholder}
+              placeholder={field.fieldName}
             />
           </FieldWrapper>
         ))}

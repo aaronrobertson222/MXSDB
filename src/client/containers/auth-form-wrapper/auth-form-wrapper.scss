@@ -6,13 +6,16 @@
   width: 450px;
   margin: 0 auto;
   padding: 0;
-  box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
-  top: 200px;
+  top: 150px;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  font-family: "Hiragino Kaku Gothic Pro";
 }
 
 .form-toggle-container {
   width: 100%;
+  background-color: #17181a;
+  z-index: 1;
 }
 
 .toggle-tab > a {
@@ -28,14 +31,16 @@
 }
 
 .toggle-tab {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(0, 0, 0, 0);
   height: 50px;
   width: 225px;
   border: none;
   font-size: 1.2em;
   display: inline-block;
   outline: none;
-
+  box-sizing: border-box;
+  z-index: 3;
+  position: relative;
   .tab-span {
     color: #FFF;
   }
@@ -43,17 +48,24 @@
 
 .toggle-tab:hover {
   cursor: pointer;
-  background-color: rgba(255, 255, 255, .05);
 }
 
-.active {
-  background-color: #FFFFFF;
-
-  .tab-span {
-    color: #000;
-  }
+.login-active {
+  left: 0;
 }
 
-.active:hover {
-  background-color: #FFFFFF;
+.signup-active {
+  left: 50%;
+}
+
+.active-bg {
+  width: 50%;
+  height: 50px;
+  background-color: #3C3C3C;
+  position: absolute;
+  border-bottom: 2px solid $primary-red;
+  top: 0;
+  box-sizing: border-box;
+  z-index: 2;
+  transition: left .3s ease;
 }
