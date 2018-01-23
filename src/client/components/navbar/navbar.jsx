@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
+import FontAwesome from 'react-fontawesome';
 
 import styles from './navbar.css';
 
@@ -15,21 +16,25 @@ const Navbar = () => (
       <div styleName="nav-menu">
         <ul styleName="nav-items">
           <li>
-            <Link href="/app" to="/app">
+            <Link href="/browse/bikes" to="/browse/bikes">
                 Bikes
             </Link>
           </li>
           <li>
-            <Link href="/app/login" to="/app/login">
+            <Link href="/browse/gear" to="/browse/gear">
                 Gear
             </Link>
           </li>
           <li>
-            <Link href="/" to="/">
+            <Link href="/browse/tracks" to="/browse/tracks">
                 Tracks
             </Link>
           </li>
         </ul>
+      </div>
+      <div styleName="user">
+        <FontAwesome name="chevron-down" styleName="down" />
+        <img styleName="userimg" align="right" src="http://via.placeholder.com/45x45" alt="user" />
       </div>
     </div>
   </div>

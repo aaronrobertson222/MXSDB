@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
 
-import styles from './landing-navbar.css';
+import styles from './landing-navbar.scss';
 
 import LogoSvg from '../../assets/images/MXSDB.svg';
 

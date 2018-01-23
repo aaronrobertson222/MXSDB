@@ -1,0 +1,24 @@
+.wrapper {
+  background: rgb(24, 24, 24);
+  min-height: 100vh;
+  font-family: "Hiragino Kaku Gothic Pro";
+}
+
+.content {
+  width: 1220px;
+  float: right;
+  padding: 0 25px;
+}
+
+.section-header {
+  color: white;
+  font-weight: light;
+  padding: 0 .3rem;
+  font-size: 1.1rem;
+  margin: 25px 0;
+}
+
+hr {
+  font-size: .9rem;
+  border: .2px solid rgba(#d7d7d7, 0.2);
+}

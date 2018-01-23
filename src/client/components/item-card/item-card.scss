@@ -1,0 +1,96 @@
+@import '_variables';
+
+.container {
+  width: 25%;
+  height: auto;
+  font-family: "Hiragino Kaku Gothic Pro";
+  border-radius: 1px;
+  transition: box-shadow .3s ease;
+  display: inline-block;
+  padding: 0 .3rem;
+  margin: 0 0 .5rem 0;
+  box-sizing: border-box;
+}
+
+.container:hover {
+  cursor: pointer;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.07);
+}
+
+
+.item-img {
+  border-top-left-radius: 1px;
+  border-top-right-radius: 1px;
+  width: 100%;
+  height: auto;
+}
+
+.info {
+  padding: .5rem;
+  background: #333;
+}
+
+.title {
+  font-size: 15px;
+  color: #ffffff;
+  margin: 0;
+  font-weight: bold;
+}
+
+.creator {
+  color: $primary-red;
+}
+
+.creator:hover {
+  text-decoration: underline;
+}
+
+.type {
+  font-size: 12px;
+  color: #b5b5b5;
+  font-weight: 200;
+}
+
+.icon, .count {
+  display: inline-block;
+  padding: 0 3px;
+  vertical-align: middle;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.count {
+  margin: 0;
+}
+
+.stats {
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.info>p {
+  margin-bottom: .3em;
+}
+
+.stats>section {
+  display: inline-block;
+  padding: .3rem 0;
+}
+
+.big-hr {
+  border: 1px solid #808080;
+  width: 95%;
+}
+
+.small-hr {
+  width: 5%;
+  margin-left: 0;
+  border: 1px solid #808080;
+}
+
+.image-container {
+  width: auto;
+  height: auto;
+}

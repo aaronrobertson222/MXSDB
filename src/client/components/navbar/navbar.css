@@ -6,10 +6,9 @@
 }
 
 .container {
-  height: 80px;
-  width: 75%;
+  height: 60px;
+  width: 95%;
   margin: 0 auto;
-  padding: 0 5px;
   position: relative;
 }
 
@@ -18,19 +17,20 @@
 }
 
 .header {
-  width: 25%;
-  line-height: 80px;
+  line-height: 60px;
 }
 
 .logo {
-  height: 50px;
+  height: 35px;
   width: auto;
   max-width: 100%;
   vertical-align: middle;
+  margin: 0 5px;
 }
 
 .nav-menu {
-  margin-left: 10px;
+  position: absolute;
+  left: 25%;
 }
 
 .nav-items {
@@ -42,7 +42,7 @@
 .nav-items > li {
   display: inline-block;
   padding: 0 10px;
-  line-height: 80px;
+  line-height: 60px;
 }
 
 .nav-items > li > a {
@@ -50,20 +50,25 @@
   text-decoration: none;
 }
 
-.user-section {
-
-}
-
-.user-options {
-  list-style: none;
+.user {
   position: absolute;
-  top: 50%;
   right: 0;
-  transform: translateY(-70%);
+  height: 60px;
 }
 
-.user-options > li {
+.down, .userimg {
   display: inline-block;
-  line-height: 80px;
-  padding: 0 10px;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+
+.userimg {
+  border-radius: 1px;
+  top: 50%;
+  position: relative;
+  transform: translateY(-50%);
+}
+
+.down {
+  line-height: 60px;
 }
