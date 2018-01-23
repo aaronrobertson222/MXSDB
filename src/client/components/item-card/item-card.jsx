@@ -1,18 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
 import FontAwesome from 'react-fontawesome';
 
 import styles from './item-card.scss';
 
-const ItemCard = () => (
+const ItemCard = props => (
   <div styleName="container">
     <div styleName="image-container">
-      <img src={require('assets/images/placehold.png')} alt="blah" styleName="item-img" />
+      <img src={props.item.imgLocation} alt="blah" styleName="item-img" />
     </div>
     <div styleName="info">
-      <p styleName="title">2018 Relax Attire Supercross</p>
-      <p styleName="creator">Dryan345</p>
-      <p styleName="type">Team Pack</p>
+      <p styleName="title">{props.item.name}</p>
+      <p styleName="creator">{props.item.creator}</p>
+      <p styleName="type">{props.item.category}</p>
       <div styleName="stats">
         <section>
           <FontAwesome name="thumbs-o-up" styleName="icon" />
@@ -20,11 +21,15 @@ const ItemCard = () => (
         </section>
         <section>
           <FontAwesome name="arrow-circle-down" styleName="icon" />
-          <p styleName="count">125</p>
+          <p styleName="count">{props.item.downloadCount}</p>
         </section>
       </div>
     </div>
   </div>
 );
+
+ItemCard.propTypes = {
+  item: PropTypes.object.isRequired,
+};
 
 export default cssModules(ItemCard, styles, { allowMultiple: true });
