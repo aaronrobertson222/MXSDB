@@ -1,8 +1,10 @@
 .wrapper {
   width: 100%;
-  background-color: #333333;
+  background-color: #212020;
   font-family: helvetica;
   color: #FFF;
+  position: fixed;
+  z-index: 3;
 }
 
 .container {

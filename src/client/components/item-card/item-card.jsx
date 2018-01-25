@@ -7,13 +7,10 @@ import styles from './item-card.scss';
 
 const ItemCard = props => (
   <div styleName="container">
-    <div styleName="image-container">
-      <img src={props.item.imgLocation} alt="blah" styleName="item-img" />
-    </div>
+    <img src={props.item.imgLocation} alt="blah" styleName="item-img" />
     <div styleName="info">
       <p styleName="title">{props.item.name}</p>
       <p styleName="creator">{props.item.creator}</p>
-      <p styleName="type">{props.item.category}</p>
       <div styleName="stats">
         <section>
           <FontAwesome name="thumbs-o-up" styleName="icon" />
