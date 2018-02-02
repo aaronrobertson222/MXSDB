@@ -1,0 +1,35 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import",
+        "jest"
+    ],
+    "env": {
+        "browser": true,
+        "jest/globals": true
+    },
+    "rules": {
+      "react/jsx-filename-extension": 0,
+      "react/forbid-prop-types": 0,
+      "react/prefer-stateless-function": 0,
+      "import/no-extraneous-dependencies": 0,
+      "import/no-unresolved": 0,
+      "import/extensions": 0,
+      "no-underscore-dangle": 0,
+      "global-require": 0,
+      "jsx-a11y/label-has-for": 0
+    },
+    "settings": {
+       "import/resolver": {
+         "webpack": {
+           "config": "./webpack/webpack.config.development.js"
+         }
+        }
+    }
+}

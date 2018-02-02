@@ -1,0 +1,23 @@
+.field {
+  margin: 0 0 10px 0;
+  font-family: "Hiragino Kaku Gothic Pro";
+}
+
+.label {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 7%;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: auto;
+  text-align: center;
+}
+
+.icon {
+  color: white;
+  margin: auto;
+  display: block;
+  height: 5px;
+}
