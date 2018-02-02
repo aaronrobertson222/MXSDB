@@ -32,17 +32,19 @@
 
 .info {
   padding: .3rem .5rem;
-  background: #333;
+  background: #201f1f;
 }
 
 .title {
   font-size: 15px;
   color: #ffffff;
   font-weight: bold;
+  margin: 0 0 .4rem 0;
 }
 
 .creator {
   color: $primary-red;
+  margin: 0 0 .2rem 0;
 }
 
 .creator:hover {
@@ -72,10 +74,6 @@
 .stats {
   color: #ffffff;
   font-size: 12px;
-}
-
-.info>p {
-  margin: 0 .4rem 0 0;
 }
 
 .stats>section {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
-import FontAwesome from 'react-fontawesome';
+
+import UserOptions from 'components/user-options/user-options';
 
 import styles from './navbar.css';
 
@@ -32,10 +33,7 @@ const Navbar = () => (
           </li>
         </ul>
       </div>
-      <div styleName="user">
-        <FontAwesome name="chevron-down" styleName="down" />
-        <img styleName="userimg" align="right" src="http://via.placeholder.com/45x45" alt="user" />
-      </div>
+      <UserOptions />
     </div>
   </div>
 );
