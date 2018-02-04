@@ -35,10 +35,6 @@ if (isProduction) {
   app.get('*', serverRenderer);
 }
 
-// passport init
-app.use(passport.initialize());
-require('./config/passport')(passport);
-
 // Server start and stop util
 let server;
 
