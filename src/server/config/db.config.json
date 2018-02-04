@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "aaronrobertson",
+    "password": null,
+    "database": "mxsdb-dev",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "aaronrobertson",
+    "password": null,
+    "database": "mxsdb-test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
