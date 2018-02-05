@@ -56,5 +56,9 @@ module.exports = (sequelize, DataTypes) => {
     });
   });
 
+  Upload.associate = (models) => {
+    Upload.belongsTo(models.user, {as: 'creator'});
+  };
+
   return Upload;
 };
