@@ -34,7 +34,7 @@ module.exports = {
           password: hash,
           joinedDate: Date.now(),
         })
-          .then(user => res.status(200).json({message: 'user created', user: user}));
+          .then((user) => res.status(200).json({message: 'user created', user: user.apiRepr()}));
       })
       .catch(() => res.status(500).json({message: 'internal server error'}));
   }
