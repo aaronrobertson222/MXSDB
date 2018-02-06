@@ -19,9 +19,6 @@ module.exports = {
       creator,
       uploadDate,
     } = req.body;
-
-    // This takes file from multipart form and uploads it to s3 bucket.
-
     // Create DB record for upload
     models.upload
       .create({
@@ -33,10 +30,25 @@ module.exports = {
         uploadDate,
         fileKey: req.files.itemFile[0].key,
         fileLocation: req.files.itemFile[0].location,
-        imageKey: req.files.imgFile[0].key,
-        imageLocation: req.files.imgFile[0].location
+        imageKey: req.files.imageFile[0].key,
+        imageLocation: req.files.imageFile[0].location
       })
       .then(upload => res.status(200).json({message: 'success', upload}))
       .catch(err => res.status(500).json({message: 'internal server error', err}));
+  },
+
+  destroy(req, res) {
+    return models.upload
+      .findById(req.body.uploadId)
+      .then((item) => {
+        if (!item) {
+          return res.status(404).json({message: 'item not found'});
+        }
+        return models.upload
+          .destroy()
+          .then(() => res.status(204).json({message: 'item successfully deleted'}))
+          .catch(() => res.status(500).json({message: 'error'}));
+      })
+      .catch(() => res.status(500).json({message: 'error internal server error'}));
   }
 };

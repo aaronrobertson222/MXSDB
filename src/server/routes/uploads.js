@@ -33,6 +33,6 @@ router.post('/', fileUpload.fields([{
   name: 'imageFile',
   maxCount: 1
 }
-]),uploadsController.create);
+]), uploadsController.create);
 
 module.exports = router;

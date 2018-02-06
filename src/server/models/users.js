@@ -40,8 +40,13 @@ module.exports = (sequelize, DataTypes) => {
     return User.create({
       username: 'aaronr5',
       firstname: 'aaron',
+      password: 'password'
     });
   });
+
+  User.associate = (models) => {
+    User.belongsToMany(models.upload, {through: 'UsersUploads'});
+  };
 
   User.prototype.apiRepr = function() {
     return {
