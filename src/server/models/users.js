@@ -40,8 +40,6 @@ module.exports = (sequelize, DataTypes) => {
     return User.create({
       username: 'aaronr5',
       firstname: 'aaron',
-      lastname: 'robertson',
-      password: '12moto34'
     });
   });
 
