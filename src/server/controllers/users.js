@@ -15,7 +15,7 @@ module.exports = {
 
   create: async function(req, res) {
     try {
-      const { username, firstname, lastname, password } = req.body;
+      const { username, password } = req.body;
       let results = await models.user
         .findAndCountAll({
           where: {
@@ -31,8 +31,6 @@ module.exports = {
 
       const user = await models.user.create({
         username: username.trim(),
-        firstname: firstname.trim(),
-        lastname: lastname.trim(),
         password: hashedPassword,
         joinedDate: Date.now(),
       });

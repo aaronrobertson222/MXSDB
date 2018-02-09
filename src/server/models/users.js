@@ -6,14 +6,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    firstname: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     password: {
       type: DataTypes.STRING,
       allowNull: false
@@ -47,7 +39,6 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.apiRepr = function() {
     return {
       username: this.username || '',
-      name: `${this.firstname} ${this.lastname}` || '',
       userLevel: this.accountLevel,
       joinedDate: moment(this.joinedDate).format('MMM DD, YYYY'),
       uploads: this.uploads
