@@ -18,10 +18,13 @@ const { logger } = require('./config/logger.config');
 const app = express();
 
 //  standard app middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit:50000 }));
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(morgan('dev'));
 app.use(favicon(path.join(process.cwd(), 'src', 'client', 'assets', 'images', 'favicon.ico')));
+
+app.use(passport.initialize());
+require('./config/passport.js')(passport);
 
 require('./routes')(app);
 

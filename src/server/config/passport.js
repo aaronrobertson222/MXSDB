@@ -1,5 +1,5 @@
 const JwtStrategy = require('passport-jwt').Strategy;
-const {User} = require('../users/userModel');
+const User = require('../models').user;
 const {SECRET} = require('./app.config');
 
 // Extract JWT cookie if it exists
@@ -16,15 +16,19 @@ module.exports = function(passport){
   opts.secretOrKey = SECRET;
   passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
     User
-      .findOne({_id: jwt_payload._doc._id},
-        function(err, user) {
-          if (err) {
-            return done(err, false);
-          }
-          if (user) {
-            done(null, user);
-          } else {
-            done(null, false);
-          }});
+      .findOne({
+        where: {
+          id: jwt_payload._doc.id
+        }
+      },
+      function(err, user) {
+        if (err) {
+          return done(err, false);
+        }
+        if (user) {
+          done(null, user);
+        } else {
+          done(null, false);
+        }});
   }));
 };

@@ -32,16 +32,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
-    }
-  });
-
-  User.sync({force: true}).then(() => {
-  // Table created
-    return User.create({
-      username: 'aaronr5',
-      firstname: 'aaron',
-      password: 'password'
-    });
+    },
+    isBanned: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
   });
 
   User.associate = (models) => {
@@ -59,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.prototype.generateHash = function(password) {
-    return bcrypt.hash(password, bcrypt.genSaltSync(8));
+    return bcrypt.hash(password, 10);
   };
 
   User.prototype.validatePassword = function(password) {
