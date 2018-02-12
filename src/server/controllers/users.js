@@ -63,8 +63,7 @@ module.exports = {
       if (!isValid) {
         return res.status(400).json({message: 'Incorrect password.'});
       }
-
-      const jwtToken = jwt.sign(user.apiRepr(), SECRET);
+      const jwtToken = jwt.sign(user.dataValues, SECRET);
 
       return res.status(200).json({
         success: true,
@@ -77,4 +76,8 @@ module.exports = {
     }
 
   },
+
+  retrieveMe(req, res) {
+    return res.status(200).json({user: req.user.apiRepr()});
+  }
 };

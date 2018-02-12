@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.prototype.apiRepr = function() {
     return {
+      id: this.id,
       username: this.username || '',
       userLevel: this.accountLevel,
       joinedDate: moment(this.joinedDate).format('MMM DD, YYYY'),
