@@ -18,6 +18,7 @@ class Routes extends React.Component {
           <Switch>
             <Route exact path="/" location={location} component={routerMap.LandingLayout} />
             <Route path="/browse" location={location} component={routerMap.MainLayout} />
+            <Route path="/dashboard" location={location} component={routerMap.DashboardLayout} />
             <Route path="/:auth" location={location} component={routerMap.AuthLayout} />
           </Switch>
         </div>
