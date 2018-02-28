@@ -9,15 +9,15 @@ const fetch = (url, opts, anonymous = false) => {
   if (anonymous) {
     newOpts.headers = {
       ...newOpts.headers,
-      Accept: 'application/json',
       'Content-Type': 'application/json',
+      Accept: 'application/json, */*',
     };
   } else {
     const tokenContent = sessionStorage.getItem(appConfig.TOKEN_CONTENT_KEY);
     newOpts.headers = {
       ...newOpts.headers,
-      Accept: 'application/json',
       'Content-Type': 'application/json',
+      Accept: 'application/json, */*',
       Authorization: tokenContent,
     };
   }

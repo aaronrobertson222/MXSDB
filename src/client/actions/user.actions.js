@@ -4,12 +4,21 @@ import appConfig from '../config/appConfig';
 
 import history from '../history';
 
-const loginSuccessRedirect = (response, dispatch) => {
-  history.push('/browse');
+const loginSuccessHandler = (response, dispatch) => {
+  if (appConfig.ENV !== 'testing') {
+    sessionStorage.removeItem(appConfig.TOKEN_CONTENT_KEY);
+    sessionStorage.setItem(appConfig.TOKEN_CONTENT_KEY, response.token);
+
+    sessionStorage.removeItem(appConfig.TOKEN_EXP);
+    sessionStorage.setItem(appConfig.TOKEN_EXP, response.tokenExpiration);
+  }
+
   dispatch({
     type: actionTypes.FETCH_LOGIN_REQUEST_SUCCESS,
     response,
   });
+
+  history.push('/dashboard');
 };
 
 export const fetchLogin = (username, password) => {
@@ -22,7 +31,7 @@ export const fetchLogin = (username, password) => {
   }, true);
   return {
     onRequest: actionTypes.FETCH_LOGIN_REQUEST_TRIGGERED,
-    onSuccess: loginSuccessRedirect,
+    onSuccess: loginSuccessHandler,
     onFailure: actionTypes.FETCH_LOGIN_REQUEST_FAILURE,
     promise,
   };
@@ -42,6 +51,17 @@ export const createUser = (username, email, password) => {
     onRequest: actionTypes.CREATE_USER_REQUEST_TRIGGERED,
     onSuccess: actionTypes.CREATE_USER_REQUEST_SUCCESS,
     onFailure: actionTypes.CREATE_USER_REQUEST_FAILURE,
+    promise,
+  };
+};
+
+export const fetchCurrentUser = () => {
+  const promise = fetch(appConfig.CURRENT_USER_PATH);
+
+  return {
+    onRequest: actionTypes.FETCH_USER_TRIGGERED,
+    onSuccess: actionTypes.FETCH_USER_SUCCESS,
+    onFailure: actionTypes.FETCH_USER_FAILED,
     promise,
   };
 };

@@ -12,6 +12,12 @@ export default function user(state = initialState, action) {
         user: action.response.user,
       };
     }
+    case actionTypes.FETCH_USER_SUCCESS: {
+      return {
+        ...state,
+        user: action.response.user,
+      };
+    }
     default: {
       return state;
     }

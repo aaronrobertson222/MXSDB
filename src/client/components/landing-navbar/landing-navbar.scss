@@ -1,3 +1,5 @@
+@import '_variables';
+
 .wrapper {
   width: 75%;
   position: relative;
@@ -46,7 +48,7 @@
 }
 
 .signup-option {
-  border: 1px solid #FE4444;
+  border: 1px solid $primary-red;
 }
 
 .login-option {

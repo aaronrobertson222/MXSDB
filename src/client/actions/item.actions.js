@@ -26,3 +26,18 @@ export const fetchRecentItems = () => {
     promise,
   };
 };
+
+export const createItem = (formData) => {
+  console.log(formData); //eslint-disable-line
+  const promise = fetch(appConfig.CREATE_ITEM_PATH, {
+    method: 'POST',
+    body: formData,
+  });
+
+  return {
+    onRequest: actionTypes.CREATE_ITEM_REQUEST_TRIGGER,
+    onSuccess: actionTypes.CREATE_ITEM_REQUEST_SUCCESS,
+    onFailure: actionTypes.CREATE_ITEM_REQUEST_FAILURE,
+    promise,
+  };
+};

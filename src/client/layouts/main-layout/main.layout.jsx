@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
+import { Route } from 'react-router-dom';
+
 import Navbar from 'components/navbar/navbar';
 import ContentContainer from 'containers/content-container/content-container';
 import styles from './main.layout.scss';
 
 const MainLayout = (props) => {
-  let content;
+  let content; //eslint-disable-line
   if (props.match.isExact) {
     content = (
       <div styleName="content">
@@ -22,7 +24,7 @@ const MainLayout = (props) => {
   return (
     <div styleName="wrapper">
       <Navbar />
-      {content}
+      <Route path="/">{content}</Route>
     </div>
   );
 };

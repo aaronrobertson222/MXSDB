@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { AppContainer } from 'react-hot-loader';
 
 import AppRouter from 'containers/app-router/app-router';
@@ -15,12 +16,13 @@ delete window.__PRELOADED_STATE__;
 
 // Create browser history and redux store
 const store = configureStore(preloadedState, history);
-
 const renderApp = () => {
   ReactDOM.render(
     <AppContainer>
-      <Provider store={store}>
-        <AppRouter history={history} />
+      <Provider store={store.store}>
+        <PersistGate loading={null} persistor={store.persistor}>
+          <AppRouter history={history} />
+        </PersistGate>
       </Provider>
     </AppContainer>,
     document.getElementById('app'),
