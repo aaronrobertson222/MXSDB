@@ -1,5 +1,5 @@
+const Op = require('sequelize').Op;
 const jwt = require('jsonwebtoken');
-
 const models = require('../models');
 const { SECRET, EXPIRATIONTIME } = require('../config/app.config');
 
@@ -19,7 +19,9 @@ module.exports = {
       let results = await models.user
         .findAndCountAll({
           where: {
-            username: username.trim()
+            [Op.and]: {
+              username: username.trim()
+            }
           }
         });
 
@@ -50,7 +52,9 @@ module.exports = {
 
       const user = await models.user.findOne({
         where: {
-          username,
+          [Op.and]: {
+            username: username,
+          }
         }
       });
 

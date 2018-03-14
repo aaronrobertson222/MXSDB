@@ -47,18 +47,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'unkown'
-    }
+    },
   });
 
-  Upload.sync({force: true}).then(() => {
-    return Upload.create({
-      title: 'test title 1'
-    });
-  });
-
-  Upload.associate = (models) => {
-    Upload.belongsTo(models.user, {as: 'creator'});
+  Upload.associate = function(models) {
+    Upload.belongsTo(models.user);
+    Upload.sync();
   };
+
+  Upload.sync();
 
   return Upload;
 };

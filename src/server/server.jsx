@@ -21,7 +21,7 @@ module.exports = function serverRenderer(req, res) {
     :
     ('<div id="app"></div>');
 
-  const preloadedState = STORE.getState();
+  const preloadedState = STORE.store.getState();
 
   // TODO: Dynamically change the script tags depending on if PRODUTION or DEV. Also url.
   return res.status(200).send(`
@@ -31,6 +31,7 @@ module.exports = function serverRenderer(req, res) {
                 <title>MXSDB</title>
                 <style>body {margin: 0;}</style>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
             </head>
             <body>
               <script>

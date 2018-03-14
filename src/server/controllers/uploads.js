@@ -16,25 +16,31 @@ module.exports = {
       description,
       itemType,
       category,
-      creator,
       uploadDate,
     } = req.body;
+
     // Create DB record for upload
-    models.upload
+    return models.upload
       .create({
         title,
         description,
         itemType,
         category,
-        creator,
         uploadDate,
         fileKey: req.files.itemFile[0].key,
         fileLocation: req.files.itemFile[0].location,
         imageKey: req.files.imageFile[0].key,
         imageLocation: req.files.imageFile[0].location
       })
-      .then(upload => res.status(200).json({message: 'success', upload}))
-      .catch(err => res.status(500).json({message: 'internal server error', err}));
+      .then(upload => {
+        return req.user.setUploads([upload]).then(() => {
+          return res.status(200).json({message: 'success', upload});
+        });
+      })
+      .catch(err => {
+        console.log(err); //eslint-disable-line
+        res.status(500).json({message: 'internal server error', err});
+      });
   },
 
   destroy(req, res) {

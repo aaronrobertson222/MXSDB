@@ -20,13 +20,7 @@ module.exports = function(passport){
   passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
     try {
       const user = await User
-        .findOne({
-          where: {
-            id: jwt_payload.id
-          }
-        });
-
-        console.log(user); //eslint-disable-line
+        .findById(jwt_payload.id);
 
       if (user) {
         done(null, user);

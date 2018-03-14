@@ -29,11 +29,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
-    },
+    }
   });
 
   User.associate = (models) => {
-    User.belongsToMany(models.upload, {through: 'UsersUploads'});
+    User.hasMany(models.upload);
+    User.sync();
   };
 
   User.prototype.apiRepr = function() {
@@ -53,5 +54,7 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.validatePassword = function(password) {
     return bcrypt.compare(password, this.password);
   };
+
+  User.sync();
   return User;
 };
