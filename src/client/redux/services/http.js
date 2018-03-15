@@ -16,7 +16,6 @@ const fetch = (url, opts, anonymous = false) => {
     const tokenContent = sessionStorage.getItem(appConfig.TOKEN_CONTENT_KEY);
     newOpts.headers = {
       ...newOpts.headers,
-      'Content-Type': 'application/json',
       Accept: 'application/json, */*',
       Authorization: tokenContent,
     };

@@ -2,7 +2,7 @@ import fetch from '../redux/services/http.js';
 import * as actionTypes from './actionTypes';
 import appConfig from '../config/appConfig';
 
-import history from '../history';
+import history from '../utils/history';
 
 const loginSuccessHandler = (response, dispatch) => {
   if (appConfig.ENV !== 'testing') {

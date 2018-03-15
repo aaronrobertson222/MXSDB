@@ -1,16 +1,25 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import cssModules from 'react-css-modules';
+
+import { Icon } from 'semantic-ui-react';
+
+import styles from './file-input.scss';
 
 const FileInput = (field) => {
   const files = field.input.value;
   return (
     <div>
       <Dropzone
+        styleName="dropzone"
         name={field.fieldName}
         onDrop={filesToUpload => field.input.onChange(filesToUpload)}
         accept="application/x-rar-compressed, application/x-7z-compressed, application/zip"
       >
-        <div>drag and drop file here</div>
+        <div styleName="dropzone-content">
+          <Icon name="file archive outline" size="big" />
+          drag and drop file here
+        </div>
       </Dropzone>
       {
       field.meta.touched &&
@@ -24,4 +33,4 @@ const FileInput = (field) => {
   );
 };
 
-export default FileInput;
+export default cssModules(FileInput, styles);

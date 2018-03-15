@@ -8,7 +8,7 @@ import AppRouter from 'containers/app-router/app-router';
 
 import configureStore from './redux/store/store';
 
-import history from './history.js';
+import history from './utils/history.js';
 
 // Create var to store preloaded state from server and delete window prop
 const preloadedState = window.__PRELOADED_STATE__;

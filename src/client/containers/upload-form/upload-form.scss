@@ -1,3 +1,5 @@
+@import '_variables';
+
 .wrapper {
   margin: auto;
   width: 75%;
@@ -7,6 +9,6 @@
   color: blue;
 }
 
-.file-input {
-  width: 100%;
+.private-info {
+  color: $primary-red;
 }

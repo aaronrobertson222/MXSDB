@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import cssModules from 'react-css-modules';
-import { reduxForm, Field } from 'redux-form';
 import PropTypes from 'prop-types';
+import { reduxForm, Field } from 'redux-form';
+import cssModules from 'react-css-modules';
+
+import { Button, Form, Grid, Header } from 'semantic-ui-react';
+import { InputField, TextAreaField, SelectField, CheckboxField } from 'react-semantic-redux-form';
 
 import FileInput from 'components/file-input/file-input';
 import { createItem } from 'actions/index.actions';
+
+import typeOptions from '../../utils/commons.js';
 
 import styles from './upload-form.scss';
 
@@ -44,31 +49,7 @@ class UploadForm extends React.Component {
         title: 'image file',
         type: 'file',
         component: 'FileInput',
-      },
-    ];
-
-    const textInputs = [
-      {
-        fieldName: 'title',
-        title: 'item title',
-        type: 'text',
-        component: 'input',
-      },
-      {
-        fieldName: 'description',
-        title: 'item description',
-        type: 'text',
-        component: 'input',
-      },
-      {
-        fieldName: 'type',
-        title: 'item type',
-        type: 'option',
-        component: 'input',
-      },
-      {
-        fieldName: 'private',
-        title: 'private',
+        accepted: 'image/jpeg, image/png',
       },
     ];
 
@@ -80,34 +61,88 @@ class UploadForm extends React.Component {
 
     return (
       <div styleName="wrapper">
-        <form id="upload-form" encType="multipart/form-data" onSubmit={handleSubmit(this.formActionDispatch)}>
-          {fileInputs.map(field => (
-            <label key={field.fieldName}>
-              {field.title}
-              <Field
-                name={field.fieldName}
-                component={FileInput}
-                type={field.type}
-                styleName="file-input"
-                placeholder={field.fieldName}
-                accecpted={field.accepted}
-              />
-            </label>
-          ))}
-          {textInputs.map(field => (
-            <label key={field.fieldName}>
-              {field.title}
-              <Field
-                name={field.fieldName}
-                component="input"
-                type={field.type}
-                styleName="input"
-                placeholder={field.fieldName}
-              />
-            </label>
-          ))}
-          <button type="submit" disabled={pristine || submitting}>Upload</button>
-        </form>
+        <Header as="h1" inverted>
+          Upload
+        </Header>
+        <Form
+          inverted
+          id="upload-form"
+          encType="multipart/form-data"
+          onSubmit={handleSubmit(this.formActionDispatch)}
+        >
+          <Grid>
+            <Grid.Row>
+              {fileInputs.map(field => (
+                <Grid.Column width={8}>
+                  <label key={field.fieldName}>
+                    {field.title}
+                    <Field
+                      name={field.fieldName}
+                      component={FileInput}
+                      type={field.type}
+                      placeholder={field.fieldName}
+                      accecpted={field.accepted}
+                    />
+                  </label>
+                </Grid.Column>
+              ))}
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={6}>
+                <Field
+                  name="title"
+                  component={InputField}
+                  label="Title"
+                  placeholder="Upload title"
+                />
+              </Grid.Column>
+              <Grid.Column width={2}>
+                <Field
+                  name="type"
+                  component={SelectField}
+                  label="Type"
+                  options={typeOptions}
+                  inverted
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={10}>
+                <Field
+                  name="description"
+                  component={TextAreaField}
+                  label="Description"
+                  placeholder="Description"
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={12}>
+                <Field
+                  name="private"
+                  component={CheckboxField}
+                  label="Private"
+                />
+                <p styleName="private-info">
+                    * Uploads marked private are only accessible via direct link.
+                </p>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.Field
+                  type="submit"
+                  control={Button}
+                  disabled={pristine || submitting}
+                  positive
+                  primary
+                >
+                  Submit
+                </Form.Field>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Form>
       </div>
     );
   }
