@@ -4,6 +4,7 @@ const initialState = {
   recentItems: null,
   popularItems: null,
   filterItems: null,
+  uploadError: null,
 };
 
 export default function items(state = initialState, action) {
@@ -18,6 +19,12 @@ export default function items(state = initialState, action) {
       return {
         ...state,
         popularItems: action.response.items,
+      };
+    }
+    case actionTypes.CREATE_ITEM_REQUEST_FAILURE: {
+      return {
+        ...state,
+        uploadError: action.response.message,
       };
     }
     default: {

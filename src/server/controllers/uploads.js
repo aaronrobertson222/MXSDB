@@ -10,28 +10,21 @@ module.exports = {
   },
 
   create(req, res) {
-    // destructuring upload into variables
-    const {
-      title,
-      description,
-      itemType,
-      category,
-      uploadDate,
-    } = req.body;
+    console.log(req.body); //eslint-disable-line
+    const newUpload = {
+      title: req.body.title,
+      description: req.body.description,
+      itemType: req.body.itemType,
+      uploadDate: Date.now(),
+      fileKey: req.files.itemFile[0].key,
+      fileLocation: req.files.itemFile[0].location,
+      imageKey: req.files.imageFile[0].key,
+      imageLocation: req.files.imageFile[0].location
+    };
 
     // Create DB record for upload
     return models.upload
-      .create({
-        title,
-        description,
-        itemType,
-        category,
-        uploadDate,
-        fileKey: req.files.itemFile[0].key,
-        fileLocation: req.files.itemFile[0].location,
-        imageKey: req.files.imageFile[0].key,
-        imageLocation: req.files.imageFile[0].location
-      })
+      .create(newUpload)
       .then(upload => {
         return req.user.setUploads([upload]).then(() => {
           return res.status(200).json({message: 'success', upload});
