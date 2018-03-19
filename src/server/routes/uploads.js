@@ -36,6 +36,6 @@ router.post('/', passport.authenticate('jwt', {session: false}), fileUpload.fiel
 }
 ]), uploadsController.create);
 
-router.get('/', uploadsController.retrieve);
+router.get('/myuploads', passport.authenticate('jwt', {session: false}), uploadsController.listMyUploads);
 
 module.exports = router;
