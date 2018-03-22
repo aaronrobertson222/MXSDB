@@ -2,6 +2,11 @@ const bcrypt = require('bcryptjs');
 const moment = require('moment');
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false
@@ -33,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = (models) => {
-    User.hasMany(models.upload);
+    User.hasMany(models.upload, {foreignKey: 'userId', sourceKey: 'uuid'});
     User.sync();
   };
 

@@ -21,7 +21,7 @@ const fileUpload = multer({
       });
     },
     key: function(req, file, cb) {
-      cb(null, `${file.orignalname}- ${Date.now().toString()}`);
+      cb(null, `${req.user.username}/${file.originalname}`);
     }
   })
 });
@@ -35,6 +35,8 @@ router.post('/', passport.authenticate('jwt', {session: false}), fileUpload.fiel
   maxCount: 1
 }
 ]), uploadsController.create);
+
+router.get('/', uploadsController.list);
 
 router.get('/myuploads', passport.authenticate('jwt', {session: false}), uploadsController.listMyUploads);
 

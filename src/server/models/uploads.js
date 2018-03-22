@@ -1,5 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Upload = sequelize.define('upload', {
+    uuid: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -8,20 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    uploadType: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'unkown'
-    },
     category: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'unkown'
-    },
-    uploadDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Date.now()
     },
     downloadCount: {
       type: DataTypes.INTEGER,
@@ -48,6 +44,24 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'unkown'
     },
+    private: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    creator: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
+  }, {
+    scopes: {
+      public: {
+        where: {
+          private: false,
+        },
+        limit: 12,
+      },
+    }
   });
 
   Upload.associate = function(models) {
