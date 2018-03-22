@@ -13,10 +13,10 @@ const MainLayout = (props) => {
     content = (
       <div styleName="content">
         <h2 styleName="section-header">Recent Uploads</h2>
-        <ContentContainer />
+        <ContentContainer by="recent" />
         <hr />
         <h2 styleName="section-header">Popular</h2>
-        <ContentContainer />
+        <ContentContainer by="popular" />
       </div>
     );
   }

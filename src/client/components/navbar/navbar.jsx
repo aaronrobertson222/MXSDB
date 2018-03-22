@@ -17,7 +17,7 @@ const Navbar = () => {
         <LogoSvg styleName="logo" />
       </Menu.Item>
       {menuOptions.map(option => (
-        <Menu.Item>
+        <Menu.Item key={option}>
           <Link to={`/${option}`} href={`/${option}`}>{option}</Link>
         </Menu.Item>
       ))}

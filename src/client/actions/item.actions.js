@@ -14,10 +14,7 @@ export const fetchItems = (filter) => {
 };
 
 export const fetchRecentItems = () => {
-  const promise = fetch(`${appConfig.FETCH_ITEMS_PATH}recent`, {
-    method: 'POST',
-    data: { currentPage: 1 },
-  }, true);
+  const promise = fetch(`${appConfig.FETCH_ITEMS_PATH}`);
 
   return {
     onRequest: actionTypes.FETCH_RECENT_ITEMS_REQUEST_TRIGGER,

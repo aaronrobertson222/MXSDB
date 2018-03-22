@@ -1,44 +1,79 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
-import ItemCard from 'components/item-card/item-card';
 
-import { fetchRecentItems } from 'actions/index.actions';
+import ItemCard from 'components/item-card/item-card';
 
 import styles from './content-container.scss';
 
 class ContentContainer extends React.Component {
+  static defaultProps = {
+    categories: ['bike', 'track', 'gear'],
+    by: 'recent',
+    itemLimit: null,
+    itemOffset: null,
+  }
   static propTypes = {
-    fetchRecentItems: PropTypes.func.isRequired,
-    recentItems: PropTypes.array, // eslint-disable-line
+    categories: PropTypes.array,
+    by: PropTypes.string,
+    itemLimit: PropTypes.number,
+    itemOffset: PropTypes.number,
   }
 
-  componentWillMount() {
-    this.props.fetchRecentItems();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: null,
+      error: null,
+      loading: null,
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ loading: true });
+
+    const {
+      categories,
+      by,
+      itemLimit,
+      itemOffset,
+    } = this.props;
+
+    fetch(`http://localhost:8080/api/uploads?category=${categories.toString()}&by=${by}&limit=${itemLimit || 12}&offset=${itemOffset || 0}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Something went wrong while loading...');
+      })
+      .then((data) => {
+        this.setState({ items: data.results, loading: false }); //eslint-disable-line
+      })
+      .catch((err) => {
+        this.setState({ error: err, loading: false });
+      });
   }
 
   render() {
-    let defaultLayout;
-    if (this.props.recentItems !== null) {
-      defaultLayout = this.props.recentItems.map(item => (
-        <ItemCard item={item} key={item.id} />
-      ));
+    const { items, error, loading } = this.state;
+    const itemData = items || [];
+    if (loading) {
+      return <p>loading</p>;
     }
+
+    if (error) {
+      return <p>error</p>;
+    }
+
     return (
       <div styleName="wrapper">
-        {defaultLayout}
+        {itemData.map(item => (
+          <ItemCard item={item} key={item.title}>{item.title}</ItemCard>
+        ))}
       </div>
     );
   }
 }
 
-const mapDispatchToProps = {
-  fetchRecentItems,
-};
-
-const mapStateToProps = state => ({
-  recentItems: state.item.recentItems,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(cssModules(ContentContainer, styles));
+export default cssModules(ContentContainer, styles);
