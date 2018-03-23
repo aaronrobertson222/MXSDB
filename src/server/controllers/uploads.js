@@ -1,32 +1,12 @@
 const models = require('../models');
+const queryUtils = require('../utils/query-utils');
 const logger = require('../config/logger.config.js');
-
-function getQueryParams(queryString) {
-  const include = queryString.category ? queryString.category.split(',') : ['bike', 'gear', 'track'];
-  const limit = queryString.limit ? queryString.limit : 9;
-  const offset = queryString.offset ? queryString.offset : null;
-  let order = [['createdAt', 'DESC']];
-  if (queryString.by && queryString.by === 'popular') {
-    order = [['downloadCount', 'DESC']];
-  }
-
-  const query = {
-    limit,
-    offset,
-    order,
-    where: {
-      category: include
-    }
-  };
-
-  return query;
-}
 
 module.exports = {
   // retrieves current users uploads that match filter criteria
   listMyUploads: async function(req, res) {
     try {
-      const query = await getQueryParams(req.query);
+      const query = await queryUtils.getQueryParams(req.query);
 
       let uploads = await req.user.getUploads(query);
       return res.status(200).json({uploads});
@@ -37,10 +17,10 @@ module.exports = {
     }
 
   },
-
+  // list upload items based on query criteria
   list: async function(req, res) {
     try {
-      const query = await getQueryParams(req.query);
+      const query = await queryUtils.getQueryParams(req.query);
       const results = await models.upload.scope('public').findAll(query);
 
       return res.status(200).json({results});
@@ -50,7 +30,7 @@ module.exports = {
     }
 
   },
-
+  // create new upload item
   create(req, res) {
     const newUpload = {
       title: req.body.title,

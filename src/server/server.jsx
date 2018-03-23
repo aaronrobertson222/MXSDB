@@ -7,9 +7,13 @@ import createHistory from 'history/createMemoryHistory';
 import configureStore from '../client/redux/store/store';
 
 module.exports = function serverRenderer(req, res) {
+  let preloadedState = {};
+  if (req.user) {
+    preloadedState = { user: { user: req.user.apiRepr() } };
+  }
   const history = createHistory();
   const PROD = process.env.NODE_ENV === 'production';
-  const STORE = configureStore({}, history);
+  const STORE = configureStore(preloadedState, history);
   const HTML = PROD ? (
     `<div id="app">
     ${renderToString(
@@ -21,7 +25,7 @@ module.exports = function serverRenderer(req, res) {
     :
     ('<div id="app"></div>');
 
-  const preloadedState = STORE.store.getState();
+  const finalState = STORE.store.getState();
 
   // TODO: Dynamically change the script tags depending on if PRODUTION or DEV. Also url.
   return res.status(200).send(`
@@ -35,7 +39,7 @@ module.exports = function serverRenderer(req, res) {
             </head>
             <body>
               <script>
-                window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};
+                window.__PRELOADED_STATE__ = ${JSON.stringify(finalState).replace(/</g, '\\u003c')};
               </script>
                 ${HTML}
                 <script src="/static/vendor.js"></script>

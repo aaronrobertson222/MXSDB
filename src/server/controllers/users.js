@@ -68,10 +68,9 @@ module.exports = {
         return res.status(400).json({message: 'Incorrect password.'});
       }
       const jwtToken = jwt.sign(user.dataValues, SECRET);
-
       return res.status(200).json({
         success: true,
-        token: 'JWT ' + jwtToken,
+        token: jwtToken,
         tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
         user: user.apiRepr()
       });

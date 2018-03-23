@@ -21,7 +21,7 @@ class DashboardLayout extends React.Component {
     hello.hello = 2;
     return (
       <div>
-        <Navbar />
+        <Navbar user={this.props.user} />
         <div styleName="wrapper">
           <div styleName="content">
             <Switch>

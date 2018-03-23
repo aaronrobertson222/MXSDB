@@ -6,6 +6,7 @@ import history from '../utils/history';
 
 const loginSuccessHandler = (response, dispatch) => {
   if (appConfig.ENV !== 'testing') {
+    document.cookie = `auth_token=${response.token}`;
     sessionStorage.removeItem(appConfig.TOKEN_CONTENT_KEY);
     sessionStorage.setItem(appConfig.TOKEN_CONTENT_KEY, response.token);
 
