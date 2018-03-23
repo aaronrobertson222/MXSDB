@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
 
-import ItemCard from 'components/item-card/item-card';
+import { Card, Icon, Image } from 'semantic-ui-react';
 
 import styles from './content-container.scss';
 
@@ -10,14 +11,16 @@ class ContentContainer extends React.Component {
   static defaultProps = {
     categories: ['bike', 'track', 'gear'],
     by: 'recent',
-    itemLimit: null,
-    itemOffset: null,
+    limit: null,
+    offset: null,
+    users: null,
   }
   static propTypes = {
     categories: PropTypes.array,
     by: PropTypes.string,
-    itemLimit: PropTypes.number,
-    itemOffset: PropTypes.number,
+    limit: PropTypes.number,
+    offset: PropTypes.number,
+    users: PropTypes.array,
   }
 
   constructor(props) {
@@ -36,11 +39,18 @@ class ContentContainer extends React.Component {
     const {
       categories,
       by,
-      itemLimit,
-      itemOffset,
+      limit,
+      offset,
+      users,
     } = this.props;
 
-    fetch(`http://localhost:8080/api/uploads?category=${categories.toString()}&by=${by}&limit=${itemLimit || 12}&offset=${itemOffset || 0}`)
+    let endpoint = `http://localhost:8080/api/uploads?category=${categories.toString()}&by=${by}&limit=${limit || 12}&offset=${offset || 0}`;
+
+    if (users) {
+      endpoint = `http://localhost:8080/api/uploads?category=${categories.toString()}&by=${by}&limit=${limit || 12}&offset=${offset || 0}&users=${users}`;
+    }
+
+    fetch(endpoint)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -56,6 +66,11 @@ class ContentContainer extends React.Component {
   }
 
   render() {
+    const cardStyle = {
+      background: '#1b1c1d',
+      boxShadow: 'none',
+      color: 'white',
+    };
     const { items, error, loading } = this.state;
     const itemData = items || [];
     if (loading) {
@@ -69,8 +84,25 @@ class ContentContainer extends React.Component {
     return (
       <div styleName="wrapper">
         {itemData.map(item => (
-          <ItemCard item={item} key={item.title}>{item.title}</ItemCard>
-        ))}
+          <Link style={{ width: '25%', padding: '0 5px 10px 5px' }} to="/browse/id/" href="/browse/id">
+            <Card style={cardStyle} inverted styleName="item-card">
+              <Image src={item.imageLocation} />
+              <Card.Content>
+                <Card.Header style={{ color: 'white' }}>
+                  {item.title}
+                </Card.Header>
+                <Card.Meta style={{ color: '#b5b1b6' }}>
+                  <span>
+                      By {item.creator}
+                  </span>
+                </Card.Meta>
+              </Card.Content>
+              <Card.Content extra style={{ color: 'white', background: '#212225' }}>
+                <Icon inverted name="cloud download" size="large" /> {item.downloadCount}
+              </Card.Content>
+            </Card>
+          </Link>
+          ))}
       </div>
     );
   }

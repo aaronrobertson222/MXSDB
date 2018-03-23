@@ -1,12 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Dropdown, Image } from 'semantic-ui-react';
+import cssModules from 'react-css-modules';
 
-const UserOptions = () => {
+import styles from './user-options.scss';
+
+const UserOptions = (props) => {
+  if (props.user === null) {
+    return (
+      <div>
+        <span>
+          <Link to="/login" href="/login" styleName="login-option">
+            Login
+          </Link>
+        </span>
+        <span>
+          <Link to="/signup" href="/signup" styleName="signup-option">
+            Sign up
+          </Link>
+        </span>
+      </div>
+    );
+  }
+
   const trigger = (
     <div>
       <span>
-        <Image avatar src="http://via.placeholder.com/45x45" /> Jimmy
+        <Image avatar src="http://via.placeholder.com/45x45" />  {props.user.username}
       </span>
     </div>
   );
@@ -33,7 +54,15 @@ const UserOptions = () => {
   ];
 
   return (
-    <Dropdown className="top right" inverted trigger={trigger} options={options} pointing icon={null} inline />
+    <Dropdown className="top right" trigger={trigger} options={options} pointing icon={null} inline />
   );
 };
-export default UserOptions;
+
+UserOptions.defaultProps = {
+  user: null,
+};
+
+UserOptions.propTypes = {
+  user: PropTypes.object,
+};
+export default cssModules(UserOptions, styles);

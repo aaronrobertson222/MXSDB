@@ -1,36 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+
+import { Divider, Header } from 'semantic-ui-react';
 
 import Navbar from 'components/navbar/navbar';
 import ContentContainer from 'containers/content-container/content-container';
 import styles from './main.layout.scss';
 
-const MainLayout = (props) => {
-  let content; //eslint-disable-line
-  if (props.match.isExact) {
-    content = (
-      <div styleName="content">
-        <h2 styleName="section-header">Recent Uploads</h2>
-        <ContentContainer by="recent" />
-        <hr />
-        <h2 styleName="section-header">Popular</h2>
-        <ContentContainer by="popular" />
-      </div>
-    );
-  }
+const MainLayout = props => (
+  <div styleName="wrapper">
+    <Navbar user={props.currentUser} />
+    <Switch>
+      <Route exact path="/browse">
+        <div styleName="content">
+          <Header inverted>Recent Uploads</Header>
+          <Divider inverted />
+          <ContentContainer by="recent" />
+          <Header inverted>Popular</Header>
+          <Divider inverted />
+          <ContentContainer by="popular" />
+        </div>
+      </Route>
+      <Route path="/browse/bikes">
+        <div styleName="content">
+          <Header inverted>Bikes</Header>
+          <ContentContainer categories={['bike']} />
+        </div>
+      </Route>
+      <Route path="/browse/gear">
+        <div styleName="content">
+          <Header inverted>Gear</Header>
+          <ContentContainer categories={['gear']} />
+        </div>
+      </Route>
+      <Route path="/browse/tracks">
+        <div styleName="content">
+          <Header inverted>Tracks</Header>
+          <ContentContainer categories={['track']} />
+        </div>
+      </Route>
+    </Switch>
+  </div>
+);
 
-  return (
-    <div styleName="wrapper">
-      <Navbar />
-      <Route path="/">{content}</Route>
-    </div>
-  );
+MainLayout.defaultProps = {
+  currentUser: null,
 };
 
 MainLayout.propTypes = {
-  match: PropTypes.object.isRequired,
+  currentUser: PropTypes.object,
 };
 
 export default cssModules(MainLayout, styles);

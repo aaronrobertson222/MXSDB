@@ -42,7 +42,7 @@ class UploadForm extends React.Component {
         title: 'item file',
         type: 'file',
         component: 'FileInput',
-        accepted: 'application/x-rar-compressed, application/x-7z-compressed',
+        accepted: 'application/x-rar-compressed, application/x-7z-compressed, application/zip',
       },
       {
         fieldName: 'imageFile',
@@ -81,7 +81,7 @@ class UploadForm extends React.Component {
                       component={FileInput}
                       type={field.type}
                       placeholder={field.fieldName}
-                      accecpted={field.accepted}
+                      accepted={field.accepted}
                     />
                   </label>
                 </Grid.Column>

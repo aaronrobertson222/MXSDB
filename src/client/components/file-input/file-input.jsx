@@ -14,7 +14,7 @@ const FileInput = (field) => {
         styleName="dropzone"
         name={field.fieldName}
         onDrop={filesToUpload => field.input.onChange(filesToUpload)}
-        accept="application/x-rar-compressed, application/x-7z-compressed, application/zip"
+        accept={field.accepted}
       >
         <div styleName="dropzone-content">
           <Icon name="file archive outline" size="big" />
