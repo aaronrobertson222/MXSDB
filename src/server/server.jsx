@@ -14,6 +14,8 @@ module.exports = function serverRenderer(req, res) {
   const history = createHistory();
   const PROD = process.env.NODE_ENV === 'production';
   const STORE = configureStore(preloadedState, history);
+
+  //const layout = PROD ? require('../../build/prerender') : () => {};
   const HTML = PROD ? (
     `<div id="app">
     ${renderToString(
@@ -35,6 +37,7 @@ module.exports = function serverRenderer(req, res) {
                 <title>MXSDB</title>
                 <style>body {margin: 0;}</style>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
             </head>
             <body>

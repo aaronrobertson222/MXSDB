@@ -5,6 +5,8 @@ import cssModules from 'react-css-modules';
 
 import { Card, Icon, Image } from 'semantic-ui-react';
 
+import appConfig from '../../config/appConfig';
+
 import styles from './content-container.scss';
 
 class ContentContainer extends React.Component {
@@ -44,10 +46,10 @@ class ContentContainer extends React.Component {
       users,
     } = this.props;
 
-    let endpoint = `http://localhost:8080/api/uploads?category=${categories.toString()}&by=${by}&limit=${limit || 12}&offset=${offset || 0}`;
+    let endpoint = `${appConfig.FETCH_ITEMS_PATH}?category=${categories.toString()}&by=${by}&limit=${limit || 12}&offset=${offset || 0}`;
 
     if (users) {
-      endpoint = `http://localhost:8080/api/uploads?category=${categories.toString()}&by=${by}&limit=${limit || 12}&offset=${offset || 0}&users=${users}`;
+      endpoint = `${appConfig.FETCH_ITEMS_PATH}?category=${categories.toString()}&by=${by}&limit=${limit || 12}&offset=${offset || 0}&users=${users}`;
     }
 
     fetch(endpoint)
@@ -84,7 +86,7 @@ class ContentContainer extends React.Component {
     return (
       <div styleName="wrapper">
         {itemData.map(item => (
-          <Link style={{ width: '25%', padding: '0 5px 10px 5px' }} to="/browse/id/" href="/browse/id">
+          <Link style={{ width: '25%', padding: '0 5px 10px 5px' }} to={`/browse/id/${item.uuid}`} href={`/browse/id/${item.uuid}`}>
             <Card style={cardStyle} inverted styleName="item-card">
               <Image src={item.imageLocation} />
               <Card.Content>

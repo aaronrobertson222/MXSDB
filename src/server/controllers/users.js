@@ -70,7 +70,7 @@ module.exports = {
       const jwtToken = jwt.sign(user.dataValues, SECRET);
       return res.status(200).json({
         success: true,
-        token: jwtToken,
+        token: 'JWT ' + jwtToken,
         tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
         user: user.apiRepr()
       });

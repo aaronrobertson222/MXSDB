@@ -17,32 +17,27 @@ module.exports = (sequelize, DataTypes) => {
     category: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
     },
     downloadCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
     },
     fileKey: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
     },
     fileLocation: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
     },
     imageKey: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
     },
     imageLocation: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
     },
     private: {
       type: DataTypes.BOOLEAN,
@@ -51,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     creator: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    fileSize: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     }
   }, {

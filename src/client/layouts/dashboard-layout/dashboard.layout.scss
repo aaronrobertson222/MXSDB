@@ -1,20 +1,11 @@
+@import '_variables';
+
 .wrapper {
-  padding-top: 60px;
-  height: 100vh;
-  background-color: #141414;
+  min-height: 100vh;
+  background: $dark-grey;
 }
 
 .content {
-  padding: 20px;
   width: 1220px;
   margin: auto;
-  color: #FFF;
-}
-
-.header {
-  color: #FFF;
-}
-
-.user-card {
-  background: #333;
 }

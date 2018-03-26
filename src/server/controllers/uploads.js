@@ -32,6 +32,7 @@ module.exports = {
   },
   // create new upload item
   create(req, res) {
+    console.log(req.files); //eslint-disable-line
     const newUpload = {
       title: req.body.title,
       description: req.body.description,
@@ -43,6 +44,7 @@ module.exports = {
       imageKey: req.files.imageFile[0].key,
       imageLocation: req.files.imageFile[0].location,
       private: req.body.private,
+      fileSize: req.files.itemFile[0].size,
     };
 
     // Create DB record for upload
@@ -54,6 +56,22 @@ module.exports = {
       .catch(err => {
         console.log(err); //eslint-disable-line
         return res.status(500).json({message: 'internal server error'});
+      });
+  },
+
+  getById(req, res) {
+    return models.upload
+      .findOne({
+        where: {
+          uuid: req.params.id
+        }
+      })
+      .then((item) => {
+        return res.status(200).json({item});
+      })
+      .catch((err) => {
+        console.log(err); //eslint-disable-line
+        return res.status(500).json({message: 'Internal server error'});
       });
   },
 

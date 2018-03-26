@@ -2,8 +2,6 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import cssModules from 'react-css-modules';
 
-import { Icon } from 'semantic-ui-react';
-
 import styles from './file-input.scss';
 
 const FileInput = (field) => {
@@ -17,8 +15,11 @@ const FileInput = (field) => {
         accept={field.accepted}
       >
         <div styleName="dropzone-content">
-          <Icon name="file archive outline" size="big" />
-          drag and drop file here
+          <i className="material-icons md-48">insert_drive_file</i>
+          <br />
+          Drag & drop {field.content} file
+          <br />
+          <span>click to browse</span>
         </div>
       </Dropzone>
       {

@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, option } from 'redux-form';
 import cssModules from 'react-css-modules';
-
-import { Button, Form, Grid, Header } from 'semantic-ui-react';
-import { InputField, TextAreaField, SelectField, CheckboxField } from 'react-semantic-redux-form';
 
 import FileInput from 'components/file-input/file-input';
 import { createItem } from 'actions/index.actions';
-
-import typeOptions from '../../utils/commons.js';
 
 import styles from './upload-form.scss';
 
@@ -23,7 +18,9 @@ class UploadForm extends React.Component {
   };
 
   formActionDispatch = (values) => {
+    // create new FormData obj from form values
     const formData = new FormData();
+
     Object.keys(values).forEach((key) => {
       if (key.indexOf('File') !== -1) {
         formData.append(key, values[key][0]);
@@ -32,6 +29,7 @@ class UploadForm extends React.Component {
       }
     });
 
+    // call action creator with new FormData obj
     this.props.createItem(formData);
   }
 
@@ -43,6 +41,7 @@ class UploadForm extends React.Component {
         type: 'file',
         component: 'FileInput',
         accepted: 'application/x-rar-compressed, application/x-7z-compressed, application/zip',
+        content: 'upload',
       },
       {
         fieldName: 'imageFile',
@@ -50,6 +49,7 @@ class UploadForm extends React.Component {
         type: 'file',
         component: 'FileInput',
         accepted: 'image/jpeg, image/png',
+        content: 'image',
       },
     ];
 
@@ -61,88 +61,103 @@ class UploadForm extends React.Component {
 
     return (
       <div styleName="wrapper">
-        <Header as="h1" inverted>
+        <h1 styleName="form-header">
           Upload
-        </Header>
-        <Form
-          inverted
+        </h1>
+        <form
           id="upload-form"
           encType="multipart/form-data"
           onSubmit={handleSubmit(this.formActionDispatch)}
         >
-          <Grid>
-            <Grid.Row>
-              {fileInputs.map(field => (
-                <Grid.Column width={8}>
-                  <label key={field.fieldName}>
-                    {field.title}
-                    <Field
-                      name={field.fieldName}
-                      component={FileInput}
-                      type={field.type}
-                      placeholder={field.fieldName}
-                      accepted={field.accepted}
-                    />
-                  </label>
-                </Grid.Column>
-              ))}
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column width={6}>
+          <h3 styleName="section-header">Select Files</h3>
+          <div styleName="file-inputs-group">
+            {fileInputs.map(field => (
+              <div styleName="file-input">
+                <label key={field.fieldName}>
+                  {field.title}
+                  <Field
+                    name={field.fieldName}
+                    component={FileInput}
+                    type={field.type}
+                    placeholder={field.fieldName}
+                    accepted={field.accepted}
+                    content={field.content}
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
+
+          <h3 styleName="section-header">Upload Information</h3>
+
+          <div styleName="info-inputs-group">
+
+            <label>
+                Title
+                <br />
+              <Field
+                styleName="input"
+                name="title"
+                component="input"
+                placeholder="Example Title"
+              />
+            </label>
+
+            <label>
+                Type
+                <br />
+              <Field
+                styleName="type-select"
+                name="type"
+                component="select"
+                label="Type"
+                inverted
+              >
+                <option default>Select Upload Type</option>
+                <option value="bike">Bike</option>
+                <option value="gear">Gear</option>
+                <option value="track">Track</option>
+              </Field>
+            </label>
+
+
+            <label>
+              Description
+              <br />
+              <Field
+                styleName="description"
+                name="description"
+                component="textarea"
+                label="Description"
+                placeholder="About this upload..."
+              />
+            </label>
+
+            <div>
+              <label>
+                Private
                 <Field
-                  name="title"
-                  component={InputField}
-                  label="Title"
-                  placeholder="Upload title"
-                />
-              </Grid.Column>
-              <Grid.Column width={2}>
-                <Field
-                  name="type"
-                  component={SelectField}
-                  label="Type"
-                  options={typeOptions}
-                  inverted
-                />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column width={10}>
-                <Field
-                  name="description"
-                  component={TextAreaField}
-                  label="Description"
-                  placeholder="Description"
-                />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column width={12}>
-                <Field
+                  styleName="private-checkbox"
                   name="private"
-                  component={CheckboxField}
-                  label="Private"
+                  component="input"
+                  type="checkbox"
                 />
                 <p styleName="private-info">
-                    * Uploads marked private are only accessible via direct link.
+                * Uploads marked private are only accessible via direct link.
                 </p>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Field
-                  type="submit"
-                  control={Button}
-                  disabled={pristine || submitting}
-                  positive
-                  primary
-                >
-                  Submit
-                </Form.Field>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Form>
+              </label>
+            </div>
+          </div>
+
+
+          <button
+            styleName="submit-button"
+            type="submit"
+            disabled={pristine || submitting}
+          >
+            Upload
+          </button>
+        </form>
       </div>
     );
   }

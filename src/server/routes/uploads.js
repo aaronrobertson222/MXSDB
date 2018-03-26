@@ -40,4 +40,6 @@ router.get('/', uploadsController.list);
 
 router.get('/myuploads', passport.authenticate('jwt', {session: false}), uploadsController.listMyUploads);
 
+router.get('/id/:id', uploadsController.getById);
+
 module.exports = router;

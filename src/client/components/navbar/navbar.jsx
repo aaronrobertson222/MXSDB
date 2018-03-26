@@ -13,7 +13,7 @@ import LogoSvg from '../../assets/images/MXSDB.svg';
 const Navbar = (props) => {
   const menuOptions = ['bikes', 'gear', 'tracks'];
   return (
-    <Menu inverted>
+    <Menu inverted style={{ borderRadius: '0' }}>
       <Menu.Item>
         <Link to="/browse" href="/browse">
           <LogoSvg styleName="logo" />

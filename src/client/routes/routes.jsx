@@ -32,7 +32,14 @@ class Routes extends React.Component {
       <App>
         <div>
           <Switch>
-            <Route exact path="/" location={location} component={routerMap.LandingLayout} />
+            <Route
+              exact
+              path="/"
+              location={location}
+              render={props => (
+                user ? (<Redirect to="/browse" />) : (<routerMap.LandingLayout {...props} />)
+              )}
+            />
             <Route path="/browse" location={location} render={props => <routerMap.MainLayout currentUser={user} {...props} />} />
             <Route
               path="/dashboard"

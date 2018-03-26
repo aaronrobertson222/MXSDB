@@ -8,4 +8,5 @@ export default {
   FETCH_ITEMS_PATH: `${MAIN_APP_AUTHORITY}/uploads/`,
   CREATE_ITEM_PATH: `${MAIN_APP_AUTHORITY}/uploads/`,
   CURRENT_USER_PATH: `${MAIN_APP_AUTHORITY}/users/me`,
+  ITEM_ID_PATH: `${MAIN_APP_AUTHORITY}/uploads/id`,
 };
