@@ -15,40 +15,37 @@ module.exports = function serverRenderer(req, res) {
   const PROD = process.env.NODE_ENV === 'production';
   const STORE = configureStore(preloadedState, history);
 
-  //const layout = PROD ? require('../../build/prerender') : () => {};
-  const HTML = PROD ? (
-    `<div id="app">
-    ${renderToString(
-      <Provider store={STORE}>
-        <StaticRouter>
-        </StaticRouter>
-      </Provider>)}
-    </div>`)
-    :
-    ('<div id="app"></div>');
-
   const finalState = STORE.store.getState();
+  const initialState = `window.__PRELOADED_STATE__ = ${JSON.stringify(finalState)}`;
+
+  const Layout = PROD ? require('../../build/prerender') : () => {};
+
+  const HTML = PROD && renderToString(
+    <Provider store={STORE}>
+      <StaticRouter>
+        <Layout />
+      </StaticRouter>
+    </Provider>
+  );
+
+  const finalHtml = renderToString(
+    <html>
+      <head>
+        <title>MXSDB</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css" />
+      </head>
+      <body>
+        <script dangerouslySetInnerHTML={{__html: initialState}} />
+        {PROD ? <div id="app" dangerouslySetInnerHTML={{__html: HTML}}></div> : <div id="app"></div>}
+        {PROD && <script src="/static/vendor.js"></script>}
+        <script src="/static/bundle.js"></script>
+      </body>
+    </html>
+  );
 
   // TODO: Dynamically change the script tags depending on if PRODUTION or DEV. Also url.
-  return res.status(200).send(`
-            <!doctype html>
-            <html>
-            <head>
-                <title>MXSDB</title>
-                <style>body {margin: 0;}</style>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
-            </head>
-            <body>
-              <script>
-                window.__PRELOADED_STATE__ = ${JSON.stringify(finalState).replace(/</g, '\\u003c')};
-              </script>
-                ${HTML}
-                <script src="/static/vendor.js"></script>
-                <script src="/static/bundle.js"></script>
-            </body>
-            </html>
-        `);
+  return res.status(200).send(finalHtml);
 
 };

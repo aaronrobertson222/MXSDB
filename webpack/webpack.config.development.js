@@ -6,20 +6,12 @@ const rootPath = process.cwd();
 const srcPath = path.join(rootPath, './src');
 const clientPath = path.join(srcPath, './client');
 const httpServicePath = `${clientPath}/redux/services/http.js`;
-const envConfigPath = `${clientPath}/config/environments/development.js`;
+const envConfigPath = `${clientPath}/config/environments/${process.env.NODE_ENV}.js`;
 
 const plugins = [
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify('development'),
-    },
-  }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    filename: 'vendor.js',
-    minChunks(module) {
-      const { context } = module.context;
-      return context && context.indexOf('node_modules') >= 0;
     },
   }),
   new webpack.NamedModulesPlugin(),
@@ -99,12 +91,14 @@ const rules = [
 
 module.exports = {
   context: srcPath,
-  entry: [
-    'babel-polyfill',
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client?noInfo=false',
-    './client/index.jsx',
-  ],
+  entry: {
+    app: [
+      'babel-polyfill',
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client?noInfo=false',
+      './client/index.jsx',
+    ],
+  },
   output: {
     filename: 'bundle.js',
     chunkFilename: '[name]_[chunkhash].js',

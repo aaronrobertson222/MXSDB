@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
 
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 
 import appConfig from '../../config/appConfig';
 
@@ -100,7 +100,7 @@ class ContentContainer extends React.Component {
                 </Card.Meta>
               </Card.Content>
               <Card.Content extra style={{ color: 'white', background: '#212225' }}>
-                <Icon inverted name="cloud download" size="large" /> {item.downloadCount}
+                <i className="material-icons">file_download</i> {item.downloadCount}
               </Card.Content>
             </Card>
           </Link>

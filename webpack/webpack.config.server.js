@@ -52,7 +52,7 @@ const rules = [
   },
   // CSS
   {
-    test: /\.css$/,
+    test: /\.(css|scss)$/,
     use: [
       {
         loader: 'style-loader',
@@ -63,10 +63,21 @@ const rules = [
           modules: true,
           importLoaders: 1,
           localIdentName: '[name]__[local]___[hash:base64:5]',
-          sourcMap: true,
+          sourceMap: true,
         },
       },
+      {
+        loader: 'sass-loader',
+        options: {
+          includePaths: [path.join(clientPath, 'assets', 'styles')],
+          sourceMap: true,
+        }
+      },
     ],
+  },
+  {
+    test: /\.(png|gif|jpg|svg)$/,
+    use: ['url-loader?limit=20480&name=assets/[name]-[hash].[ext]'],
   },
   // Images
   {
@@ -99,7 +110,10 @@ const rules = [
 
 module.exports = {
   context: srcPath,
-  entry: [],
+  entry: {
+    prerender: '../src/client/routes/routes.jsx',
+  },
+  target: 'node',
   output: {
     path: buildPath,
     chunkFilename: '[name]_[chunkhash].js',

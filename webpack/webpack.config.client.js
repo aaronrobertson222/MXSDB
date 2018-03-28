@@ -60,9 +60,8 @@ const rules = [
     ],
   },
   // CSS
-  // TODO: add scss loader for production here.
   {
-    test: /\.css$/,
+    test: /\.(css|scss)$/,
     use: [
       {
         loader: 'style-loader',
@@ -73,8 +72,15 @@ const rules = [
           modules: true,
           importLoaders: 1,
           localIdentName: '[name]__[local]___[hash:base64:5]',
-          sourcMap: true,
+          sourceMap: true,
         },
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          includePaths: [path.join(clientPath, 'assets', 'styles')],
+          sourceMap: true,
+        }
       },
     ],
   },
@@ -115,7 +121,7 @@ module.exports = {
     './client/index.jsx',
   ],
   output: {
-    filename: '[name]_[chunkhash].js',
+    filename: '[name].js',
     chunkFilename: '[name]_[chunkhash].js',
     path: buildPath,
     publicPath: '/static/'

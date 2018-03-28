@@ -14,5 +14,13 @@
     "host": "mxsdb-dev.citywnik0dgl.us-west-2.rds.amazonaws.com",
     "port": 5432,
     "dialect": "postgres"
+  },
+  "production": {
+    "username": "aaronrobertson",
+    "password": null,
+    "database": "mxsdb-dev",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
   }
 }
