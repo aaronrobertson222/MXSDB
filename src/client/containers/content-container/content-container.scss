@@ -3,6 +3,10 @@
 .wrapper {
   max-width: 1220px;
   margin: auto;
+}
+
+.container {
+  width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -30,8 +34,8 @@
   height: 175px;
   width: 100%;
   overflow: hidden;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   img {
     position: absolute;
     left: 50%;
@@ -89,8 +93,8 @@
     bottom: 0;
     width: 100%;
     border-top: 2px solid $dark-grey;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     padding: 10px;
 
     &:last-child {
@@ -98,4 +102,16 @@
       right: 0;
     }
   }
+}
+
+.show-more-button {
+  background-color: $dark-grey;
+  display: block;
+  margin: auto;
+  display: block;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: 2px solid $primary-red;
+  border-radius: 5px;
+  color: #FFFFFF;
 }

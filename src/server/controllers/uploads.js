@@ -21,9 +21,9 @@ module.exports = {
   list: async function(req, res) {
     try {
       const query = await queryUtils.getQueryParams(req.query);
-      const results = await models.upload.scope('public').findAll(query);
+      const result = await models.upload.scope('public').findAndCountAll(query);
 
-      return res.status(200).json({results});
+      return res.status(200).json({results: result.rows, total: result.count});
     } catch(err) {
       console.log(err); //eslint-disable-line
       return res.status(200).json({message: 'Internal server error'});
