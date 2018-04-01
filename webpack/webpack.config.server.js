@@ -16,15 +16,6 @@ const plugins = [
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false,
-      screw_ie8: true,
-      conditionals: true,
-      unused: true,
-      comparisons: true,
-      sequences: true,
-      dead_code: true,
-      evaluate: true,
-      if_return: true,
-      join_vars: true,
     },
     output: {
       comments: false,
@@ -38,6 +29,7 @@ const plugins = [
   new webpack.optimize.LimitChunkCountPlugin({maxChunks: 1}),
   new ExtractTextPlugin('style-[hash].css'),
   new webpack.NoEmitOnErrorsPlugin(),
+  new webpack.NormalModuleReplacementPlugin(/\.\/static-routes/, './async-routes'),
 ];
 
 // RULES
@@ -105,7 +97,8 @@ const rules = [
         }
       }
     ]
-  }
+  },
+  {test: /\.json$/, loader: 'json-loader'},
 ];
 
 module.exports = {

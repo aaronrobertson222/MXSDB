@@ -15,20 +15,23 @@ module.exports = function serverRenderer(req, res) {
   const PROD = process.env.NODE_ENV === 'production';
   const STORE = configureStore(preloadedState, history);
 
+  const context = {};
+
   const finalState = STORE.store.getState();
   const initialState = `window.__PRELOADED_STATE__ = ${JSON.stringify(finalState)}`;
 
   const Layout = PROD ? require('../../build/prerender') : () => {};
 
-  const HTML = PROD && renderToString(
-    <Provider store={STORE}>
-      <StaticRouter>
+  const appRoot = PROD && renderToString(
+    <Provider store={STORE.store}>
+      <StaticRouter location={req.url} context={context}>
         <Layout />
       </StaticRouter>
     </Provider>
   );
 
-  const finalHtml = renderToString(
+  // Render Html to be returned
+  const html = renderToString(
     <html>
       <head>
         <title>MXSDB</title>
@@ -38,14 +41,12 @@ module.exports = function serverRenderer(req, res) {
       </head>
       <body>
         <script dangerouslySetInnerHTML={{__html: initialState}} />
-        {PROD ? <div id="app" dangerouslySetInnerHTML={{__html: HTML}}></div> : <div id="app"></div>}
-        {PROD && <script src="/static/vendor.js"></script>}
-        <script src="/static/bundle.js"></script>
+        {PROD ? <div id="app" dangerouslySetInnerHTML={{__html: appRoot}}></div> : <div id="app"></div>}
+        {PROD && <script src="vendor.js"></script>}
+        <script src={PROD ? 'bundle.js' : '/static/bundle.js'}></script>
       </body>
     </html>
   );
 
-  // TODO: Dynamically change the script tags depending on if PRODUTION or DEV. Also url.
-  return res.status(200).send(finalHtml);
-
+  return res.status(200).send('<!DOCTYPE html>' + html);
 };

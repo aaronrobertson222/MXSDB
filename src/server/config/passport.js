@@ -5,7 +5,6 @@ const { SECRET } = require('./app.config');
 // Extract JWT cookie if it exists
 const extractJwtCookie = function(req) {
   let token = null;
-  console.log(req.cookies); //eslint-disable-line
   // if req has cookie store it in token var. (substr to trim off 'JWT ' at beginning of token)
   if (req && req.cookies.auth_token) token = req.cookies.auth_token.substring(4);
   return token;

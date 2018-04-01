@@ -38,6 +38,7 @@ const plugins = [
       return context && context.indexOf('node_modules') >= 0;
     },
   }),
+  new webpack.NormalModuleReplacementPlugin(/\.\/static-routes/, './async-routes'),
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify('production'),
@@ -125,6 +126,10 @@ module.exports = {
     chunkFilename: '[name]_[chunkhash].js',
     path: buildPath,
     publicPath: '/static/'
+  },
+  node: {
+    dns: 'mock',
+    net: 'mock',
   },
   plugins,
   module: {

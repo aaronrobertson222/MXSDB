@@ -21,6 +21,7 @@ export default function configureStore(initialState, history) {
     promiseMiddleware,
     historyMiddleware,
   ))(createStore);
+
   const store = finalCreateStore(persistedReducer, initialState);
   const persistor = persistStore(store);
 

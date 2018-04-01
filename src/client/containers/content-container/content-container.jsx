@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
-
-import { Card, Image } from 'semantic-ui-react';
+import moment from 'moment';
 
 import appConfig from '../../config/appConfig';
 
@@ -68,11 +67,6 @@ class ContentContainer extends React.Component {
   }
 
   render() {
-    const cardStyle = {
-      background: '#1b1c1d',
-      boxShadow: 'none',
-      color: 'white',
-    };
     const { items, error, loading } = this.state;
     const itemData = items || [];
     if (loading) {
@@ -86,23 +80,21 @@ class ContentContainer extends React.Component {
     return (
       <div styleName="wrapper">
         {itemData.map(item => (
-          <Link style={{ width: '25%', padding: '0 5px 10px 5px' }} to={`/browse/id/${item.uuid}`} href={`/browse/id/${item.uuid}`}>
-            <Card style={cardStyle} inverted styleName="item-card">
-              <Image src={item.imageLocation} />
-              <Card.Content>
-                <Card.Header style={{ color: 'white' }}>
-                  {item.title}
-                </Card.Header>
-                <Card.Meta style={{ color: '#b5b1b6' }}>
-                  <span>
-                      By {item.creator}
-                  </span>
-                </Card.Meta>
-              </Card.Content>
-              <Card.Content extra style={{ color: 'white', background: '#212225' }}>
-                <i className="material-icons">file_download</i> {item.downloadCount}
-              </Card.Content>
-            </Card>
+          <Link style={{ width: '25%', padding: '0 10px 20px 10px' }} to={`/browse/id/${item.uuid}`} href={`/browse/id/${item.uuid}`}>
+            <div styleName="content-container">
+              <div styleName="thumbnail">
+                <div styleName="category">{item.category}</div>
+                <img src={item.imageLocation} alt={item.title} />
+              </div>
+              <div styleName="item-info">
+                <h2 styleName="title">{item.title}</h2>
+                <p>by <span styleName="creator">{item.creator}</span></p>
+                <p>Uploaded {moment(item.createdAt).fromNow()}</p>
+                <div styleName="meta-info">
+                  <span>{item.downloadCount} Downloads</span>
+                </div>
+              </div>
+            </div>
           </Link>
           ))}
       </div>

@@ -1,3 +1,5 @@
+@import '_variables';
+
 .wrapper {
   max-width: 1220px;
   margin: auto;
@@ -7,8 +9,93 @@
   flex-wrap: wrap;
 }
 
-.item-card {
-  width: 25%;
-  box-sizing: border-box;
-  padding: 10px;
+.content-container {
+  position: relative;
+  height: 330px;
+  width: 100%;
+  background: #242628;
+  border-radius: 10px;
+  transition: all .2s ease-in-out;
+  &:hover {
+    transform: scale(1.015);
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2);
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2);
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+.thumbnail {
+  position: relative;
+  height: 175px;
+  width: 100%;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+  }
+
+  .category {
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    z-index: 5;
+    background: $primary-red;
+    color: #FFFFFF;
+    padding: 5px 15px;
+    text-transform: capitalize;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.10), 0 6px 6px rgba(0,0,0,0.18);
+  }
+}
+
+
+
+.item-info {
+  font-family: "Hiragino Kaku Gothic Pro";
+  padding: 5px 15px;
+  color: #FFFFFF;
+
+  .title {
+    color: white;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+  }
+
+  .creator {
+    color: $primary-red;
+  }
+
+  .category {
+    position: absolute;
+    top: 10px;
+  }
+
+  .meta-info {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid $dark-grey;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 10px;
+
+    &:last-child {
+      position: absolute;
+      right: 0;
+    }
+  }
 }

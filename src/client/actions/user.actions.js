@@ -2,7 +2,6 @@ import fetch from '../redux/services/http.js';
 import * as actionTypes from './actionTypes';
 import appConfig from '../config/appConfig';
 
-import history from '../utils/history';
 
 const loginSuccessHandler = (response, dispatch) => {
   if (appConfig.ENV !== 'testing') {
@@ -10,6 +9,7 @@ const loginSuccessHandler = (response, dispatch) => {
     const time = now.getTime();
     const expireTime = time + 86400000;
     now.setTime(expireTime);
+
     document.cookie = `auth_token=${response.token};expires=${now};`;
     sessionStorage.removeItem(appConfig.TOKEN_CONTENT_KEY);
     sessionStorage.setItem(appConfig.TOKEN_CONTENT_KEY, response.token);
@@ -22,8 +22,6 @@ const loginSuccessHandler = (response, dispatch) => {
     type: actionTypes.FETCH_LOGIN_REQUEST_SUCCESS,
     response,
   });
-
-  history.push('/dashboard');
 };
 
 export const fetchLogin = (username, password) => {
