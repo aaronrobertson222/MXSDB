@@ -18,7 +18,7 @@ const MainLayout = props => (
       <Switch>
         <Route exact path="/browse">
           <div>
-            <Header inverted>Recent Uploads</Header>
+            <Header inverted>Recent</Header>
             <Divider inverted />
             <ContentContainer by="recent" />
             <Header inverted>Popular</Header>

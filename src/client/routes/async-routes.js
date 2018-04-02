@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 
 function asyncRoute(getComponent) {
   return class AsyncComponent extends React.Component {

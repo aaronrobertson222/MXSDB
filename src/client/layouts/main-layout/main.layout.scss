@@ -1,11 +1,14 @@
+@import '_variables';
+
 .wrapper {
-  background: #141414;
+  background: $dark-grey;
   min-height: 100vh;
   font-family: "Hiragino Kaku Gothic Pro";
 }
 
 .content {
   margin: auto;
+  width: 1220px;
 }
 
 .section-header {

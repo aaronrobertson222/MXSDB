@@ -6,7 +6,7 @@ import cssModules from 'react-css-modules';
 
 import UserOptions from 'components/user-options/user-options';
 
-import styles from './navbar.css';
+import styles from './navbar.scss';
 
 import LogoSvg from '../../assets/images/MXSDB.svg';
 

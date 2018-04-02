@@ -9,3 +9,54 @@
   width: 1220px;
   margin: auto;
 }
+
+.header {
+  color: #FFFFFF;
+}
+
+.user-info {
+  font-family: "Hiragino Kaku Gothic Pro";
+  background-color: $light-grey;
+  border-radius: 5px;
+  width: 33%;
+  padding: 0;
+  margin-bottom: 20px;
+  display: inline-block;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05), 0 6px 6px rgba(0,0,0,0.1);
+  margin: 0 10px;
+  h2 {
+    width: 100%;
+    color: $dark-grey;
+    margin: 0;
+    background-color: $primary-red;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  .sections {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+    section {
+      display: inline-block;
+      width: 50%;
+      margin-bottom: 10px;
+      .title {
+        font-size: .9rem;
+        color: $primary-red;
+        font-weight: lighter;
+        margin: 0;
+      }
+
+      .info {
+        font-size: 1.4rem;
+        color: #FFFFFF;
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+
+  }
+
+}

@@ -37,7 +37,7 @@ const rules = [
   // JS|JSX
   {
     test: /\.(js|jsx)$/,
-    exclude: /node_modules/,
+    exclude: [/node_modules/, path.join(clientPath, 'index.jsx')],
     use: [
       'babel-loader',
     ],
@@ -119,10 +119,10 @@ module.exports = {
     rules,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: ['.js', '.jsx'],
     modules: [
+      srcPath,
       path.resolve(rootPath, 'node_modules'),
-      srcPath
     ],
     alias: {
       envConfig: envConfigPath,
