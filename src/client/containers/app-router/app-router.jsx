@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 
-import Routes from '../../routes/routes';
+import Routes from '../../../universal/routes/routes';
 
 const AppRouter = (props) => {
   const { history } = props;

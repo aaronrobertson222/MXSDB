@@ -1,35 +1,32 @@
 const webpack = require('webpack');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Paths
 const rootPath = process.cwd();
 const srcPath = path.join(rootPath, './src');
-const clientPath = path.join(srcPath, './client');
+const serverPath = path.join(srcPath, './server');
+const universal = path.join(srcPath, './universal');
 const buildPath = path.join(rootPath, './build');
-const httpServicePath = `${clientPath}/redux/services/http.js`;
-const envConfigPath = `${clientPath}/config/environments/production.js`;
+const serverInclude = [serverPath, universal];
+// paths for fetch and envConfig aliases
+const httpServicePath = `${universal}/redux/services/http.js`;
+const envConfigPath = `${universal}/config/environments/production.js`;
 
 // Plugins
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 const plugins = [
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-    },
-    output: {
-      comments: false,
-    },
-  }),
+  new webpack.optimize.UglifyJsPlugin({compressor: {warnings: false}}),
   new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: JSON.stringify('production'),
+      'NODE_ENV': JSON.stringify('production')
     },
+    '__CLIENT__': false,
+    '__PRODUCTION__': true,
   }),
   new webpack.optimize.LimitChunkCountPlugin({maxChunks: 1}),
   new ExtractTextPlugin('style-[hash].css'),
+  new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
   new webpack.NoEmitOnErrorsPlugin(),
-  new webpack.NormalModuleReplacementPlugin(/\.\/static-routes/, './async-routes'),
 ];
 
 // RULES
@@ -37,7 +34,8 @@ const rules = [
   // JS|JSX
   {
     test: /\.(js|jsx)$/,
-    exclude: [/node_modules/, path.join(clientPath, 'index.jsx')],
+    include: serverInclude,
+    exclude: /node_modules/,
     use: [
       'babel-loader',
     ],
@@ -45,6 +43,7 @@ const rules = [
   // CSS
   {
     test: /\.(css|scss)$/,
+    include: serverInclude,
     use: [
       {
         loader: 'style-loader',
@@ -61,20 +60,16 @@ const rules = [
       {
         loader: 'sass-loader',
         options: {
-          includePaths: [path.join(clientPath, 'assets', 'styles')],
+          includePaths: [path.join(universal, 'assets', 'styles')],
           sourceMap: true,
         }
       },
     ],
   },
-  {
-    test: /\.(png|gif|jpg|svg)$/,
-    use: ['url-loader?limit=20480&name=assets/[name]-[hash].[ext]'],
-  },
   // Images
   {
     test: /\.(png|gif|jpg|svg)$/,
-    use: ['url-loader?limit=20480&name=assets/[name]-[hash].[ext]'],
+    use: ['url-loader?limit=1000&name=assets/[name]-[hash].[ext]'],
   },
   // SVG
   {
@@ -98,13 +93,17 @@ const rules = [
       }
     ]
   },
-  {test: /\.json$/, loader: 'json-loader'},
+  {
+    test: /\.json($|\?)/,
+    use: 'json-loader',
+  },
 ];
 
 module.exports = {
+  devtool: 'source-map',
   context: srcPath,
   entry: {
-    prerender: '../src/client/routes/routes.jsx',
+    prerender: './universal/routes/routes.jsx',
   },
   target: 'node',
   output: {
@@ -122,17 +121,17 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     modules: [
       srcPath,
-      path.resolve(rootPath, 'node_modules'),
+      'node_modules',
     ],
     alias: {
       envConfig: envConfigPath,
-      actions: path.join(clientPath, 'actions'),
-      containers: path.join(clientPath, 'containers'),
-      components: path.join(clientPath, 'components'),
+      actions: path.join(universal, 'actions'),
+      containers: path.join(universal, 'containers'),
+      components: path.join(universal, 'components'),
       httpService: httpServicePath,
-      images: path.join(clientPath, 'assets', 'images'),
-      layouts: path.join(clientPath, 'layouts'),
-      reducers: path.join(clientPath, 'reducers'),
+      images: path.join(universal, 'assets', 'images'),
+      layouts: path.join(universal, 'layouts'),
+      reducers: path.join(universal, 'reducers'),
     }
   }
 };

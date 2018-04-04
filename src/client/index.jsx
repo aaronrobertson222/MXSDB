@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import { AppContainer } from 'react-hot-loader';
 
-import AppRouter from 'containers/app-router/app-router';
+import AppRouter from './containers/app-router/app-router';
 
-import configureStore from './redux/store/store';
+import configureStore from '../universal/redux/store/store';
 
-import history from './utils/history.js';
+import history from '../universal/utils/history.js';
 
 // Create var to store preloaded state from server and delete window prop
 const preloadedState = window.__PRELOADED_STATE__;
@@ -16,20 +15,18 @@ delete window.__PRELOADED_STATE__;
 
 // Create browser history and redux store
 const store = configureStore(preloadedState, history);
-const renderApp = () => {
+const renderApp = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Provider store={store.store}>
-        <PersistGate loading={null} persistor={store.persistor}>
-          <AppRouter history={history} />
-        </PersistGate>
+      <Provider store={store}>
+        <Component history={history} />
       </Provider>
     </AppContainer>,
     document.getElementById('app'),
   );
 };
 
-renderApp();
+renderApp(AppRouter);
 
 // Hot Module Replacement
 if (module.hot) {

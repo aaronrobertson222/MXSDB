@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Navbar from 'components/navbar/navbar';
@@ -21,25 +21,23 @@ class DashboardLayout extends React.Component {
       <div styleName="wrapper">
         <Navbar user={this.props.user} />
         <div styleName="content">
-          <Switch>
-            <Route exact path="/dashboard">
-              <div>
-                <h1 styleName="header">
+          <Route exact path="/dashboard">
+            <div>
+              <h1 styleName="header">
                   Dashboard
-                </h1>
-                <div>
-                  <Link to="/dashboard/upload" href="/dashboard/upload">
-                    <button>
-                      <span>New Upload</span>
-                    </button>
-                  </Link>
-                </div>
-                <h2 styleName="header">My Uploads</h2>
-                <ContentContainer users={[user.username]} />
+              </h1>
+              <div>
+                <Link to="/dashboard/upload" href="/dashboard/upload">
+                  <button>
+                    <span>New Upload</span>
+                  </button>
+                </Link>
               </div>
-            </Route>
-            <Route path="/dashboard/upload" component={UploadForm} />
-          </Switch>
+              <h2 styleName="header">My Uploads</h2>
+              <ContentContainer users={[user.username]} />
+            </div>
+          </Route>
+          <Route path="/dashboard/upload" component={UploadForm} />
         </div>
       </div>
     );

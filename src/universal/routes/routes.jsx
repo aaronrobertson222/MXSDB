@@ -7,7 +7,7 @@ import { fetchCurrentUser } from 'actions/index.actions';
 
 import App from 'components/app/app';
 
-import * as routerMap from './static-routes';
+import * as routerMap from './static';
 
 class Routes extends React.Component {
   static defaultProps = {

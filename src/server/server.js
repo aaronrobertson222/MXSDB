@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import createHistory from 'history/createMemoryHistory';
 
-import configureStore from '../client/redux/store/store';
+import configureStore from '../universal/redux/store/store';
 
 module.exports = function serverRenderer(req, res) {
   let preloadedState = {};
@@ -17,13 +17,13 @@ module.exports = function serverRenderer(req, res) {
 
   const context = {};
 
-  const finalState = STORE.store.getState();
+  const finalState = STORE.getState();
   const initialState = `window.__PRELOADED_STATE__ = ${JSON.stringify(finalState)}`;
 
   const Layout = PROD ? require('../../build/prerender') : () => {};
 
   const appRoot = PROD && renderToString(
-    <Provider store={STORE.store}>
+    <Provider store={STORE}>
       <StaticRouter location={req.url} context={context}>
         <Layout />
       </StaticRouter>

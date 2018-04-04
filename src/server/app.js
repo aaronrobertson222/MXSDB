@@ -12,7 +12,7 @@ require('css-modules-require-hook/preset');
 const {
   PORT,
 } = require('./config/app.config');
-const serverRenderer = require('./server.jsx');
+const serverRenderer = require('./server.js');
 const isProduction = process.env.NODE_ENV === 'production';
 const { logger } = require('./config/logger.config');
 
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit:50
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
 app.use(morgan('dev'));
-app.use(favicon(path.join(process.cwd(), 'src', 'client', 'assets', 'images', 'favicon.ico')));
+app.use(favicon(path.join(process.cwd(), 'src', 'universal', 'assets', 'images', 'favicon.ico')));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
