@@ -1,0 +1,78 @@
+@import '_variables';
+
+.wrapper {
+  width: 100%;
+  background-color: $light-grey;
+  font-family: helvetica;
+  color: #FFF;
+  position: fixed;
+  z-index: 3;
+}
+
+.container {
+  height: 60px;
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container > div {
+  display: inline-block;
+}
+
+.header {
+  line-height: 60px;
+}
+
+.logo {
+  height: 35px;
+  width: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+
+.nav-menu {
+  position: absolute;
+  left: 25%;
+}
+
+.nav-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-items > li {
+  display: inline-block;
+  padding: 0 10px;
+  line-height: 60px;
+}
+
+.nav-items > li > a {
+  color: white;
+  text-decoration: none;
+}
+
+.user {
+  position: absolute;
+  right: 0;
+  height: 60px;
+}
+
+.down, .userimg {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+
+.userimg {
+  border-radius: 1px;
+  top: 50%;
+  position: relative;
+  transform: translateY(-50%);
+}
+
+.down {
+  line-height: 60px;
+}

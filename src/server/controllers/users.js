@@ -1,41 +1,86 @@
+const Op = require('sequelize').Op;
+const jwt = require('jsonwebtoken');
 const models = require('../models');
+const { SECRET, EXPIRATIONTIME } = require('../config/app.config');
+
 
 module.exports = {
   retrieve(req, res) {
     models.user
       .findAll().
-      then(users => {
-        return res.status(200).json({users: users});
+      then((users) => {
+        return res.status(200).json({users: users.map(user => user.apiRepr())});
       });
   },
 
-  create(req, res) {
-    const { username, firstname, lastname, password } = req.body;
-    models.user
-      .findAndCountAll({
-        where: {
-          username: username.trim()
-        }
-      })
-      .then(result => {
-        // check if user exists. if so returns error
-        if (result.count > 0) {
-          return res.status(400).json({message: 'user already exists'});
-        }
+  create: async function(req, res) {
+    try {
+      const { username, password } = req.body;
+      let results = await models.user
+        .findAndCountAll({
+          where: {
+            [Op.and]: {
+              username: username.trim()
+            }
+          }
+        });
 
-        return models.user.prototype.generateHash(password);
-      })
-      .then(hash => {
-        // if user does not exists creates new user and returns success
-        models.user.create({
-          username: username.trim(),
-          firstname: firstname.trim(),
-          lastname: lastname.trim(),
-          password: hash,
-          joinedDate: Date.now(),
-        })
-          .then((user) => res.status(200).json({message: 'user created', user: user.apiRepr()}));
-      })
-      .catch(() => res.status(500).json({message: 'internal server error'}));
+      if (results.count > 0) {
+        return res.status(400).json({message: 'user already exists'});
+      }
+
+      const hashedPassword = await models.user.prototype.generateHash(password);
+
+      const user = await models.user.create({
+        username: username.trim(),
+        password: hashedPassword,
+        joinedDate: Date.now(),
+      });
+
+      return res.status(200).json({user: user});
+    } catch(err) {
+      console.log(err); //eslint-disable-line
+    }
+  },
+
+  login: async function(req, res) {
+    try{
+      const { username, password } = req.body;
+      if ( !username || !password ) {
+        return res.status(400).json({message: 'missing field in body'});
+      }
+
+      const user = await models.user.findOne({
+        where: {
+          [Op.and]: {
+            username: username,
+          }
+        }
+      });
+
+      if (!user) {
+        return res.status(404).json({message: 'Incorrect username.'});
+      }
+
+      const isValid = await user.validatePassword(password);
+
+      if (!isValid) {
+        return res.status(400).json({message: 'Incorrect password.'});
+      }
+      const jwtToken = jwt.sign(user.dataValues, SECRET);
+      return res.status(200).json({
+        success: true,
+        token: 'JWT ' + jwtToken,
+        tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
+        user: user.apiRepr()
+      });
+    } catch(err) {
+    console.log(err);//eslint-disable-line
+    }
+
+  },
+
+  retrieveMe(req, res) {
+    return res.status(200).json({user: req.user.apiRepr()});
   }
 };

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const uploadsController = require('../controllers/uploads.js');
+const passport = require('passport');
 
 const multer = require('multer');
 const multerS3 = require('multer-s3');
@@ -16,16 +17,16 @@ const fileUpload = multer({
     bucket: AWS_BUCKET,
     metadata: function(req, file, cb) {
       cb(null, {
-        fieldName: file.fieldName
+        fieldName: file.fieldname
       });
     },
     key: function(req, file, cb) {
-      cb(null, `${file.orignalname}- ${Date.now().toString()}`);
+      cb(null, `${req.user.username}/${file.originalname}`);
     }
   })
 });
 
-router.post('/', fileUpload.fields([{
+router.post('/', passport.authenticate('jwt', {session: false}), fileUpload.fields([{
   name: 'itemFile',
   maxCount: 1
 },
@@ -34,5 +35,11 @@ router.post('/', fileUpload.fields([{
   maxCount: 1
 }
 ]), uploadsController.create);
+
+router.get('/', uploadsController.list);
+
+router.get('/myuploads', passport.authenticate('jwt', {session: false}), uploadsController.listMyUploads);
+
+router.get('/id/:id', uploadsController.getById);
 
 module.exports = router;

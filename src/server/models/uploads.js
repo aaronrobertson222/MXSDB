@@ -1,5 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Upload = sequelize.define('upload', {
+    uuid: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -8,57 +14,61 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    uploadType: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'unkown'
-    },
     category: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
-    },
-    uploadDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Date.now()
     },
     downloadCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
     },
     fileKey: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
     },
     fileLocation: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
     },
     imageKey: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
     },
     imageLocation: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'unkown'
+    },
+    private: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    creator: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    fileSize: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
+  }, {
+    scopes: {
+      public: {
+        where: {
+          private: false,
+        },
+        limit: 12,
+      },
     }
   });
 
-  Upload.sync({force: true}).then(() => {
-    return Upload.create({
-      title: 'test title 1'
-    });
-  });
-
-  Upload.associate = (models) => {
-    Upload.belongsTo(models.user, {as: 'creator'});
+  Upload.associate = function(models) {
+    Upload.belongsTo(models.user);
+    Upload.sync();
   };
+
+  Upload.sync();
 
   return Upload;
 };

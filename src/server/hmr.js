@@ -16,6 +16,8 @@ const hmr = (app) => {
     reload: true
   }));
 
+  app.keepAliveTimeout = 0;
+
   return app;
 };
 

@@ -1,0 +1,101 @@
+@import '_variables';
+
+.wrapper {
+  margin: auto;
+  width: 75%;
+  color: white;
+}
+
+.form-header {
+  color: $primary-red;
+}
+
+.section-header {
+  text-decoration: underline;
+}
+
+.input {
+  width: 60%;
+  height: 40px;
+  font-size: 1.3rem;
+  padding: 5px 10px;
+  margin-top: 5px;
+  background: $dark-grey;
+  border: 1px solid grey;
+  border-radius: 3px;
+  color: white;
+}
+
+.description {
+  width: 100%;
+  height: 100px;
+  border-radius: 3px;
+  background: $dark-grey;
+  border: 1px solid grey;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.type-select {
+  font-size: 1rem;
+  width: 25%;
+  height: 40px;
+  padding: 5px 10px;
+  margin-top: 5px;
+  background: $dark-grey;
+  border: 1px solid grey;
+  border-radius: 3px;
+  color: #b0b0b0;
+}
+
+label {
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  color: #b0b0b0;
+  margin-bottom: 10px;
+}
+
+.private-checkbox {
+  margin-left: 10px;
+}
+
+.private-info {
+  color: $primary-red;
+  font-size: .8rem;
+}
+
+.file-inputs-group {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+
+.info-inputs-group {
+  background-color: $light-grey;
+  padding: 10px 20px;
+  border-radius: 3px;
+  label {
+    display: block;
+  }
+}
+
+.file-input {
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.submit-button {
+  width: 150px;
+  height: 50px;
+  font-size: 1.3rem;
+  background-color: $primary-red;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  margin-top: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

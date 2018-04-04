@@ -1,0 +1,16 @@
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(23, 24, 26, 0.97),
+                              rgba(23, 24, 26, 0.97)),
+                              url('../../assets/images/simbg.png') no-repeat center center fixed;
+}
+
+.logo {
+  position: relative;
+  max-width: 350px;
+  height: auto;
+  margin: auto;
+  display: block;
+  top: 100px;
+}

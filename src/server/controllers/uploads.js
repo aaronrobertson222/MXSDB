@@ -1,40 +1,78 @@
 const models = require('../models');
+const queryUtils = require('../utils/query-utils');
+const logger = require('../config/logger.config.js');
 
 module.exports = {
-  retrieve(req, res) {
-    models.upload
-      .findAll().
-      then(uploads => {
-        return res.status(200).json({uploads: uploads});
+  // retrieves current users uploads that match filter criteria
+  listMyUploads: async function(req, res) {
+    try {
+      const query = await queryUtils.getQueryParams(req.query);
+
+      let uploads = await req.user.getUploads(query);
+      return res.status(200).json({uploads});
+
+    } catch(err) {
+      logger.error(err);
+      return res.status(500).json({message: 'Internal server error'});
+    }
+
+  },
+  // list upload items based on query criteria
+  list: async function(req, res) {
+    try {
+      const query = await queryUtils.getQueryParams(req.query);
+      const result = await models.upload.scope('public').findAndCountAll(query);
+
+      return res.status(200).json({results: result.rows, total: result.count});
+    } catch(err) {
+      console.log(err); //eslint-disable-line
+      return res.status(200).json({message: 'Internal server error'});
+    }
+
+  },
+  // create new upload item
+  create(req, res) {
+    console.log(req.files); //eslint-disable-line
+    const newUpload = {
+      title: req.body.title,
+      description: req.body.description,
+      category: req.body.type,
+      creator: req.user.username,
+      userId: req.user.uuid,
+      fileKey: req.files.itemFile[0].key,
+      fileLocation: req.files.itemFile[0].location,
+      imageKey: req.files.imageFile[0].key,
+      imageLocation: req.files.imageFile[0].location,
+      private: req.body.private,
+      fileSize: req.files.itemFile[0].size,
+    };
+
+    // Create DB record for upload
+    return models.upload
+      .create(newUpload)
+      .then(upload => {
+        return res.status(200).json({message: 'success', upload});
+      })
+      .catch(err => {
+        console.log(err); //eslint-disable-line
+        return res.status(500).json({message: 'internal server error'});
       });
   },
 
-  create(req, res) {
-    // destructuring upload into variables
-    const {
-      title,
-      description,
-      itemType,
-      category,
-      creator,
-      uploadDate,
-    } = req.body;
-    // Create DB record for upload
-    models.upload
-      .create({
-        title,
-        description,
-        itemType,
-        category,
-        creator,
-        uploadDate,
-        fileKey: req.files.itemFile[0].key,
-        fileLocation: req.files.itemFile[0].location,
-        imageKey: req.files.imageFile[0].key,
-        imageLocation: req.files.imageFile[0].location
+  getById(req, res) {
+    return models.upload
+      .findOne({
+        where: {
+          uuid: req.params.id
+        }
       })
-      .then(upload => res.status(200).json({message: 'success', upload}))
-      .catch(err => res.status(500).json({message: 'internal server error', err}));
+      .then((item) => {
+        return res.status(200).json({item});
+      })
+      .catch((err) => {
+        console.log(err); //eslint-disable-line
+        return res.status(500).json({message: 'Internal server error'});
+      });
   },
 
   destroy(req, res) {

@@ -1,0 +1,29 @@
+@import '_variables';
+.dropzone {
+  width: 100%;
+  border: 2px dashed grey;
+  height: 200px;
+  border-radius: 3px;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.dropzone:hover {
+  cursor: pointer;
+}
+
+.dropzone-content {
+  position: relative;
+  margin: auto;
+  display: block;
+  text-align: center;
+  font-size: 1.2rem;
+  background: $light-grey;
+  height: 100%;
+  padding: 20% 10px;
+  text-transform: capitalize;
+
+  span {
+    font-size: .9rem;
+  }
+}

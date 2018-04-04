@@ -1,42 +1,31 @@
 const webpack = require('webpack');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Paths
 const rootPath = process.cwd();
 const srcPath = path.join(rootPath, './src');
-const clientPath = path.join(srcPath, './client');
+const serverPath = path.join(srcPath, './server');
+const universal = path.join(srcPath, './universal');
 const buildPath = path.join(rootPath, './build');
-const httpServicePath = `${clientPath}/redux/services/http.js`;
-const envConfigPath = `${clientPath}/config/environments/production.js`;
+const serverInclude = [serverPath, universal];
+// paths for fetch and envConfig aliases
+const httpServicePath = `${universal}/redux/services/http.js`;
+const envConfigPath = `${universal}/config/environments/production.js`;
 
 // Plugins
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 const plugins = [
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-      screw_ie8: true,
-      conditionals: true,
-      unused: true,
-      comparisons: true,
-      sequences: true,
-      dead_code: true,
-      evaluate: true,
-      if_return: true,
-      join_vars: true,
-    },
-    output: {
-      comments: false,
-    },
-  }),
+  new webpack.optimize.UglifyJsPlugin({compressor: {warnings: false}}),
   new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: JSON.stringify('production'),
+      'NODE_ENV': JSON.stringify('production')
     },
+    '__CLIENT__': false,
+    '__PRODUCTION__': true,
   }),
   new webpack.optimize.LimitChunkCountPlugin({maxChunks: 1}),
   new ExtractTextPlugin('style-[hash].css'),
+  new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
   new webpack.NoEmitOnErrorsPlugin(),
 ];
 
@@ -45,6 +34,7 @@ const rules = [
   // JS|JSX
   {
     test: /\.(js|jsx)$/,
+    include: serverInclude,
     exclude: /node_modules/,
     use: [
       'babel-loader',
@@ -52,7 +42,8 @@ const rules = [
   },
   // CSS
   {
-    test: /\.css$/,
+    test: /\.(css|scss)$/,
+    include: serverInclude,
     use: [
       {
         loader: 'style-loader',
@@ -63,15 +54,22 @@ const rules = [
           modules: true,
           importLoaders: 1,
           localIdentName: '[name]__[local]___[hash:base64:5]',
-          sourcMap: true,
+          sourceMap: true,
         },
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          includePaths: [path.join(universal, 'assets', 'styles')],
+          sourceMap: true,
+        }
       },
     ],
   },
   // Images
   {
     test: /\.(png|gif|jpg|svg)$/,
-    use: ['url-loader?limit=20480&name=assets/[name]-[hash].[ext]'],
+    use: ['url-loader?limit=1000&name=assets/[name]-[hash].[ext]'],
   },
   // SVG
   {
@@ -94,12 +92,20 @@ const rules = [
         }
       }
     ]
-  }
+  },
+  {
+    test: /\.json($|\?)/,
+    use: 'json-loader',
+  },
 ];
 
 module.exports = {
+  devtool: 'source-map',
   context: srcPath,
-  entry: [],
+  entry: {
+    prerender: './universal/routes/routes.jsx',
+  },
+  target: 'node',
   output: {
     path: buildPath,
     chunkFilename: '[name]_[chunkhash].js',
@@ -112,20 +118,20 @@ module.exports = {
     rules,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: ['.js', '.jsx'],
     modules: [
-      path.resolve(rootPath, 'node_modules'),
-      srcPath
+      srcPath,
+      'node_modules',
     ],
     alias: {
       envConfig: envConfigPath,
-      actions: path.join(clientPath, 'actions'),
-      containers: path.join(clientPath, 'containers'),
-      components: path.join(clientPath, 'components'),
+      actions: path.join(universal, 'actions'),
+      containers: path.join(universal, 'containers'),
+      components: path.join(universal, 'components'),
       httpService: httpServicePath,
-      images: path.join(clientPath, 'assets', 'images'),
-      layouts: path.join(clientPath, 'layouts'),
-      reducers: path.join(clientPath, 'reducers'),
+      images: path.join(universal, 'assets', 'images'),
+      layouts: path.join(universal, 'layouts'),
+      reducers: path.join(universal, 'reducers'),
     }
   }
 };

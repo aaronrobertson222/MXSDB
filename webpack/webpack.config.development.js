@@ -5,30 +5,25 @@ const path = require('path');
 const rootPath = process.cwd();
 const srcPath = path.join(rootPath, './src');
 const clientPath = path.join(srcPath, './client');
-const httpServicePath = `${clientPath}/redux/services/http.js`;
-const envConfigPath = `${clientPath}/config/environments/development.js`;
+const universal = path.join(srcPath, './universal');
+const clientInclude = [clientPath, universal];
+// Paths for fetch and envConfig aliases
+const httpServicePath = `${universal}/redux/services/http.js`;
+const envConfigPath = `${universal}/config/environments/${process.env.NODE_ENV}.js`;
 
 const plugins = [
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify('development'),
-    },
-  }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    filename: 'vendor.js',
-    minChunks(module) {
-      const { context } = module.context;
-      return context && context.indexOf('node_modules') >= 0;
-    },
-  }),
-  new webpack.NamedModulesPlugin(),
+  new webpack.optimize.OccurrenceOrderPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
   new webpack.LoaderOptionsPlugin({
     options: {
       context: rootPath,
     },
   }),
-  new webpack.HotModuleReplacementPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('development'),
+    '__CLIENT__': true,
+    '__PRODUCTION__': false,
+  }),
 ];
 
 const rules = [
@@ -40,6 +35,7 @@ const rules = [
   },
   {
     test: /\.(js|jsx)$/,
+    include: clientInclude,
     exclude: /node_modules/,
     use: [
       'babel-loader',
@@ -48,6 +44,7 @@ const rules = [
   },
   {
     test: /\.(css|scss)$/,
+    include: clientInclude,
     use: [
       {
         loader: 'style-loader',
@@ -64,7 +61,7 @@ const rules = [
       {
         loader: 'sass-loader',
         options: {
-          includePaths: [path.join(clientPath, 'assets', 'styles')],
+          includePaths: [path.join(universal, 'assets', 'styles')],
           sourceMap: true,
         }
       },
@@ -94,17 +91,23 @@ const rules = [
         }
       }
     ]
-  }
+  },
+  {
+    test: /\.json($|\?)/,
+    use: 'json-loader',
+  },
 ];
 
 module.exports = {
   context: srcPath,
-  entry: [
-    'babel-polyfill',
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client?noInfo=false',
-    './client/index.jsx',
-  ],
+  entry: {
+    app: [
+      'babel-polyfill/dist/polyfill.js',
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client?noInfo=false',
+      './client/index.jsx',
+    ],
+  },
   output: {
     filename: 'bundle.js',
     chunkFilename: '[name]_[chunkhash].js',
@@ -116,21 +119,21 @@ module.exports = {
     rules,
   },
   resolve: {
-    alias: {
-      envConfig: envConfigPath,
-      actions: path.join(clientPath, 'actions'),
-      containers: path.join(clientPath, 'containers'),
-      components: path.join(clientPath, 'components'),
-      httpService: httpServicePath,
-      images: path.join(clientPath, 'assets', 'images'),
-      layouts: path.join(clientPath, 'layouts'),
-      reducers: path.join(clientPath, 'reducers'),
-    },
     extensions: ['.js', '.jsx', '.css', '.scss'],
     modules: [
-      path.resolve(rootPath, 'node_modules'),
       srcPath,
+      'node_modules',
     ],
+    alias: {
+      actions: path.join(universal, 'actions'),
+      components: path.join(universal, 'components'),
+      containers: path.join(universal, 'containers'),
+      envConfig: envConfigPath,
+      httpService: httpServicePath,
+      images: path.join(universal, 'assets', 'images'),
+      layouts: path.join(universal, 'layouts'),
+      reducers: path.join(universal, 'reducers'),
+    },
   },
   devtool: 'source-map',
 };
