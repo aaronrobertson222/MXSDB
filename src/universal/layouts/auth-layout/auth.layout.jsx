@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
-import { renderRoutes } from 'react-router-config';
 
+import AuthFormWrapper from 'containers/auth-form-wrapper/auth-form-wrapper';
 import LogoSvg from '../../assets/images/MXSDB.svg';
 
 import styles from './auth-layout.scss';
@@ -13,12 +13,12 @@ const AuthLayout = props => (
     <Link to="/" href="/">
       <LogoSvg styleName="logo" />
     </Link>
-    {renderRoutes(props.route.routes)}
+    <AuthFormWrapper type={props.match.params.authType} />
   </div>
 );
 
 AuthLayout.propTypes = {
-  route: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default cssModules(AuthLayout, styles);

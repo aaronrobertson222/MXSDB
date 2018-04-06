@@ -11,7 +11,7 @@ import styles from './auth-form-wrapper.scss';
 
 class AuthFormWrapper extends React.Component {
   static propTypes = {
-    route: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
     fetchLogin: PropTypes.func.isRequired,
     createUser: PropTypes.func.isRequired,
   };
@@ -25,12 +25,12 @@ class AuthFormWrapper extends React.Component {
   }
 
   componentWillMount() {
-    const tab = this.props.route.type;
+    const tab = 'login';
     this.setState({ selectedTab: tab });
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ selectedTab: nextProps.route.type });
+    this.setState({ selectedTab: nextProps.type });
   }
 
   dispatchAction(values) {
@@ -69,7 +69,7 @@ class AuthFormWrapper extends React.Component {
             role="button"
             tabIndex="0"
           >
-            <Link to="/auth/signup" href="/auth/signup" >
+            <Link to="/auth/signup" href="/signup" >
               <span styleName="tab-span">
                   SIGN UP
               </span>
