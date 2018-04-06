@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { renderRoutes } from 'react-router-config';
 
 const App = props => (
   <div>
-    {props.children}
+    {renderRoutes(props.route.routes)}
   </div>
 );
 
 App.propTypes = {
-  children: PropTypes.element.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default App;

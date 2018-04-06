@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+
 // Paths
 const rootPath = process.cwd();
 const srcPath = path.join(rootPath, './src');
@@ -44,27 +45,27 @@ const rules = [
   {
     test: /\.(css|scss)$/,
     include: serverInclude,
-    use: [
-      {
-        loader: 'style-loader',
-      },
-      {
-        loader: 'css-loader',
-        options: {
-          modules: true,
-          importLoaders: 1,
-          localIdentName: '[name]__[local]___[hash:base64:5]',
-          sourceMap: true,
+    use: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: [
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[name]__[local]___[hash:base64:5]',
+            sourceMap: true,
+            context: srcPath,
+          },
         },
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          includePaths: [path.join(universal, 'assets', 'styles')],
-          sourceMap: true,
-        }
-      },
-    ],
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+            includePaths: [path.join(universal, 'assets', 'styles')],
+          }
+        },
+      ]})
   },
   // Images
   {
@@ -103,7 +104,7 @@ module.exports = {
   devtool: 'source-map',
   context: srcPath,
   entry: {
-    prerender: './universal/routes/routes.jsx',
+    prerender: './universal/routes/routes.js',
   },
   target: 'node',
   output: {

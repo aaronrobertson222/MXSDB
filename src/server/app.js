@@ -1,24 +1,34 @@
-// TODO: Conver requires to es6 imports and other es6 stuff.
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const favicon = require('serve-favicon');
 const morgan = require('morgan');
-const path = require('path');
 const passport = require('passport');
-require('css-modules-require-hook/preset');
+const path = require('path');
 
-// Relative imports
-const {
-  PORT,
-} = require('./config/app.config');
-const serverRenderer = require('./server.js');
+// Hook for css modules on server side
+const hook = require('css-modules-require-hook');
+
+hook({
+  generateScopedName: '[name]__[local]___[hash:base64:5]',
+  extensions: ['.scss'],
+  rootDir: path.resolve(__dirname, '..'),
+});
+
+// Config imports
+const { PORT } = require('./config/app.config');
 const isProduction = process.env.NODE_ENV === 'production';
 const { logger } = require('./config/logger.config');
 
+// SSR imports
+const {
+  renderPage,
+  renderDevPage
+} = require('./serverRender.jsx');
+
 const app = express();
 
-//  standard app middleware
+// App middleware
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit:50000 }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
@@ -32,8 +42,10 @@ app.use((req, res, next) => {
   next();
 });
 
+// Passport initialization
 app.use(passport.initialize());
 require('./config/passport.js')(passport);
+
 
 require('./routes')(app);
 
@@ -50,12 +62,12 @@ function isAuthenticated(req, res, next) {
 
 if (isProduction) {
   app.use('/static', express.static('build'));
-  app.get('*', isAuthenticated, serverRenderer);
+  app.get('*', isAuthenticated, renderPage);
 } else {
   const { hmr } = require('./hmr.js');
-  // Hot Module Reloading
+  // Hot module reloading for dev
   hmr(app);
-  app.get('*', isAuthenticated, serverRenderer);
+  app.get('*', isAuthenticated, renderDevPage);
 }
 
 // Server start and stop util

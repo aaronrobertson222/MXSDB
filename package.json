@@ -10,13 +10,14 @@
     "start-dev-client": "cross-env NODE_ENV=development webpack-dev-server -d --history-api-fallback --progress --colors",
     "test-server": "mocha test/",
     "start": "cross-env NODE_ENV=production node ./src/server/app.babel.js",
-    "build": "npm run clean && npm run build:client && npm run build:server",
+    "build": "npm run clean && npm run build:client",
     "build:client": "NODE_ENV=production webpack --config ./webpack/webpack.config.client.js",
     "build:server": "NODE_ENV=production webpack --config ./webpack/webpack.config.server.js"
   },
   "author": "Aaron Robertson www.github.com/aaronr5",
   "license": "ISC",
   "dependencies": {
+    "assets-webpack-plugin": "^3.5.1",
     "aws-sdk": "^2.31.0",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
@@ -49,6 +50,7 @@
     "react-dropzone": "^4.2.7",
     "react-fontawesome": "^1.6.1",
     "react-redux": "^5.0.6",
+    "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.8",
     "react-semantic-redux-form": "^1.2.6",

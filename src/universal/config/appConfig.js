@@ -1,4 +1,4 @@
-import envConfig from 'envConfig';
+import envConfig from './environments/production';
 import endpoints from './apiEndpoints';
 
 export default {

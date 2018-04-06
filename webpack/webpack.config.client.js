@@ -13,16 +13,15 @@ const envConfigPath = `${universal}/config/environments/production.js`;
 
 // Plugins
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 const plugins = [
   new webpack.optimize.UglifyJsPlugin({compressor: {warnings: false}}),
   new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    filename: 'vendor.js',
-    minChunks: Infinity,
+    names: ['vendor', 'manifest'],
+    minChunks: Infinity
   }),
   new webpack.NamedModulesPlugin(),
-  new webpack.NormalModuleReplacementPlugin(/\.\/static-routes/, './async-routes'),
   new webpack.DefinePlugin({
     'process.env': {
       'NODE_ENV': JSON.stringify('production')
@@ -30,8 +29,12 @@ const plugins = [
     '__CLIENT__': true,
     '__PRODUCTION__': true,
   }),
+  new AssetsPlugin({path: buildPath, filename: 'assets.json'}),
   new webpack.optimize.MinChunkSizePlugin({minChunkSize: 50000}),
-  new ExtractTextPlugin('style-[hash].css'),
+  new ExtractTextPlugin({
+    filename: '[name]-[hash].css',
+    allChunks: true,
+  }),
   new webpack.NoEmitOnErrorsPlugin(),
 ];
 
@@ -50,27 +53,25 @@ const rules = [
   {
     test: /\.(css|scss)$/,
     include: clientInclude,
-    use: [
-      {
-        loader: 'style-loader',
-      },
-      {
-        loader: 'css-loader',
-        options: {
-          modules: true,
-          importLoaders: 1,
-          localIdentName: '[name]__[local]___[hash:base64:5]',
-          sourceMap: true,
+    use: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: [
+        {
+          loader: 'css-loader',
+          options: {
+            root: srcPath,
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[name]__[local]___[hash:base64:5]',
+          },
         },
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          includePaths: [path.join(universal, 'assets', 'styles')],
-          sourceMap: true,
-        }
-      },
-    ],
+        {
+          loader: 'sass-loader',
+          options: {
+            includePaths: [path.join(universal, 'assets', 'styles')],
+          }
+        },
+      ]})
   },
   // Images
   {
@@ -108,7 +109,7 @@ const rules = [
 const vendor = [
   'react',
   'react-dom',
-  'react-router',
+  'react-router-dom',
   'react-redux',
   'redux'
 ];
@@ -125,7 +126,7 @@ module.exports = {
     vendor,
   },
   output: {
-    filename: '[name].js',
+    filename: '[name]_[chunkhash].js',
     chunkFilename: '[name]_[chunkhash].js',
     path: buildPath,
     publicPath: '/static/'

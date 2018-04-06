@@ -52,6 +52,7 @@ const rules = [
       {
         loader: 'css-loader',
         options: {
+          root: srcPath,
           modules: true,
           importLoaders: 1,
           localIdentName: '[name]__[local]___[hash:base64:5]',
@@ -109,7 +110,7 @@ module.exports = {
     ],
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     chunkFilename: '[name]_[chunkhash].js',
     path: path.join(rootPath, 'build'),
     publicPath: '/static/'

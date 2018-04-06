@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+import { renderRoutes } from 'react-router-config';
 
-import Routes from '../../../universal/routes/routes';
+import routes from '../../../universal/routes/routes';
 
 const AppRouter = (props) => {
   const { history } = props;
   return (
     <ConnectedRouter history={history}>
-      <Route render={({ location }) => (
-        <Routes location={location} />
-        )}
-      />
+      {renderRoutes(routes)}
     </ConnectedRouter>
   );
 };
