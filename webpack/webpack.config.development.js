@@ -14,15 +14,9 @@ const envConfigPath = `${universal}/config/environments/${process.env.NODE_ENV}.
 const plugins = [
   new webpack.optimize.OccurrenceOrderPlugin(),
   new webpack.HotModuleReplacementPlugin(),
-  new webpack.LoaderOptionsPlugin({
-    options: {
-      context: rootPath,
-    },
-  }),
+  new webpack.NoEmitOnErrorsPlugin(),
   new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('development'),
-    '__CLIENT__': true,
-    '__PRODUCTION__': false,
+    'process.env.NODE_ENV': JSON.stringify('development')
   }),
 ];
 

@@ -1,6 +1,7 @@
 import App from 'components/app/app';
 import * as routerMap from '../routes/static.js';
 
+
 const routes = [
   {
     component: App,
