@@ -9,14 +9,14 @@ import styles from './user-options.scss';
 const UserOptions = (props) => {
   if (props.user === null) {
     return (
-      <div>
+      <div styleName="wrapper">
         <span>
-          <Link to="/login" href="/login" styleName="login-option">
+          <Link to="/auth/login" href="/auth/login" styleName="login-option">
             Login
           </Link>
         </span>
         <span>
-          <Link to="/signup" href="/signup" styleName="signup-option">
+          <Link to="/auth/signup" href="/auth/signup" styleName="signup-option">
             Sign up
           </Link>
         </span>

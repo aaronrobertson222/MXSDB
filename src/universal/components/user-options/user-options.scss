@@ -1,4 +1,12 @@
 @import '_variables';
+
+.wrapper {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .signup-option,
 .login-option {
   color: white;

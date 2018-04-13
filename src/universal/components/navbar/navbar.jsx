@@ -18,21 +18,13 @@ const Navbar = () => {
         </div>
         <div styleName="nav-menu">
           <ul styleName="nav-items">
-            <li>
-              <Link href="/browse/bikes" to="/browse/bikes">
-                Bikes DADDY
+            {menuOptions.map(item => (
+              <Link href={`/browse/${item}`} to={`/browse/${item}`}>
+                <li styleName="active">
+                  {item}
+                </li>
               </Link>
-            </li>
-            <li>
-              <Link href="/browse/gear" to="/browse/gear">
-                Gear
-              </Link>
-            </li>
-            <li>
-              <Link href="/browse/tracks" to="/browse/tracks">
-                Tracks
-              </Link>
-            </li>
+            ))}
           </ul>
         </div>
         <UserOptions />
