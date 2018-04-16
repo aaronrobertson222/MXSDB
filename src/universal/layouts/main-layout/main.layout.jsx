@@ -13,7 +13,7 @@ import styles from './main.layout.scss';
 
 const MainLayout = props => (
   <div styleName="wrapper">
-    <Navbar user={props.currentUser} />
+    <Navbar user={props.currentUser} location={props.location.pathname.substring(8)} />
     <div styleName="content">
       <Switch>
         <Route exact path="/browse">
@@ -56,6 +56,7 @@ MainLayout.defaultProps = {
 
 MainLayout.propTypes = {
   currentUser: PropTypes.object,
+  location: PropTypes.object.isRequired,
 };
 
 export default cssModules(MainLayout, styles);

@@ -4,11 +4,14 @@
   background: $dark-grey;
   min-height: 100vh;
   font-family: "Hiragino Kaku Gothic Pro";
+  position: relative;
 }
 
 .content {
   margin: auto;
   width: 1220px;
+  top: 60px;
+  position: relative;
 }
 
 .section-header {

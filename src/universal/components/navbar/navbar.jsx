@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
 
@@ -8,7 +9,7 @@ import styles from './navbar.scss';
 
 import LogoSvg from '../../assets/images/MXSDB.svg';
 
-const Navbar = () => {
+const Navbar = (props) => {
   const menuOptions = ['bikes', 'gear', 'tracks']; //eslint-disable-line
   return (
     <div styleName="wrapper">
@@ -20,14 +21,14 @@ const Navbar = () => {
           <ul styleName="nav-items">
             {menuOptions.map(item => (
               <Link href={`/browse/${item}`} to={`/browse/${item}`}>
-                <li styleName="active">
+                <li styleName={props.location === item && 'active'}>
                   {item}
                 </li>
               </Link>
             ))}
           </ul>
         </div>
-        <UserOptions />
+        <UserOptions styleName="user-options" user={props.user} />
       </div>
     </div>
   );
@@ -35,5 +36,10 @@ const Navbar = () => {
 
 Navbar.defaultProps = {
   user: null,
+};
+
+Navbar.propTypes = {
+  user: PropTypes.object,
+  location: PropTypes.string.isRequired,
 };
 export default cssModules(Navbar, styles, { allowMultiple: true });

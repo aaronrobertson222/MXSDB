@@ -41,6 +41,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  position: relative;
 
   &:last-child {
     border-right: 1px solid $dark-grey;
@@ -64,9 +65,9 @@
         background: $dark-grey;
       }
       &.active {
+        background: $dark-grey;
         border-bottom: 2px inset $primary-red;
       }
     }
-
   }
 }
