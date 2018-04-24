@@ -14,12 +14,12 @@ const LandingNavbar = () => (
       </Link>
       <ul styleName="user-options">
         <li>
-          <Link to="/login" href="/login" styleName="login-option">
+          <Link to="/auth/login" href="/auth/login" styleName="login-option">
             Login
           </Link>
         </li>
         <li>
-          <Link to="/signup" href="/signup" styleName="signup-option">
+          <Link to="/auth/signup" href="/auth/signup" styleName="signup-option">
             Sign up
           </Link>
         </li>

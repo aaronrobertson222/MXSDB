@@ -1,3 +1,7 @@
+/* Going to convert this to render prop pattern
+component will be able to fetch items from backend
+and not care about layout */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -108,7 +112,7 @@ class ContentContainer extends React.Component {
       <div styleName="wrapper">
         <div styleName="container">
           {itemData.map(item => (
-            <Link style={{ width: '25%', padding: '0 10px 20px 10px' }} to={`/browse/id/${item.uuid}`} href={`/browse/id/${item.uuid}`}>
+            <Link style={{ width: '25%', padding: '0 10px 20px 0' }} to={`/browse/id/${item.uuid}`} key={item.createdAt} href={`/browse/id/${item.uuid}`}>
               <div styleName="content-container">
                 <div styleName="thumbnail">
                   <div styleName="category">{item.category}</div>

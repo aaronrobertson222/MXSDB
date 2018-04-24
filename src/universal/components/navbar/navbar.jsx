@@ -28,7 +28,7 @@ const Navbar = (props) => {
             ))}
           </ul>
         </div>
-        <UserOptions styleName="user-options" user={props.user} />
+        <UserOptions user={props.user} />
       </div>
     </div>
   );

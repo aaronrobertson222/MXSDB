@@ -3,14 +3,13 @@
 .wrapper {
   background: $dark-grey;
   min-height: 100vh;
-  font-family: "Hiragino Kaku Gothic Pro";
-  position: relative;
+  font-family: $primary-font;
 }
 
 .content {
   margin: auto;
   width: 1220px;
-  top: 60px;
+  padding-top: 70px;
   position: relative;
 }
 
@@ -25,4 +24,8 @@
 hr {
   font-size: .9rem;
   border: .2px solid rgba(#d7d7d7, 0.2);
+}
+
+.header {
+  color: white;
 }

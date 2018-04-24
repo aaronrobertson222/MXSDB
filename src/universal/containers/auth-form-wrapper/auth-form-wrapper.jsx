@@ -25,7 +25,7 @@ class AuthFormWrapper extends React.Component {
   }
 
   componentWillMount() {
-    const tab = 'login';
+    const tab = this.props.type;
     this.setState({ selectedTab: tab });
   }
 

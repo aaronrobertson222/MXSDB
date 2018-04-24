@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
 import FontAwesome from 'react-fontawesome';
 
@@ -10,7 +11,12 @@ const Hero = () => (
   <div styleName="wrapper">
     <LandingNavbar />
     <div styleName="container">
-      <h2 styleName="slogan">Create. Share. <span styleName="red">Shred.</span></h2>
+      <div styleName="slogan">
+        <h2>Create. Share. <span styleName="red">Shred.</span></h2>
+      </div>
+      <Link to="/browse" href="/browse">
+        <button styleName="browse-button">Browse</button>
+      </Link>
     </div>
     <div>
       <FontAwesome name="fa-angle-double-down" />
