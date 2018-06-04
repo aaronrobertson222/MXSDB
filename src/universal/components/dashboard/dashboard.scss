@@ -1,0 +1,26 @@
+@import '_variables';
+
+.container {
+  font-family: $secondary-font;
+}
+
+h1 {
+  color: #FFFFFF;
+  font-family: $primary-font;
+}
+
+.header {
+  color: #FFFFFF;
+  font-size: 1.35rem;
+  font-family: $primary-font;
+}
+
+.upload-table {
+  width: 100%;
+}
+
+.section {
+  background: $light-grey;
+  padding: 10px 20px;
+  border-radius: 3px;
+}

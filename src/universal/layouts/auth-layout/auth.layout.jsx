@@ -30,7 +30,11 @@ const AuthLayout = (props) => {
 
 AuthLayout.propTypes = {
   match: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
+};
+
+AuthLayout.defaultProps = {
+  user: null,
 };
 
 const mapStateToProps = state => ({

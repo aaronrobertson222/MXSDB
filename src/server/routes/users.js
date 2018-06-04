@@ -4,7 +4,6 @@ const passport = require('passport');
 
 const userController = require('../controllers/users.js');
 
-router.get('/', userController.retrieve);
 router.get('/me', passport.authenticate('jwt', { session: false }), userController.retrieveMe);
 
 

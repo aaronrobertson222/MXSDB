@@ -15,13 +15,15 @@ const Navbar = (props) => {
     <div styleName="wrapper">
       <div styleName="container">
         <div styleName="header">
-          <LogoSvg styleName="logo" />
+          <Link to="/browse" href="/browse">
+            <LogoSvg styleName="logo" />
+          </Link>
         </div>
         <div styleName="nav-menu">
           <ul styleName="nav-items">
             {menuOptions.map(item => (
-              <Link href={`/browse/${item}`} to={`/browse/${item}`}>
-                <li styleName={props.location === item && 'active'}>
+              <Link href={`/browse/${item}`} to={`/browse/${item}`} key={item}>
+                <li>
                   {item}
                 </li>
               </Link>
@@ -40,6 +42,5 @@ Navbar.defaultProps = {
 
 Navbar.propTypes = {
   user: PropTypes.object,
-  location: PropTypes.string.isRequired,
 };
 export default cssModules(Navbar, styles, { allowMultiple: true });

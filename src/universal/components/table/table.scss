@@ -1,0 +1,27 @@
+@import '_variables';
+
+.table {
+  width: 100%;
+
+  th, td {
+    padding: 15px 20px 15px 5px;
+    text-align: left;
+  }
+
+  th {
+    font-size: 1.20rem;
+    color: #FFFFFF;
+    border-bottom: 1px solid #FFF;
+  }
+
+  td {
+    font-size: 1.10rem;
+    color: #C1C1C1;
+    border-bottom: 1px solid rgb(134, 134, 134);
+  }
+
+  tr:last-of-type > td {
+    border: none;
+  }
+
+}

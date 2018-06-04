@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const moment = require('moment');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
     uuid: {
@@ -15,11 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    joinedDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Date.now()
-    },
     accountLevel: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
     uploadCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0
     },
     isBanned: {
       type: DataTypes.BOOLEAN,
@@ -47,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
       id: this.id,
       username: this.username || '',
       userLevel: this.accountLevel,
-      joinedDate: moment(this.joinedDate).format('MMM DD, YYYY'),
-      uploads: this.uploads
+      uploadCount: this.uploadCount,
+      isBanned: this.isBanned,
     };
   };
 

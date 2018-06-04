@@ -1,10 +1,5 @@
 @import '_variables';
 
-.wrapper {
-  max-width: 1220px;
-  margin: auto;
-}
-
 .container {
   width: 100%;
   box-sizing: border-box;
@@ -12,7 +7,6 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
-
 .content-container {
   position: relative;
   height: 330px;
@@ -101,21 +95,5 @@
       position: absolute;
       right: 0;
     }
-  }
-}
-
-.show-more-button {
-  background-color: $dark-grey;
-  display: block;
-  margin: auto;
-  display: block;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border: 2px solid $primary-red;
-  border-radius: 5px;
-  color: #FFFFFF;
-
-  &:hover {
-    cursor: pointer;
   }
 }
