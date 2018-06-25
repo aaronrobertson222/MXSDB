@@ -4,23 +4,22 @@ import cssModules from 'react-css-modules';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Navbar from 'components/navbar/navbar';
+import MainLayout from 'layouts/main-layout/main.layout';
 import UploadForm from 'containers/upload-form/upload-form';
 import Dashboard from 'components/dashboard/dashboard';
-import Footer from 'components/footer/footer';
-
-import styles from './dashboard.layout.scss';
 
 
-class DashboardLayout extends React.Component {
+import styles from './dashboard.scss';
+
+
+class DashboardPage extends React.Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
   }
   render() {
     const { user } = this.props;
     return (
-      <div styleName="wrapper">
-        <Navbar user={this.props.user} />
+      <MainLayout>
         <div styleName="content">
           <Route
             exact
@@ -34,8 +33,7 @@ class DashboardLayout extends React.Component {
             component={UploadForm}
           />
         </div>
-        <Footer />
-      </div>
+      </MainLayout>
     );
   }
 }
@@ -44,4 +42,4 @@ const mapStateToProps = state => ({
   user: state.user.user,
 });
 
-export default connect(mapStateToProps, null)(cssModules(DashboardLayout, styles));
+export default connect(mapStateToProps, null)(cssModules(DashboardPage, styles));

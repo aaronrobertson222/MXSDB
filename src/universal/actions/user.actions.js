@@ -1,22 +1,22 @@
 import fetch from '../redux/services/http.js';
 import * as actionTypes from './actionTypes';
 import appConfig from '../config/appConfig';
+import auth from '../utils/auth';
 
+
+export const fetchCurrentUser = () => {
+  const promise = fetch(appConfig.CURRENT_USER_PATH);
+
+  return {
+    onRequest: actionTypes.FETCH_USER_TRIGGERED,
+    onSuccess: actionTypes.FETCH_USER_SUCCESS,
+    onFailure: actionTypes.FETCH_USER_FAILED,
+    promise,
+  };
+};
 
 const loginSuccessHandler = (response, dispatch) => {
-  if (appConfig.ENV !== 'testing') {
-    const now = new Date();
-    const time = now.getTime();
-    const expireTime = time + 86400000;
-    now.setTime(expireTime);
-
-    document.cookie = `auth_token=${response.token};expires=${now};`;
-    sessionStorage.removeItem(appConfig.TOKEN_CONTENT_KEY);
-    sessionStorage.setItem(appConfig.TOKEN_CONTENT_KEY, response.token);
-
-    sessionStorage.removeItem(appConfig.TOKEN_EXP);
-    sessionStorage.setItem(appConfig.TOKEN_EXP, response.tokenExpiration);
-  }
+  auth.createTokenCookie(response);
 
   dispatch({
     type: actionTypes.FETCH_LOGIN_REQUEST_SUCCESS,
@@ -58,13 +58,6 @@ export const createUser = (username, email, password) => {
   };
 };
 
-export const fetchCurrentUser = () => {
-  const promise = fetch(appConfig.CURRENT_USER_PATH);
-
-  return {
-    onRequest: actionTypes.FETCH_USER_TRIGGERED,
-    onSuccess: actionTypes.FETCH_USER_SUCCESS,
-    onFailure: actionTypes.FETCH_USER_FAILED,
-    promise,
-  };
-};
+export const userLogout = () => ({
+  type: actionTypes.USER_LOGOUT,
+});

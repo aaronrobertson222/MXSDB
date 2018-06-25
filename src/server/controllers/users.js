@@ -70,6 +70,7 @@ module.exports = {
         success: true,
         token: 'JWT ' + jwtToken,
         tokenExpiration: new Date(Date.now() + EXPIRATIONTIME),
+        user,
       });
     } catch(err) {
       logger.error(err);

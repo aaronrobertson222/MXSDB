@@ -7,12 +7,12 @@ import cssModules from 'react-css-modules';
 import AuthFormWrapper from 'containers/auth-form-wrapper/auth-form-wrapper';
 import LogoSvg from '../../assets/images/MXSDB.svg';
 
-import styles from './auth-layout.scss';
+import styles from './auth.scss';
 
-const AuthLayout = (props) => {
-  const { user } = props;
+import auth from '../../utils/auth';
 
-  if (user) {
+const AuthPage = (props) => {
+  if (auth.hasAuthCookie()) {
     return (
       <Redirect to="/dashboard" />
     );
@@ -28,17 +28,12 @@ const AuthLayout = (props) => {
   );
 };
 
-AuthLayout.propTypes = {
+AuthPage.propTypes = {
   match: PropTypes.object.isRequired,
-  user: PropTypes.object,
-};
-
-AuthLayout.defaultProps = {
-  user: null,
 };
 
 const mapStateToProps = state => ({
   user: state.user.user,
 });
 
-export default connect(mapStateToProps, null)(cssModules(AuthLayout, styles));
+export default connect(mapStateToProps, null)(cssModules(AuthPage, styles));

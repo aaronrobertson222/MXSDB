@@ -18,6 +18,12 @@ export default function user(state = initialState, action) {
         user: action.response.user,
       };
     }
+    case actionTypes.USER_LOGOUT: {
+      return {
+        ...state,
+        user: null,
+      };
+    }
     default: {
       return state;
     }

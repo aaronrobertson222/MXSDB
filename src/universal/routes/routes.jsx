@@ -13,11 +13,11 @@ const routes = [
       },
       {
         path: '/browse',
-        component: routerMap.MainLayout,
+        component: routerMap.Home,
       },
       {
         path: '/dashboard',
-        component: routerMap.DashboardLayout,
+        component: routerMap.Dashboard,
         routes: [
           {
             path: '/upload',
@@ -29,7 +29,11 @@ const routes = [
         // path uses regex to only allow 'login' or 'signup' as authType param.
         // I don't know if this is the best way to do it or not.
         path: '/auth/:authType(login|signup)/',
-        component: routerMap.AuthLayout,
+        component: routerMap.Auth,
+      },
+      {
+        path: '/logout',
+        component: routerMap.Logout,
       },
       {
         path: '*',

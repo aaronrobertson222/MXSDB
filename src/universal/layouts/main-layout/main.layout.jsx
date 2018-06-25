@@ -1,78 +1,23 @@
+// Defines layout for apps main pages provides header nav and footer
+// along with provided page contents as children.
+
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cssModules from 'react-css-modules';
-import { Route } from 'react-router-dom';
 
-import ItemListProvider from 'containers/item-list-provider/item-list-provider';
-import ItemGrid from 'components/item-grid/item-grid';
-import ItemPage from 'components/item-page/item-page';
 import Navbar from 'components/navbar/navbar';
+import Footer from 'components/footer/footer';
 
 import styles from './main.layout.scss';
 
-const MainLayout = (props) => {
-  const categories = ['bikes', 'gear', 'tracks'];
-
-  const routesMarkup = categories.map(category => (
-    <Route
-      path={`/browse/${category}`}
-      render={() => (
-        <div>
-          <h3 styleName="header">{category}</h3>
-          <ItemListProvider
-            categories={[category]}
-            render={data => (
-              <div styleName="container">
-                <ItemGrid itemData={data} />
-              </div>
-            )}
-          />
-        </div>
-      )}
-    />
-  ));
-
-  return (
-    <div styleName="wrapper">
-      <Navbar user={props.user} location={props.location.pathname.substring(8)} />
-      <div styleName="content">
-        <div>
-          <Route
-            path="/browse"
-            exact
-            render={() => (
-              <div>
-                <ItemListProvider
-                  title="Recent"
-                  by="recent"
-                  limit={8}
-                  render={data => (
-                    <div styleName="container">
-                      <ItemGrid itemData={data} />
-                    </div>
-                  )}
-                />
-                <ItemListProvider
-                  title="Popular"
-                  by="popular"
-                  limit={8}
-                  render={data => (
-                    <div styleName="container">
-                      <ItemGrid itemData={data} />
-                    </div>
-                  )}
-                />
-              </div>
-            )}
-          />
-          {routesMarkup}
-          <Route path="/browse/id/:id" component={ItemPage} />
-        </div>
-      </div>
-    </div>
-  );
-};
+const MainLayout = props => (
+  <React.Fragment>
+    <Navbar user={props.user} />
+    { props.children }
+    <Footer />
+  </React.Fragment>
+);
 
 MainLayout.defaultProps = {
   user: null,
@@ -80,7 +25,7 @@ MainLayout.defaultProps = {
 
 MainLayout.propTypes = {
   user: PropTypes.object,
-  location: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 const mapStateToProps = state => ({

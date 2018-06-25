@@ -49,7 +49,7 @@ const UserOptions = (props) => {
       key: 'signout',
       text: 'Sign Out',
       icon: 'sign out',
-      content: <Link to="/dashboard" href="/dashboard" style={{ color: 'black' }}>Sign Out</Link>,
+      content: <Link to="/logout" href="/logout" style={{ color: 'black' }}>Sign Out</Link>,
     },
   ];
 
