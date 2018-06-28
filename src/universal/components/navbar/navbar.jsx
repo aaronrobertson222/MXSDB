@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
 
 import UserOptions from 'components/user-options/user-options';
@@ -22,11 +22,11 @@ const Navbar = (props) => {
         <div styleName="nav-menu">
           <ul styleName="nav-items">
             {menuOptions.map(item => (
-              <Link href={`/browse/${item}`} to={`/browse/${item}`} key={item}>
-                <li>
+              <li key={item}>
+                <NavLink href={`/browse/${item}`} to={`/browse/${item}`} activeClassName={styles.active}>
                   {item}
-                </li>
-              </Link>
+                </NavLink>
+              </li>
             ))}
           </ul>
         </div>

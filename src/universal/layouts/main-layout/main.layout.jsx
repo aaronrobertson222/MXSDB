@@ -4,12 +4,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import cssModules from 'react-css-modules';
+import { withRouter } from 'react-router-dom';
 
 import Navbar from 'components/navbar/navbar';
 import Footer from 'components/footer/footer';
-
-import styles from './main.layout.scss';
 
 const MainLayout = props => (
   <React.Fragment>
@@ -32,4 +30,5 @@ const mapStateToProps = state => ({
   user: state.user.user,
 });
 
-export default connect(mapStateToProps, null)(cssModules(MainLayout, styles));
+// Exported wrapped by withRouter so connect does not block upadates from children.
+export default withRouter(connect(mapStateToProps, null)(MainLayout));
