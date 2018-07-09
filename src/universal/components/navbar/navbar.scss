@@ -45,7 +45,7 @@
 
   li {
     display: inline-block;
-    height: 60px;
+    transition: background 250ms ease-in;
     &:hover {
       background: $dark-grey;
     }
@@ -53,19 +53,78 @@
     a {
       display: block;
       height: 60px;
+      width: 150px;
       line-height: 60px;
-      text-align: center; 
-      padding: 0 30px;
+      text-align: center;
       min-width: 100%;
-      text-transform: capitalize;
       font-size: 1.175rem;
       color: white;
       text-decoration: none;
       text-transform: uppercase;
+      &:after {
+        display: block;
+        content: '';
+        border-bottom: 3px inset $primary-red;
+        transform: scaleX(0);
+        transition: all 250ms ease-in-out; 
+        border-radius: 3px;
+      }
+    }
+    a.active {
+      background: $dark-grey;
+      &:after {
+        transform: scaleX(1);
+      }
     }
   }
 }
 
-.active {
-  border-bottom: 2px inset $primary-red;
+.auth-options {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: inline-block;
+  }
+}
+
+.signup,
+.login {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-size: .94em;
+}
+
+.signup {
+  border: 1px solid $primary-red;
+}
+
+.login {
+  transition: font-weight .3s ease;
+}
+
+.login:hover {
+  font-weight: 600;
+  color: #989CA2;
+}
+
+.signup:hover {
+  font-weight: 600;
+  color: #989CA2;
+}
+
+.user-menu {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menu-item {
+  padding: 30px;
 }

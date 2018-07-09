@@ -3,14 +3,36 @@ import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 import cssModules from 'react-css-modules';
 
-import UserOptions from 'components/user-options/user-options';
+import ToggleMenu from 'components/toggle-menu/toggle-menu';
 
 import styles from './navbar.scss';
 
 import LogoSvg from '../../assets/images/MXSDB.svg';
 
 const Navbar = (props) => {
-  const menuOptions = ['bikes', 'gear', 'tracks']; //eslint-disable-line
+  const { user } = props;
+  // Site Nav menu items
+  const menuOptions = ['bikes', 'gear', 'tracks'];
+  // Options for user menu
+  const userOptions = [
+    {
+      content: 'dashboard',
+      route: '/dashboard',
+    },
+    {
+      content: 'upload',
+      route: '/dashboard/upload',
+    },
+    {
+      content: 'settings',
+      route: '/dashboard/settings',
+    },
+    {
+      content: 'logout',
+      route: '/logout',
+    },
+  ];
+
   return (
     <div styleName="wrapper">
       <div styleName="container">
@@ -30,7 +52,30 @@ const Navbar = (props) => {
             ))}
           </ul>
         </div>
-        <UserOptions user={props.user} />
+        <div styleName="user-menu">
+          {user ?
+            <ToggleMenu trigger={<p>{user.username}</p>}>
+              {userOptions.map(item => (
+                <ToggleMenu.Item>
+                  <Link to={item.route} href={item.route}>
+                    {item.content}
+                  </Link>
+                </ToggleMenu.Item>
+              ))}
+            </ToggleMenu> :
+            <ul styleName="auth-options">
+              <li>
+                <Link to="/auth/login" href="/auth/login" styleName="login">
+                Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/auth/signup" href="/auth/login" styleName="signup">
+                  signup
+                </Link>
+              </li>
+            </ul>}
+        </div>
       </div>
     </div>
   );

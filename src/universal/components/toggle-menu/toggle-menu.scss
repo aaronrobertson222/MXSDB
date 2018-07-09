@@ -1,0 +1,26 @@
+@import '_variables';
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: $dark-grey;
+  position: absolute;
+  right: 0;
+  width: 250px;
+}
+
+.menu-item {
+  text-transform: capitalize;
+  
+  a {
+    text-decoration: none;
+    color: #FFF;
+    display: block;
+    padding: 20px;
+
+    &:hover {
+      background: $light-grey;
+    }
+  }
+}
