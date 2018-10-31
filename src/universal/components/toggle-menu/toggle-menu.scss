@@ -1,10 +1,16 @@
 @import '_variables';
 
+.trigger-button {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .menu {
   list-style: none;
-  margin: 0;
+  margin: 20px 0 0 0;
   padding: 0;
-  background: $dark-grey;
+  background: $light-grey;
   position: absolute;
   right: 0;
   width: 250px;
@@ -20,7 +26,7 @@
     padding: 20px;
 
     &:hover {
-      background: $light-grey;
+      background: $dark-grey;
     }
   }
 }

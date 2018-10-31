@@ -31,7 +31,13 @@ class ToggleMenu extends Component {
   render() {
     return (
       <Fragment>
-        <div role="button" tabIndex="-1" onClick={this.toggleMenu} onKeyDown={() => this.toggleMenu()}>
+        <div
+          role="button"
+          tabIndex="-1"
+          onClick={this.toggleMenu}
+          onKeyDown={this.toggleMenu}
+          styleName="trigger-button"
+        >
           { this.props.trigger }
         </div>
 
