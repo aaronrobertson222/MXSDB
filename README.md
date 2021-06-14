@@ -1,7 +1,5 @@
 ![MXSDB LOGO](http://i.imgur.com/6URFpt8.png)
 
-[Live site](https://mxsdb.herokuapp.com/)
-
 [![Build
  Status](https://travis-ci.org/aaronr5/mxs-content-site.svg?branch=master)](https://travis-ci.org/aaronr5/mxs-content-site)
 
