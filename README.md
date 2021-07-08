@@ -7,9 +7,11 @@ A content sharing site for MX Simulator, an online video game. MXS DB allows use
 
 ### Screenshots
 
-![Screenshot 1](https://i.gyazo.com/1c5e32ee129bfd802ea29dbd0a64dbe2.png)
+![Screenshot 1](https://i.imgur.com/dfVIqK9.jpg)
 
-![Screenshot 2](https://i.gyazo.com/3f2bc1fe0e915d205b16c49b428e9cc0.png)
+![Screenshot 2](https://i.gyazo.com/1c5e32ee129bfd802ea29dbd0a64dbe2.png)
+
+![Screenshot 3](https://i.gyazo.com/3f2bc1fe0e915d205b16c49b428e9cc0.png)
 
 
 ### Technology
