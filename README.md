@@ -4,6 +4,8 @@ A content sharing site for MX Simulator, an online video game. MXS DB allows use
 
 [![Build Status](https://travis-ci.com/aaronrobertson222/MXSDB.svg?branch=production)](https://travis-ci.com/aaronrobertson222/MXSDB)
 
+[live site](https://mxsdb.herokuapp.com/)
+
 
 ### Screenshots
 
